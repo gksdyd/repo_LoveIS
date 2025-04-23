@@ -5,7 +5,7 @@
 
 	<resultMap type="com.loveis.demo.module.base.BaseDto" id="resultMapObj"></resultMap>
 	
-	<!-- uploaded s -->
+<!-- 	uploaded s -->
 	<sql id="insertUploaded">
 		INSERT INTO ${tableName} (
 			type
