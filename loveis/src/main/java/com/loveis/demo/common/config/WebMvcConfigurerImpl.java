@@ -13,26 +13,13 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new CheckLoginSessionInterceptor())
 //		.order(1)
-		.addPathPatterns("/*/*/*Xdm*", "/*/*/*Peter*")
+		.addPathPatterns("/*/*/*Xdm*", "/*/*/*Love*")
 		.excludePathPatterns(
 //				"/resources/**",
 				"/static/**",
 				"/xdm/member/LoginXdmForm",
 				"/xdm/member/LoginXdmProc",
-				"/peter/member/LoginPeterForm",
-				"/peter/member/SignupPeterForm",
-				"/peter/index/IndexPeterView",
-				"/peter/shop/ShopPeterList",
-				"/peter/member/InsertPeterForm",
-				"/peter/member/CheckIdPeterProc",
-				"/peter/member/CheckEmailPeterProc",
-				"/peter/member/LoginPeterProc",
-				"/peter/member/CheckPhonePeterProc",
-				"/peter/member/ReviewPeterInst",
-				"/peter/shop/ShopPeterView",
-				"/peter/shop/ShopPeterTimeProc",
-				"/peter/shop/ShopPeterInfoProc",
-				"/peter/shop/ReviewPeterProc"
+				"/love/index/IndexLoveView"
 		);
 	}
 

@@ -25,11 +25,11 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 		}
 		
 //		사용자용
-		if(request.getRequestURI().contains(Constants.PETER_URI_CONTAINS_TEXT)) {
-			if (request.getSession().getAttribute(Constants.SESSION_PETER_SEQ) != null) {
+		if(request.getRequestURI().contains(Constants.LOVE_URI_CONTAINS_TEXT)) {
+			if (request.getSession().getAttribute(Constants.SESSION_LOVE_SEQ) != null) {
 				// by pass
 			} else {
-				response.sendRedirect(Constants.SEND_REDIRECT_ADDRESS_PETER);
+				response.sendRedirect(Constants.SEND_REDIRECT_ADDRESS_LOVE);
 				return false;
 			}
 		} else {
