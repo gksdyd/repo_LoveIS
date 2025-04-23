@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+	<div th:replace="~{xdm/include/head :: head}"></div>
+          <div class="card mb-3">
+            <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(/xdm/template/falcon-v3.23.0/assets/img/icons/spot-illustrations/corner-4.png);">
+            </div>
+            <!--/.bg-holder-->
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">
+              <h1>펫 상품 등록</h1>
+            </div>
+            <div class="card-body bg-body-tertiary">
+              <form class="needs-validation" novalidate id="product-form" name="product-form" enctype="multipart/form-data">
+                <input type="hidden" name="registerOrModifyFlag" id="registerOrModifyFlag" th:value="${vo.registerOrModifyFlag}">
+                <input type="hidden" name="prodPetType" id="prodPetType" th:value="${item.prodPetType}">
+                <div class="row g-3">
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="prodType">상품 유형<span style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="prodType">반려동물 유형<span style="color: red;">*</span></label>
+                  </div>
+                </div>
+                <div class="mb-3 row g-3">
+                  <div class="col-3">
+                    <select class="form-select-JHY" name="prodType" id="prodType" onchange="changeProductType('product-form', URL_PRODUCT_XDM_FORM)" th:disabled="${vo.registerOrModifyFlag != 1} ? 'disabled' : null">
+                      <option th:each="productType : ${@codeService.selectListCachedCode(1)}" th:text="${productType.codeName}" th:value="${productType.codeSeq}" th:selected="${vo.prodType} == ${productType.codeSeq}"></option>
+                    </select>
+                  </div>
+                  <div class="col-3 d-flex">
+                    <div class="form-check">
+                      <input class="form-check-input" id="dog" type="radio" name="petType" value="239" />
+                      <label class="form-check-label" for="flexRadioDefault1">강아지</label>
+                    </div>
+                    <div class="form-check ms-3">
+                      <input class="form-check-input" id="cat" type="radio" name="petType" value="240" />
+                      <label class="form-check-label" for="flexRadioDefault2">고양이</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="card border h-100 border-primary mb-3" th:if="${vo.prodType} == '1'">
+                  <input type="hidden" id="prodFuncArray" name="prodFuncArray" th:value="${vo.prodFuncArray}">
+                  <input type="hidden" id="prodFuncNameArray" name="prodFuncNameArray" th:value="${vo.prodFuncNameArray}" disabled>
+                  <input type="hidden" id="feedPriceArray" name="feedPriceArray" th:value="${vo.feedPriceArray}">
+                  <input type="hidden" id="feedWeightArray" name="feedWeightArray" th:value="${vo.feedWeightArray}">
+                  <input type="hidden" id="feedDiscountArray" name="feedDiscountArray" th:value="${vo.feedDiscountArray}">
+                  <input type="hidden" id="prodFuncSeqArray" name="prodFuncSeqArray" th:value="${vo.prodFuncSeqArray}">
+                  <input type="hidden" id="feedInfoSeqArray" name="feedInfoSeqArray" th:value="${vo.feedInfoSeqArray}">
+                  <div class="row g-3 mt-0 ms-2 me-2">
+                    <div class="col-3">
+                      <label class="form-label-JHY" for="pordSeq">사료 코드<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label-JHY" for="prodName">사료 이름<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-3">
+                      <label class="form-label-JHY" for="prodUseFlag">사용여부<span style="color: red;">*</span></label>
+                    </div>
+                  </div>
+                  <div class="mb-3 row g-3 ms-2 me-2">
+                    <div class="col-3">
+                      <input class="form-control-JHY" name="prodSeq" id="prodSeq" th:value="${item.prodSeq}" type="text" placeholder="자동생성" readonly />
+                    </div>
+                    <div class="col-3">
+                      <input class="form-control-JHY" name="prodName" id="prodName" th:value="${item.prodName}" type="text" />
+                      <div class="invalid-feedback" id="prodNameValid">이름을 입력해주세요.</div>
+                    </div>
+                    <div class="col-3">
+                      <select class="form-select-JHY" id="prodUseFlag" name="prodUseFlag" required="">
+                        <option value="">선택하세요</option>
+                        <option value="1" th:selected="${item.prodUseFlag} == '1'">사용</option>
+                        <option value="0" th:selected="${item.prodUseFlag} == '0'">미사용</option>
+                      </select>
+                      <div class="invalid-feedback" id="prodUseFlagValid">사용 여부를 선택해주세요.</div>
+                    </div>
+                  </div>
+                  <div class="mb-3 row g-3 ms-2 me-2">
+                    <div class="col-3">
+                      <div class="form-group">
+                        <select class="form-select-JHY" id="feedSalaryAge" name="feedSalaryAge">
+                          <option value="">급여 연령</option>
+                          <option th:each="feedSalaryAge : ${@codeService.selectListCachedCode(2)}" th:selected="${item.feedSalaryAge} == ${feedSalaryAge.codeSeq}" th:text="${feedSalaryAge.codeName}" th:value="${feedSalaryAge.codeSeq}"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group">
+                        <select class="form-select-JHY" id="feedType" name="feedType">
+                          <option value="">종류</option>
+                          <option th:each="feedType : ${@codeService.selectListCachedCode(3)}" th:selected="${item.feedType} == ${feedType.codeSeq}" th:text="${feedType.codeName}" th:value="${feedType.codeSeq}"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group">
+                        <select class="form-select-JHY" id="feedEtc" name="feedEtc">
+                          <option value="">기타</option>
+                          <option th:each="feedEtc : ${@codeService.selectListCachedCode(4)}" th:selected="${item.feedEtc} == ${feedEtc.codeSeq}" th:text="${feedEtc.codeName}" th:value="${feedEtc.codeSeq}"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group">
+                        <select class="form-select-JHY" id="feedSize" name="feedSize">
+                          <option value="">크기</option>
+                          <option th:each="feedSize : ${@codeService.selectListCachedCode(16)}" th:selected="${item.feedSize} == ${feedSize.codeSeq}" th:text="${feedSize.codeName}" th:value="${feedSize.codeSeq}"></option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3 row g-3 ms-2 me-2">
+                    <div class="col-3">
+                      <div class="form-group">
+                        <select class="form-select-JHY" name="prodFunction" id="prodFunction">
+                          <option value="">기능</option>
+                          <option th:each="prodFunction : ${@codeService.selectListCachedCode(6)}" th:text="${prodFunction.codeName}" th:value="${prodFunction.codeSeq}" th:disabled="${#strings.contains(vo.prodFuncArray, prodFunction.codeSeq)} ? 'disabled' : null"></option>
+                        </select>
+                        <input type="hidden" name="prodFunction" id="prodFunction" value="0">
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group">
+                        <select class="form-select-JHY" id="feedBrand" name="feedBrand">
+                          <option value="">브랜드</option>
+                          <option th:each="feedBrand : ${@codeService.selectListCachedCode(7)}" th:selected="${item.feedBrand} == ${feedBrand.codeSeq}" th:text="${feedBrand.codeName}" th:value="${feedBrand.codeSeq}"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="form-group mb-2">
+                        <select class="form-select-JHY" id="feedIngredient" name="feedIngredient">
+                          <option value="">주원료</option>
+                          <option th:each="feedIngredient : ${@codeService.selectListCachedCode(8)}" th:selected="${item.feedIngredient} == ${feedIngredient.codeSeq}" th:text="${feedIngredient.codeName}" th:value="${feedIngredient.codeSeq}"></option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3 row g-3 ms-2 me-2">
+                    <div class="col" id="createFunction">
+                    </div>
+                  </div>
+                  <div class="mb-3 row g-3 ms-2 me-2">
+                    <div class="col-3">
+                      <div class="input-group">
+                        <input class="form-control fs-11" style="text-align: right;" type="text" id="feedPrice" name="feedPrice" placeholder="가격" aria-describedby="basic-addon2" /><span class="input-group-text fs-11" id="basic-addon2">원</span>
+                        <div class="invalid-feedback" id="feedPriceValid">가격을 입력해주세요.</div>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="input-group">
+                        <input class="form-control fs-11" style="text-align: right;" type="text" id="feedWeight" name="feedWeight" placeholder="무게" aria-describedby="basic-addon2" maxlength="5" /><span class="input-group-text fs-11" id="basic-addon2">kg</span>
+                        <div class="invalid-feedback" id="feedWeightValid">무게를 입력해주세요.</div>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="input-group">
+                        <input class="form-control fs-11" style="text-align: right;" type="text" id="feedDiscount" name="feedDiscount" placeholder="할인율" aria-describedby="basic-addon2" maxlength="3" /><span class="input-group-text fs-11" id="basic-addon2">%</span>
+                        <div class="invalid-feedback" id="feedDiscountValid">할인율을 입력해주세요.</div>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <button class="btn btn-outline-primary me-1 mb-1 fs-11" type="button" id="feedInfoSaveBtn">
+                        <span class="fas fa-plus me-1" data-fa-transform="shrink-3"></span>저장
+                      </button>
+                    </div>
+                  </div>
+                  <div class="mb-3 row g-3 ms-2 me-2">
+                    <div class="col col-lg-6 col-md-10" id="createFeedInfo">
+                    </div>
+                  </div>
+                  <div class="mb-3 row g-3 ms-2 me-2">
+                    <div class="col-6">
+                      <label class="form-label-JHY" for="formFileMultiple">상품 이미지</label>
+                      <input class="form-control form-control-sm" id="uploadImg1" name="uploadImg1" type="file" multiple="multiple" />
+                      <input type="hidden" id="uploadImg1Type" name="uploadImg1Type" value="1">
+                      <input type="hidden" id="uploadImg1MaxNumber" name="uploadImg1MaxNumber" value="1">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label-JHY" for="formFileMultiple">설명 이미지</label>
+                      <input class="form-control form-control-sm" id="uploadImg2" name="uploadImg2" type="file" multiple="multiple" />
+                      <input type="hidden" id="uploadImg2Type" name="uploadImg2Type" value="2">
+                      <input type="hidden" id="uploadImg2MaxNumber" name="uploadImg2MaxNumber" value="1">
+                    </div>
+                  </div>
+                  <div class="mb-3 row g-3 ms-2 me-2">
+                    <div class="col-2" th:each="image : ${image}">
+                      <img class="currImage" th:src="${image.path}" th:value="${image.originalName}" alt="" style="width: 100%;">
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3 row g-3">
+                  <div class="col">
+                    <a th:href="@{/xdm/product/ProductXdmList(prodType=1)}"><button class="btn btn-outline-dark btn-sm" type="button"><span class="fas fa-list-ul"></span></button></a>
+                    <button class="btn btn-danger btn-sm" type="button" id="deleteBtn" th:if="${vo.registerOrModifyFlag != 1}"><span class="bi-x"></span></button>
+                    <button class="btn btn-danger btn-sm" type="button" id="ueleteBtn" th:if="${vo.registerOrModifyFlag != 1}"><span class="far fa-trash-alt"></span></button>
+                  </div>
+                  <div class="col" style="text-align: right;">
+                    <button class="btn btn-primary btn-sm" type="button" id="btnSubmit"><span class="fas fa-database"></span></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div th:replace="~{xdm/include/footer :: footer}"><div>
+        </div>
+      </div>
+    </main>
+    <div th:replace="~{xdm/include/modal :: modal}"></div>
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+  <div th:replace="~{xdm/include/includeXdmFalcon :: includeXdmFalcon}"></div>
+  <div th:replace="~{xdm/include/includeXdmCommon :: includeXdmCommon}"></div>
+  <div th:replace="~{xdm/include/includeXdmForm :: includeXdmForm}"></div>
+  <div th:replace="~{xdm/include/includeXdmCommonProd :: includeXdmCommonProd}"></div>
+  <script src="/xdm/template/falcon-v3.23.0/assets/js/image.js"></script>
+  <script type="text/javascript">
+    let form = document.getElementById("product-form");
+
+    let goUrlXdmInst = "/xdm/product/ProductXdmInst";
+    let goUrlXdmUpdt = "/xdm/product/ProductXdmUpdt";
+    let goUrlXdmDelt = "/xdm/product/ProductXdmDele";
+    let goUrlXdmUelt = "/xdm/product/ProductXdmUele";
+
+    let name = document.getElementById("prodName");
+    let useFlag = document.getElementById("prodUseFlag");
+    let feedPrice = document.getElementById("feedPrice");
+    let feedWeight = document.getElementById("feedWeight");
+    let feedDiscount = document.getElementById("feedDiscount");
+    
+    let nameValid = document.getElementById("prodNameValid");
+    let useFlagValid = document.getElementById("prodUseFlagValid");
+    let feedPriceValid = document.getElementById("feedPriceValid");
+    let feedWeightValid = document.getElementById("feedWeightValid");
+    let feedDiscountValid = document.getElementById("feedDiscountValid");
+
+    if ($("#prodPetType").val() == 239) {
+      $("#dog").prop('checked', true);
+    } else if ($("#prodPetType").val() == 240) {
+      $("#cat").prop('checked', true);
+    }
+
+    validationInit = function() {
+      nameValid.style.display = "none";
+      useFlagValid.style.display = "none";
+      feedPriceValid.style.display = "none";
+      feedWeightValid.style.display = "none";
+      feedDiscountValid.style.display = "none";
+    }
+
+    validation = function() {
+      let temp;
+
+      if ($("#dog").is(":checked")) {
+        $("#prodPetType").val($("#dog").val());
+      } else if ($("#cat").is(":checked")) {
+        $("#prodPetType").val($("#cat").val());
+      }
+
+      temp = allGapRemove(name.value);
+      if (!checkLength(temp) || !onlyEngKoNumSpecialChar(temp)) {
+        nameValid.style.display = "block";
+        name.style.outlineColor = "red";
+        name.focus();
+        return false;
+      }
+
+      temp = useFlag.value;
+      if (temp == "") {
+        useFlagValid.style.display = "block";
+        useFlag.style.outlineColor = "red";
+        useFlag.focus();
+        return false;
+      }
+
+      feedInfoSave();
+      feedFuncSave();
+
+      return true;
+    }
+
+    infoValidation = function() {
+      let temp;
+      
+      temp = bothSidesGapRemove(feedPrice.value);
+      if (!checkLength(temp) || !onlyNum(temp)) {
+        feedPriceValid.style.display = "block";
+        feedPrice.style.outlineColor = "red";
+        feedPrice.focus();
+        return false;
+      }
+
+      temp = dotRemove(feedWeight.value);
+      if (!checkLength(temp) || !onlyNum(temp)) {
+        feedWeightValid.style.display = "block";
+        feedWeight.style.outlineColor = "red";
+        feedWeight.focus();
+        return false;
+      }
+
+      temp = bothSidesGapRemove(feedDiscount.value);
+      if (checkLength(temp) && (!onlyNum(temp) || temp > 100)) {
+        feedDiscountValid.style.display = "block";
+        feedDiscount.style.outlineColor = "red";
+        feedDiscount.focus();
+        return false;
+      }
+      return true;
+    }
+  </script>
+  </body>
+  
+  </html>

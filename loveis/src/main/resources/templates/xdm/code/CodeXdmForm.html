@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+		<div th:replace="~{xdm/include/head :: head}"></div>
+          <div class="card mb-3">
+            <div class="bg-holder d-none d-lg-block bg-card" style="background-image:url(../assets/img/icons/spot-illustrations/corner-4.png);">
+            </div>
+            <!--/.bg-holder-->
+          </div>
+          <div class="card mb-3">
+            <div class="card-header">
+              <h1>Code</h1>
+            </div>
+            <div class="card-body bg-body-tertiary">
+              <form class="needs-validation" id="code-form">
+                <input type="hidden" name="registerOrModifyFlag" id="registerOrModifyFlag" th:value="${vo.registerOrModifyFlag}" disabled>
+                <div class="row g-3">
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="codeGroup_cogrSeq">코드그룹<span style="color: red;">*</span></label>
+                  </div>
+                </div>
+                <div class="mb-3 row g-3">
+                  <div class="col-3">
+                    <select class="form-select-JHY" required="" id="codeGroup_cogrSeq" name="codeGroup_cogrSeq">
+                      <option value="">선택하세요</option>
+                      <option th:each="list : ${list}" th:text="${list.cogrName}" th:value="${list.cogrSeq}" th:selected="${list.cogrSeq} == ${item.codeGroup_cogrSeq}"></option>
+                    </select>
+                    <div class="invalid-feedback" id="cogrSeqValid">코드그룹을 선택해주세요!</div>
+                  </div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="codeSeq">코드<span style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="codeNum">코드 (ANOTHER)</label>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="codeName">코드 이름<span style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="codeNameEng">코드 이름 (영문)</label>
+                  </div>
+                </div>
+                <div class="mb-3 row g-3">
+                  <div class="col-3">
+                    <input class="form-control-JHY" id="codeSeq" name="codeSeq" type="text" placeholder="자동생성" th:value="${item.codeSeq}" readonly />
+                  </div>
+                  <div class="col-3">
+                    <input class="form-control-JHY" id="codeNum" name="codeNum" th:value="${item.codeNum}" type="text" placeholder="영대소문자, 숫자" />
+                    <div class="invalid-feedback" id="codeNumValid">영대소문자,숫자만 입력해주세요!</div>
+                  </div>
+                  <div class="col-3">
+                    <input class="form-control-JHY" id="codeName" name="codeName" th:value="${item.codeName}" required="" type="text" placeholder="한글, 영대소문자, 숫자" />
+                    <div class="invalid-feedback" id="codeNameValid">한글, 영대소문자, 숫자, ~, / 만 입력해주세요!</div>
+                  </div>
+                  <div class="col-3">
+                    <input class="form-control-JHY" id="codeNameEng" name="codeNameEng" th:value="${item.codeNameEng}" type="text" placeholder="영대소문자, 숫자" />
+                    <div class="invalid-feedback" id="codeNameEngValid">영대소문자, 숫자만 입력해주세요!</div>
+                  </div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="codeUseFlag">사용여부<span style="color: red;">*</span></label>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label-JHY" for="codeOrder">순서<span style="color: red;">*</span></label>
+                  </div>
+                </div>
+                <div class="mb-3 row g-3">
+                  <div class="col-3">
+                    <select class="form-select-JHY" id="codeUseFlag" name="codeUseFlag" required="">
+                      <option value="">선택하세요</option>
+                      <option value=1 th:selected="${item.codeUseFlag == 1}">사용</option>
+                      <option value=0 th:selected="${item.codeUseFlag == 0}">미사용</option>
+                    </select>
+                    <div class="invalid-feedback" id="codeUseFlagValid">사용여부를 선택해주세요!</div>
+                  </div>
+                  <div class="col-3">
+                    <input class="form-control-JHY" id="codeOrder" name="codeOrder" th:value="${item.codeOrder}" type="text" required="" />
+                    <div class="invalid-feedback" id="codeOrderValid">숫자만 입력해주세요!</div>
+                  </div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label class="form-label-JHY" for="codeDisc">설명</label>
+                  </div>
+                </div>
+                <div class="mb-3 row g-3">
+                  <div class="col-6">
+                    <textarea class="form-control-JHY" id="codeDisc" name="codeDisc" th:value="${item.codeDisc}" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="mb-3 row g-3">
+                  <div class="col">
+                    <a href="/xdm/code/CodeXdmList"><button class="btn btn-outline-dark btn-sm" type="button"><span class="fas fa-list-ul"></span></button></a>
+                    <button class="btn btn-danger btn-sm" type="button" id="deleteBtn" th:if="${vo.registerOrModifyFlag != 1}"><span class="bi-x"></span></button>
+                    <button class="btn btn-danger btn-sm" type="button" id="ueleteBtn" th:if="${vo.registerOrModifyFlag != 1}"><span class="far fa-trash-alt"></span></button>
+                  </div>
+                  <div class="col" style="text-align: right;">
+                    <button class="btn btn-primary btn-sm" type="button" id="btnSubmit"><span class="fas fa-database"></span></button>
+                  </div>
+                </div>
+                <input type="hidden" name="codeRegDate" id="codeRegDate" >
+                <input type="hidden" name="codeModDate" id="codeModDate" >
+              </form>
+            </div>
+          </div>
+          <div th:replace="~{xdm/include/footer :: footer}"><div>
+        </div>
+      </div>
+    </main>
+    <div th:replace="~{xdm/include/modal :: modal}"></div>
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+
+  <script type="text/javascript" th:inline="javascript">
+    let form = document.getElementById("code-form");
+    let goUrlXdmInst = "/xdm/code/CodeXdmInst";
+    let goUrlXdmUpdt = "/xdm/code/CodeXdmUpdt";
+    let goUrlXdmUelt = "/xdm/code/CodeXdmUelt";
+    let goUrlXdmDelt = "/xdm/code/CodeXdmDelt";
+
+    let seq = document.getElementById("codeSeq");
+    let registerDate = document.getElementById("codeRegDate");
+    let modifyDate = document.getElementById("codeModDate");
+    let anotherNum = document.getElementById("codeNum");
+    let name = document.getElementById("codeName");
+    let engName = document.getElementById("codeNameEng");
+    let useFlag = document.getElementById("codeUseFlag");
+    let order = document.getElementById("codeOrder");
+    let cogrSeq = document.getElementById("codeGroup_cogrSeq");
+
+    let cogrSeqValid = document.getElementById("cogrSeqValid");
+    let anotherNumValid = document.getElementById("codeNumValid");
+    let nameValid = document.getElementById("codeNameValid");
+    let engNameValid = document.getElementById("codeNameEngValid");
+    let useFlagValid = document.getElementById("codeUseFlagValid");
+    let orderValid = document.getElementById("codeOrderValid");
+
+    validationInit = function() {
+      cogrSeqValid.style.display = "none";
+      anotherNumValid.style.display = "none";
+      nameValid.style.display = "none";
+      engNameValid.style.display = "none";
+      useFlagValid.style.display = "none";
+      orderValid.style.display = "none";
+    }
+
+    validation = function() {
+    
+    let temp;
+
+    temp = cogrSeq.value;
+    if (temp == "") {
+      cogrSeqValid.style.display = "block";
+      cogrSeq.style.outlineColor = "red";
+      cogrSeq.focus();
+      return false;
+    }
+
+    temp = bothSidesGapRemove(anotherNum.value);
+    if (checkLength(temp) && !onlyKoEngNumValid(temp)) {
+      anotherNumValid.style.display = "block";
+      anotherNum.style.outlineColor = "red";
+      anotherNum.focus();
+      return false;
+    }
+
+    temp = allGapRemove(name.value);
+    if (!checkLength(temp) || !onlyEngKoNumSpecialChar(temp)) {
+      nameValid.style.display = "block";
+      name.style.outlineColor = "red";
+      name.focus();
+      return false;
+    }
+
+    temp = allGapRemove(engName.value);
+    if (checkLength(temp) && !onlyEngNumSpecialChar(temp)) {
+      engNameValid.style.display = "block";
+      engName.style.outlineColor = "red";
+      engName.focus();
+      return false;
+    }
+
+   
+    temp = useFlag.value;
+    if (temp == "") {
+      useFlagValid.style.display = "block";
+      useFlag.style.outlineColor = "red";
+      useFlag.focus();
+      return false;
+    }
+
+    temp = bothSidesGapRemove(order.value);
+    if (!checkLength(temp) || !onlyNum(temp)) {
+      orderValid.style.display = "block";
+      order.style.outlineColor = "red";
+      order.focus();
+      return false;
+    }
+
+    return true;
+  }
+    </script>
+    <div th:replace="~{xdm/include/includeXdmFalcon :: includeXdmFalcon}"></div>
+    <div th:replace="~{xdm/include/includeXdmCommon :: includeXdmCommon}"></div>
+    <div th:replace="~{xdm/include/includeXdmForm :: includeXdmForm}"></div>
+  </body>
+  
+  </html>

@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+		<div th:replace="~{xdm/include/head :: head}"></div>
+        <form name="formList" id="formList" method="post" autocomplete="off">
+          <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
+          <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+          <div class="card mb-3" id="customersTable" data-list='{"valueNames":["#","name", "types", "varieties", "gender","birth", "weight", "vaccination", "neutering", "personality", "disease", "user-name", "resist-date", "modify-date"]}'>
+            <div class="card-header">
+              <div class="mb-2 row g-3">
+                <h1>펫 목록</h1>
+                <div class="col-4">
+                  <select class="form-select-JHY" id="shDelFlag" name="shDelFlag" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shDelFlag == null}">삭제여부</option>
+                    <option value="1" th:selected="${vo.shDelFlag == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shDelFlag == 0}">N</option>  
+                  </select>
+                </div>
+                <div class="col-4">
+                  <select class="form-select-JHY" id="shVaccineFlag" name="shVaccineFlag" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shVaccineFlag == null}">접종여부</option>
+                    <option value="1" th:selected="${vo.shVaccineFlag == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shVaccineFlag == 0}">N</option>  
+                  </select>
+                </div>
+                <div class="col-4">
+                  <select class="form-select-JHY" id="shNeuterFlag" name="shNeuterFlag" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shNeuterFlag == null}">중성화여부</option>
+                    <option value="1" th:selected="${vo.shNeuterFlag == 1}">Y</option>
+                    <option value="0" th:selected="${vo.shNeuterFlag == 0}">N</option>  
+                  </select>
+                </div>
+              </div>
+              <div class="mb-2 row g-3">
+                <div class="col-4">
+                  <select class="form-select-JHY" id="shOptionDate" name="shOptionDate" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
+                    <option value="1" th:selected="${vo.shOptionDate == 1}">등록일</option>
+                    <option value="2" th:selected="${vo.shOptionDate == 2}">수정일</option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <input class="form-control-JHY datetimepicker" id="shDateStart" name="shDateStart" th:value="${#strings.substring(vo.shDateStart, 0, 10)}" type="text" placeholder="yy-mm-dd" autocomplete="off" data-options='{"disableMobile":true}' />
+                </div>
+                <div class="col-4">
+                  <input class="form-control-JHY datetimepicker" id="shDateEnd" name="shDateEnd" type="text" th:value="${#strings.substring(vo.shDateEnd, 0, 10)}" placeholder="yy-mm-dd" autocomplete="off" data-options='{"disableMobile":true}' />
+                </div>
+              </div>
+              <div class="mb-2 row g-3">
+                <div class="col-4">
+                  <select class="form-select-JHY" id="shType" name="shType">
+                    <option value="" th:selected="${vo.shType == null}">반려동물 유형</option>
+                    <option th:each="type : ${@codeService.selectListCachedCode(26)}" th:value="${type.codeSeq}" th:text="${type.codeName}" th:selected="${vo.shType} == ${type.codeSeq}"></option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <select class="form-select-JHY" id="shVarieties" name="shVarieties">
+                    <option value="" th:selected="${vo.shVarieties == null}">품종</option>
+                    <option th:each="varieties : ${@codeService.selectListCachedCode(9)}" th:value="${varieties.codeSeq}" th:text="${varieties.codeName}" th:selected="${vo.shVarieties} == ${varieties.codeSeq}"></option>
+                  </select>
+                </div>
+                <div class="col-4 d-flex">
+                  <input class="form-control-JHY w-25" type="text" id="shMinWeight" name="shMinWeight" th:value="${vo.shMinWeight}" placeholder="최소 무게" />
+                  <label class="ms-2" for="">kg ~</label>
+                  <input class="form-control-JHY ms-2 w-25" type="text" id="shMaxWeight" name="shMaxWeight" th:value="${vo.shMaxWeight}" placeholder="최대 무게" />
+                  <label class="ms-2" for="">kg</label>
+                </div>
+              </div>
+              <div class="mb-4 row g-3">
+                <div class="col-4">
+                  <select class="form-select-JHY" id="shOption" name="shOption" aria-label="Default select example">
+                    <option value="" th:selected="${vo.shOption == null}">검색구분</option>
+                    <option value="1" th:selected="${vo.shOption == 1}">이름</option>
+                    <option value="2" th:selected="${vo.shOption == 2}">보호자 이름</option>
+                  </select>
+                </div>
+                <div class="col-4">
+                  <input class="form-control-JHY" type="text" id="shValue" name="shValue" th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어" />
+                </div>
+                <div class="col-4">
+                  <button class="btn btn-outline-dark btn-sm" type="button" id="btnSearch" onclick="search()"><span class="fas fa-search"></span></button>
+                  <button class="btn btn-outline-dark btn-sm" type="button" id="btnReset" onclick="shReset()"><span class="fas fa-redo-alt"></span></button>
+                </div>
+              </div>
+              <div th:replace="~{xdm/include/listRowNum :: listRowNum}"></div>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive scrollbar">
+                <table class="table mb-0 data-table fs-10 align-middle-JHY" data-datatables="data-datatables">
+                  <thead class="bg-200">
+                    <tr>
+                      <th>
+                        <div class="form-check fs-9 mb-0 d-flex align-items-center">
+                          <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
+                        </div>
+                      </th>
+                      <th class="text-900 sort white-nowrap" data-sort="#">#</th>
+                      <th class="text-900 sort white-nowrap" data-sort="name">이름</th>
+                      <th class="text-900 sort white-nowrap" data-sort="types">유형</th>
+                      <th class="text-900 sort white-nowrap" data-sort="varieties">품종</th>
+                      <th class="text-900 sort white-nowrap" data-sort="gender">성별</th>
+                      <th class="text-900 sort white-nowrap" data-sort="birth">생일</th>
+                      <th class="text-900 sort white-nowrap" data-sort="weight">무게</th>
+                      <th class="text-900 sort white-nowrap" data-sort="vaccination">접종 유무</th>
+                      <th class="text-900 sort white-nowrap" data-sort="neutering">중성화 유무</th>
+                      <th class="text-900 sort white-nowrap" data-sort="personality">성격/특징</th>
+                      <th class="text-900 sort white-nowrap" data-sort="disease">질병/질환</th>
+                      <th class="text-900 sort white-nowrap" data-sort="user-name">보호자 이름</th>
+                      <th class="text-900 sort white-nowrap" data-sort="resist-date">등록일</th>
+                      <th class="text-900 sort white-nowrap text-end" data-sort="modify-date">수정일</th>
+                    </tr>
+                  </thead>
+                  <tbody class="list" id="table-customers-body">
+                    <tr th:if="${#lists.isEmpty(list)}">
+                      <td>
+                        <div class="fs-9 mb-0">
+                          There are no data!
+                        </div>
+                      </td>
+                    </tr>
+                    <tr th:if="${!#lists.isEmpty(list)}" class="btn-reveal-trigger" th:each="list : ${list}">
+                      <td>
+                        <div class="form-check fs-9 mb-0 d-flex align-items-center">
+                          <input class="form-check-input" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
+                        </div>
+                      </td>
+                      <td class="#" th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+                      <td class="name"><a th:href="@{/xdm/pet/PetXdmView(petSeq=${list.petSeq})}" th:text="${list.petName}"></a></td>
+                      <td class="types" th:text="${@codeService.selectOneCachedCode(list.petType)}"></td>
+                      <td class="varieties" th:text="${@codeService.selectOneCachedCode(list.petVarieties)}"></td>
+                      <td class="gender" th:text="${@codeService.selectOneCachedCode(list.petGender)}"></td>
+                      <td class="birth" th:text="${list.petBirth}"></td>
+                      <td class="weight" th:text="${list.petWeight}"></td>
+                      <td class="vaccination" th:if="${list.petVaccinationFlag} == '1'">Y</td>
+                      <td class="vaccination" th:if="${list.petVaccinationFlag} == '0'">N</td>
+                      <td class="neutering" th:if="${list.petNeuteringFlag} == '1'">Y</td>
+                      <td class="neutering" th:if="${list.petNeuteringFlag} == '0'">N</td>
+                      <td class="personality" th:text="${list.personalCount}"></td>
+                      <td class="disease" th:text="${list.diseaseCount}"></td>
+                      <td class="user-name"><a th:href="@{/xdm/member/MemberXdmView(userSeq=${list.userSeq})}" th:text="${list.userName}"></a></td>
+                      <td class="resist-date" th:text="${list.petRegDate}"></td>
+                      <td class="modify-date text-end" th:text="${list.petModDate}"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div th:replace="~{xdm/include/pagination :: pagination}"></div>
+            <div class="mb-2 row g-3 ms-1 me-1">
+              <div class="col">
+                <button class="btn btn-danger btn-sm" type="button"><span class="bi-x"></span></button>
+                <button class="btn btn-danger btn-sm" type="button"><span class="far fa-trash-alt"></span></button>
+              </div>
+              <div class="col" style="text-align: right;">
+                <button class="btn btn-primary btn-sm" type="button">U</button>
+                <button class="btn btn-success btn-sm" type="button"><span class="far fa-file-excel"></span></button>
+                <a href="/xdm/code/CodeXdmForm"><button class="btn btn-primary btn-sm" type="button"><span class="fas fa-plus"></span></button></a>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div th:replace="~{xdm/include/footer :: footer}"><div>
+        </div>
+      </div>
+    </main>
+  <!-- ===============================================-->
+  <!--    End of Main Content-->
+  <!-- ===============================================-->
+  <script>
+    let form = document.querySelector("form[name=formList]");
+
+    let goUrlXdmList = "/xdm/pet/PetXdmList";
+  </script>
+    <div th:replace="~{xdm/include/includeXdmFalcon :: includeXdmFalcon}"></div>
+    <div th:replace="~{xdm/include/includeXdmCommon :: includeXdmCommon}"></div>
+    <div th:replace="~{xdm/include/includeXdmList :: includeXdmList}"></div>
+  </body>
+  
+  </html>
