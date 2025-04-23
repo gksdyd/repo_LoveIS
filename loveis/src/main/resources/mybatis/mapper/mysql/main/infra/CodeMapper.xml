@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+				 
+<mapper namespace="com.loveis.demo.module.code.CodeDao">
+
+	<resultMap type="com.loveis.demo.module.code.CodeDto" id="resultMapObj"></resultMap>
+	
+	<sql id="selectCommon">
+        FROM
+			code a
+		    LEFT JOIN codegroup b ON b.cogrSeq = a.codeGroup_cogrSeq
+        WHERE 1=1
+        <if test="shUseFlag != null and !shUseFlag.equals('')">AND a.codeUseFlag = #{shUseFlag}</if>
+        <if test="shDelFlag != null and !shDelFlag.equals('')">AND a.codeDelFlag = #{shDelFlag}</if>
+
+		<choose>
+			<when test="shOptionDate == 1">AND a.codeRegDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND a.codeModDate BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+		</choose>
+
+        <choose>
+            <when test="shOption == 1">AND a.codeGroup_cogrSeq = #{shValue}</when>
+            <when test="shOption == 2">AND b.cogrName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 3">AND a.codeSeq = #{shValue}</when>
+            <when test="shOption == 4">AND a.codeNum LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 5">AND a.codeName LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 6">AND a.codeNameEng LIKE CONCAT('%',#{shValue},'%')</when>
+        </choose>
+    </sql>
+    
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT
+			a.codeSeq,
+			a.codeName,
+			a.codeNameEng,
+			a.codeNum,
+			a.codeUseFlag,
+			a.codeOrder,
+			a.codeDisc,
+			a.codeRegDate,
+			a.codeModDate,
+			a.codeDelFlag,
+			a.codeGroup_cogrSeq,
+		    b.cogrNum,
+		    b.cogrName
+		<include refid="selectCommon"></include>
+		ORDER BY codeSeq DESC
+		limit #{rowNumToShow} offset #{startRnumForMysql}
+	</select>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			a.codeSeq,
+			a.codeName,
+			a.codeNameEng,
+			a.codeNum,
+			a.codeUseFlag,
+			a.codeOrder,
+			a.codeDisc,
+			a.codeRegDate,
+			a.codeModDate,
+			a.codeDelFlag,
+			a.codeGroup_cogrSeq,
+		    b.cogrNum,
+		    b.cogrName
+		FROM
+			code a
+		    LEFT JOIN codegroup b ON b.cogrSeq = a.codeGroup_cogrSeq
+		WHERE 1=1
+			AND a.codeSeq = #{codeSeq}
+	</select>
+	
+	<select id="selectCodeGroupName" resultMap="resultMapObj">
+		SELECT
+			cogrSeq,
+		    cogrName
+		FROM
+			codegroup
+	</select>
+	
+	<select id="selectMaxSeq" resultType="Integer">
+		SELECT
+			MAX(codeSeq)
+		FROM
+			code
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO code(
+			codeName,
+			codeNameEng,
+			codeNum,
+			codeUseFlag,
+			codeOrder,
+			codeDisc,
+			codeRegDate,
+			codeDelFlag,
+			codeGroup_cogrSeq
+		) VALUE (
+			#{codeName},
+			#{codeNameEng},
+			#{codeNum},
+			#{codeUseFlag},
+			#{codeOrder},
+			#{codeDisc},
+			date_format(NOW(), '%Y-%m-%d %H:%i:%S'),
+			0,
+			#{codeGroup_cogrSeq}
+		)
+		<selectKey resultType="String" keyProperty="codeSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"></include>
+	</select>
+	
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+		SELECT 
+			codeSeq,
+			codeName,
+			codeGroup_cogrSeq
+		FROM
+			code
+		WHERE 1=1
+			AND codeDelFlag = 0
+		    AND codeUseFlag = 1
+   </select>
+   
+   <update id="update">
+		update code
+		set 
+			codeName = #{codeName},
+			codeNameEng = #{codeNameEng},
+			codeNum = #{codeNum},
+			codeUseFlag = #{codeUseFlag},
+			codeOrder = #{codeOrder},
+			codeDisc = #{codeDisc},
+			codeModDate = date_format(NOW(), '%Y-%m-%d %H:%i:%S'),
+			codeGroup_cogrSeq = #{codeGroup_cogrSeq}
+		where
+			codeSeq = #{codeSeq}
+	</update>
+	
+	<update id="uelete">
+		UPDATE code
+		SET
+			codeDelFlag = 1
+		WHERE
+			codeSeq = #{codeSeq}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM code
+		WHERE
+			codeSeq = #{codeSeq}
+	</delete>
+	
+	<update id="severalUelete">
+		UPDATE code
+		SET
+			codeDelFlag = 1
+		WHERE codeSeq IN
+		<foreach collection="listArray" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<delete id="severalDelete">
+		DELETE FROM code
+		WHERE codeSeq IN
+		<foreach collection="listArray" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>
