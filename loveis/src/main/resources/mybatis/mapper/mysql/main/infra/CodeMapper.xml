@@ -5,7 +5,7 @@
 
 	<resultMap type="com.loveis.demo.module.code.CodeDto" id="resultMapObj"></resultMap>
 	
-	<sql id="selectCommon">
+	<!-- <sql id="selectCommon">
         FROM
 			code a
 		    LEFT JOIN codegroup b ON b.cogrSeq = a.codeGroup_cogrSeq
@@ -174,5 +174,5 @@
 		<foreach collection="listArray" item="item" open="(" separator="," close=")">
 			#{item}
 		</foreach>
-	</delete>
+	</delete> -->
 </mapper> 

@@ -5,7 +5,7 @@
 
 	<resultMap type="com.loveis.demo.module.product.ProductDto" id="resultMapObj"></resultMap>
 	
-	<sql id="selectCommon">
+	<!-- <sql id="selectCommon">
         FROM product a
         LEFT JOIN (SELECT
         		GROUP_CONCAT(funcName) AS funcName,
@@ -427,5 +427,5 @@
 		WHERE 1=1
 			AND #{prodSeq} = pseq
 			AND delNy = 0
-	</select>
+	</select> -->
 </mapper>

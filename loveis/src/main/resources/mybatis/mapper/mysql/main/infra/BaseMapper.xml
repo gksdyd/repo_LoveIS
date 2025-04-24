@@ -6,7 +6,7 @@
 	<resultMap type="com.loveis.demo.module.base.BaseDto" id="resultMapObj"></resultMap>
 	
 <!-- 	uploaded s -->
-	<sql id="insertUploaded">
+	<!-- <sql id="insertUploaded">
 		INSERT INTO ${tableName} (
 			type
 			,defaultNy
@@ -30,5 +30,5 @@
 			,0
 			,#{pseq}
 		)
-	</sql>
+	</sql> -->
 </mapper>

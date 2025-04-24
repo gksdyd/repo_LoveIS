@@ -28,7 +28,7 @@ public class ProductController extends BaseController {
 		Map<String, Object> rtType = new HashMap<String, Object>();
 		
 		rtType.put("funcSeq", vo.getProdFunction());
-		rtType.put("funcName", CodeService.selectOneCachedCode(vo.getProdFunction()));		
+//		rtType.put("funcName", CodeService.selectOneCachedCode(vo.getProdFunction()));		
 		return rtType;
 	}
 	
@@ -59,7 +59,7 @@ public class ProductController extends BaseController {
 			for (int i = 0; i < dtoFunction.size(); i++) {
 				vo.getProdFuncSeqArray().add(dtoFunction.get(i).getFuncSeq());
 				vo.getProdFuncArray().add(dtoFunction.get(i).getFuncName());
-				vo.getProdFuncNameArray().add((CodeService.selectOneCachedCode(Integer.parseInt(dtoFunction.get(i).getFuncName()))));
+//				vo.getProdFuncNameArray().add((CodeService.selectOneCachedCode(Integer.parseInt(dtoFunction.get(i).getFuncName()))));
 			}
 			
 			List<ProductDto> dtoInfo = productService.selectOneInfos(vo);

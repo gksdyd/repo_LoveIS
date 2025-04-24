@@ -5,7 +5,7 @@
 
 	<resultMap type="com.loveis.demo.module.pet.PetDto" id="resultMapObj"></resultMap>
 	
-	<sql id="selectCommon">
+	<!-- <sql id="selectCommon">
         FROM pet a
         	LEFT JOIN user b ON a.user_userSeq = b.userSeq
         WHERE 1=1
@@ -287,5 +287,5 @@
 			petModDate = date_format(NOW(), '%Y-%m-%d %H:%i:%S')
 		WHERE 1=1
 			AND petSeq = #{petSeq}
-	</update>
+	</update> -->
 </mapper>

@@ -5,7 +5,7 @@
 
 	<resultMap type="com.loveis.demo.module.member.MemberDto" id="resultMapObj"></resultMap>
 	
-	<sql id="selectCommon">
+	<!-- <sql id="selectCommon">
         FROM user a
         WHERE 1=1
         <if test="shDelFlag != null and !shDelFlag.equals('')">AND a.userDelFlag = #{shDelFlag}</if>
@@ -231,5 +231,5 @@
 		<selectKey resultType="String" keyProperty="reviSeq" order="AFTER">
 			SELECT last_insert_id()
 		</selectKey>
-	</insert>
+	</insert> -->
 </mapper>
