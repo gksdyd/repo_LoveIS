@@ -8988,8 +8988,41 @@ footer .ind4-footer-bottom a:hover {
 .blog-page .sidepannal .pannal-box .pannal-content .custum-select.country .dropdown::before {
   content: "\f3c5";
 }
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.smoking .dropdown::before {
+  content: "\f48d";
+}
 .blog-page .sidepannal .pannal-box .pannal-content .custum-select.interests .dropdown::before {
   content: "\f135";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.body .dropdown::before {
+  content: "\f7bd";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.style .dropdown::before {
+  content: "\f553";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.face .dropdown::before {
+  content: "\f4da";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.personality .dropdown::before {
+  content: "\f70c";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.dating .dropdown::before {
+  content: "\f4be";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.mbti .dropdown::before {
+  content: "\f658";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.hobby .dropdown::before {
+  content: "\f5da";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.pet .dropdown::before {
+  content: "\f6d3";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.church .dropdown::before {
+  content: "\f51d";
+}
+.blog-page .sidepannal .pannal-box .pannal-content .custum-select.beer .dropdown::before {
+  content: "\f0fc";
 }
 .blog-page .sidepannal .pannal-box .pannal-content .main-btn {
   width: 100%;
