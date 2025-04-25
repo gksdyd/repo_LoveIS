@@ -11,4 +11,8 @@ public class MemberLoveController {
 	public String memberLoveList() {
 		return "love/member/MemberLoveList";
 	}
+	@RequestMapping(value = "/MemberLoveMypage")
+	public String MemberLoveMypage() {
+		return "love/member/MemberLoveSingle";
+	}
 }
