@@ -28,8 +28,8 @@ public class UserMemberController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/LoginUserForm")
-	public String loginXdmForm(MemberDto vo, Model model) {
-		return "xdm/user/LoginUserForm";
+	public String loginUserForm(MemberDto vo, Model model) {
+		return "love/user/LoginUserForm";
 	}
 	
 	@ResponseBody
