@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+  <div th:replace="~{love/include/head :: head}"></div>
+   <!-- pricing Table first table start -->
+   <div class="pt-section-1 padd-100 float-start w-100">
+      <div class="container">
+         <div class="section-heading">
+            <h4>Pricing Table 01</h4>
+         </div>
+         <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12  wow fadeInUp" data-wow-delay=".1s">
+               <div class="p-box-1 p-bottom-padding box-border">
+                  <h4 class="p-top-padding">Basic Package</h4>
+                  <h1 class="heading-1">free</h1>
+                  <p class="text-1">Location Listings: 5</p>
+                  <p class="text-1">Duration: 3 months</p>
+                  <p class="text-1">Online Booking: Yes</p>
+                  <p class="text-1">Sponsored Listings: No</p>
+                  <p class="text-1">Support: No</p>
+                  <button class="btn-1">Submit free listing</button>
+               </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 wow fadeInUp">
+               <div class="p-box-1 p-bottom-padding box-border wow backInLeft" data-wow-delay=".2s">
+                  <h4 class="p-top-padding">Standard Package</h4>
+                  <h1 class="heading-1">$45</h1>
+                  <p class="text-1">Location Listings: 5</p>
+                  <p class="text-1">Duration: 3 months</p>
+                  <p class="text-1">Online Booking: Yes</p>
+                  <p class="text-1">Sponsored Listings: No</p>
+                  <p class="text-1">Support: No</p>
+                  <button class="btn-1">Get Package</button>
+               </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12  wow fadeInUp">
+               <div class="p-box-1 p-bottom-padding box-border wow backInLeft" data-wow-delay=".3s">
+                  <h4 class="p-top-padding">Premium Package</h4>
+                  <h1 class="heading-1">$89</h1>
+                  <p class="text-1">Location Listings: 5</p>
+                  <p class="text-1">Duration: 3 months</p>
+                  <p class="text-1">Online Booking: Yes</p>
+                  <p class="text-1">Sponsored Listings: No</p>
+                  <p class="text-1">Support: No</p>
+                  <button class="btn-1">Get Package</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div th:replace="~{love/include/footer :: footer}"></div>
+   <div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
+
+   <script>
+      $('#search_button').on("click", function (e) {
+         $('#search_open').slideToggle();
+         e.stopPropagation();
+      });
+
+      $(document).on("click", function (e) {
+         if (!(e.target.closest('#search_open1'))) {
+            $("#search_open1").slideUp();
+         }
+      });
+   </script>
+   <script>
+      $('#search_button1').on("click", function (e) {
+         $('#search_open1').slideToggle();
+         e.stopPropagation();
+      });
+
+      $(document).on("click", function (e) {
+         if (!(e.target.closest('#search_open1'))) {
+            $("#search_open1").slideUp();
+         }
+      });
+   </script>
+</body>
+
+</html>
