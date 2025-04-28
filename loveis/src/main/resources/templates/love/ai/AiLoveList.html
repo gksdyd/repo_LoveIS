@@ -7,7 +7,9 @@
 				<div class="item">
 					<div class="profile-box text-center">
 						<div class="profile-content">
-							<h1 style="text-align: center; margin-bottom: 60px; margin-right: -80px;">MBTI 리스트</h1>
+							<h1 style="text-align: center; margin-bottom: 10px; margin-right: -80px;">MBTI 리스트								
+							</h1>
+							<h5 style="text-align: center; margin-bottom: 60px; margin-right: -80px;">(AI에게 물어보고 마음에 드는 MBTI와 얘기해보자!) </h5>
 							<div class="mbti-grid" style="background: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-left: -30px;">
 							  <div class="button2-wrapper" style="background: none;">
 								<a href="javascript:;" class="button2-wrapper rounded-btn btn2 active" data-type="ISTJ">ISTJ</a>
@@ -67,12 +69,12 @@
 								someone to sing 'Looks so perfect' to me). Invests my time in sleeping
 								intellectual/psychological mindfuck movies (watched).
 							</p>
-							<ul class="media-list">
-								<li><a href="#" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="fas fa-redo-alt" id="ootd"></i></a></li>
-								<li><a href="#"><i class="fas fa-expand-arrows-alt"></i></a></li>
-								<li><a href="#"><i class="fas fa-star"></i></a></li>
-								<li><a href="#"><i class="fas fa-heart"></i></a></li>
-								<li><a href="#"><i class="fas fa-bolt"></i></a></li>
+							<ul class="media-list" style="white-space: nowrap;">
+								<li data-tooltip="OOTD"><a href="#" class="active" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="fas fa-redo-alt" id="ootd"></i></a></li>
+								<li data-tooltip="오늘의 운세"><a href="#" ><i class="fas fa-expand-arrows-alt"></i></a></li>
+								<li data-tooltip="내 프로필 어때?"><a href="#"><i class="fas fa-star"></i></a></li>
+								<li data-tooltip="오늘 나의 기분"><a href="#"><i class="fas fa-heart"></i></a></li>
+								<li data-tooltip="애정도"><a href="#"><i class="fas fa-bolt"></i></a></li>
 								<li><a href="#"><i class="fas fa-redo-alt"></i></a></li>
 								<li><a href="#"><i class="fas fa-expand-arrows-alt"></i></a></li>
 								<li><a href="#"><i class="fas fa-star"></i></a></li>
@@ -171,6 +173,93 @@
 		$("#activityPhotoUploder").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
 		$("#activityAttachFileUploader").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
 	</script>
+	
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	    const buttons = document.querySelectorAll('.button2-wrapper.btn2');
+	    const profileContent = document.querySelector('.profile-content p'); // 설명글 p태그 찾음
+
+	    buttons.forEach(button => {
+	        button.addEventListener('click', function () {
+	            // 모든 버튼에서 active 제거
+	            buttons.forEach(btn => btn.classList.remove('active'));
+
+	            // 현재 버튼에 active 추가
+	            this.classList.add('active');
+
+	            // 눌린 버튼의 data-type 가져오기
+	            const mbtiType = this.getAttribute('data-type');
+
+	            // mbtiDescriptions에서 텍스트 찾아서 넣기
+	            if (mbtiDescriptions[mbtiType]) {
+	                profileContent.textContent = mbtiDescriptions[mbtiType];
+	            } else {
+	                profileContent.textContent = "설명이 없습니다.";
+	            }
+	        });
+	    });
+	});
+	</script>
+	
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	    const mediaButtons = document.querySelectorAll('.media-list li');
+
+	    mediaButtons.forEach(button => {
+	        button.addEventListener('click', function () {
+	            // 모든 버튼에서 active 제거
+	            mediaButtons.forEach(btn => btn.classList.remove('active'));
+
+	            // 클릭한 버튼에 active 추가
+	            this.classList.add('active');
+	        });
+	    });
+	});
+	</script>
+
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	  const buttons = document.querySelectorAll('.media-list li a');
+	  const textArea = document.getElementById('mbti-text');
+
+	  buttons.forEach(button => {
+	    button.addEventListener('click', function (e) {
+	      e.preventDefault();
+
+	      // 1. 기존 active 클래스 제거
+	      buttons.forEach(btn => btn.classList.remove('active'));
+
+	      // 2. 클릭한 버튼에 active 추가
+	      this.classList.add('active');
+
+	      // 3. <p> 내용 바꾸기
+	      const newText = this.getAttribute('data-text');
+	      textArea.innerHTML = newText;
+	    });
+	  });
+	});
+	</script>
+
+<script>
+	const buttons = document.querySelectorAll('.media-list li a');
+
+	buttons.forEach(button => {
+	  button.addEventListener('click', function(event) {
+	    // 모든 버튼에서 active 제거
+	    buttons.forEach(btn => btn.classList.remove('active'));
+	    
+	    // 클릭된 버튼에만 active 클래스 추가
+	    event.currentTarget.classList.add('active');
+	  });
+	});
+
+	// 기본적으로 'OOTD' 버튼을 active 상태로 만들기
+	document.querySelector('li[data-tooltip="OOTD"] a').classList.add('active');
+	</script>
+	
+
+
+
 </body>
 
 </html>

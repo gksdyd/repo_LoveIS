@@ -618,15 +618,17 @@ a.main-btn:hover, button.main-btn:hover {
     transform: scale(1);
   }
 }
+/* 기본 스타일 */
 .media-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   -moz-column-gap: 10px;
-       column-gap: 10px;
+  column-gap: 10px;
   row-gap: 10px;
   margin-top: 10px;
 }
+
 .media-list li a {
   display: inline-block;
   width: 35px;
@@ -635,12 +637,13 @@ a.main-btn:hover, button.main-btn:hover {
   background-color: #f1f1f1;
   text-align: center;
   border-radius: 50%;
-  color: #707070;
+  color: #707070; /* 기본 아이콘 색상 */
   overflow: hidden;
   transition: all 0.5s;
   position: relative;
   z-index: 2;
 }
+
 .media-list li a::after {
   content: "";
   position: absolute;
@@ -653,12 +656,35 @@ a.main-btn:hover, button.main-btn:hover {
   z-index: -1;
   transition: all 0.5s;
 }
+
+/* hover 상태 */
 .media-list li a:hover {
-  color: #ffffff;
+  color: #ffffff; /* hover 시 아이콘 색상 */
 }
+
 .media-list li a:hover::after {
   left: 0;
 }
+
+/* active 상태 (버튼을 눌렀을 때) */
+.media-list li a.active {
+  color: #ffffff; /* 활성화된 상태에서 아이콘 색상 */
+}
+
+.media-list li a.active::after {
+  left: 0;
+}
+
+/* 아이콘의 색상 변경 */
+.media-list li a i {
+  transition: color 0.3s ease;
+}
+
+.media-list li a:hover i,
+.media-list li a.active i {
+  color: #ffffff; /* 활성화되거나 hover 상태에서 아이콘이 하얀색으로 변경됨 */
+}
+
 
 .mydropdown .maindropdown {
   position: absolute;
@@ -15866,3 +15892,9 @@ ul {
     justify-content: center;
   }
 }/*# sourceMappingURL=style.css.map */
+
+/* AILoveList 부분 추가 */
+.button2-wrapper.btn2.active {
+    background-color: white; /* 파란색 */
+    color: black;
+}
