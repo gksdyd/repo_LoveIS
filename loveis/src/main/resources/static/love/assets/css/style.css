@@ -14979,7 +14979,7 @@ ul {
 
 /*---pricing page first section ----*/
 .pt-section-1 .p-box-1 {
-  height: 660px;
+  height: 550px;
   margin-top: 20px;
   box-shadow: 0px 0px 5px #e9e9e9;
   text-align: center;
@@ -15039,17 +15039,20 @@ ul {
   border-top-width: 1px;
   border-right-width: 1px;
 }
-.pt-section-1 .p-box-1.box-border:hover:before, .pt-section-1 .p-box-1.box-border:hover:after {
+/* .pt-section-1 .p-box-1.box-border:hover:before, .pt-section-1 .p-box-1.box-border:hover:after {
   border-color: #e12454;
   transition: border-color 0s, width 0.25s, height 0.25s;
   width: 100%;
   height: 100%;
-}
+} */
 .pt-section-1 .p-box-1.box-border:hover:before {
   transition-delay: 0s, 0s, 0.25s;
 }
 .pt-section-1 .p-box-1.box-border:hover:after {
   transition-delay: 0s, 0.25s, 0s;
+}
+.pt-section-1 .p-box-1 .text-1 a:hover {
+  color: #fa2456;  /* 링크 색상 */
 }
 
 /*----------Animation Css over--------*/
