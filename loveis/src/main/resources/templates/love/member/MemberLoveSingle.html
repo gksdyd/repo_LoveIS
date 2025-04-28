@@ -35,13 +35,15 @@
 							<img src="/love/assets/images/profile-img.png" alt="profile-img" class="img-fluid">
 						</div>
 						<div class="profile-name">
+						
 							<h3>Sarika Parmar</h3>
 							<span>33 year old Woman</span> <br>
 							<label for="profile_input"><i class="far fa-edit"></i></label>
 							<input id="profile_input" type="file" accept="image/*" style="display: none;" />
-							<a href="javascript;;" class="font-color-pink"><i class="fas fa-map-marker-alt"></i> Tokyo,
+							<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal" id="location" class="font-color-pink"><i class="fas fa-map-marker-alt"></i> Tokyo,
 								Japan</a>
 						</div>
+						
 					</div>
 					<div class="right">
 						<ul>
@@ -138,47 +140,48 @@
 							<div class="tab-pane fade show active w-100 float-start" id="profile" role="tabpanel"
 								aria-labelledby="profile-tab">
 								<div class="profile-tab w-100 float-start">
-									<h4>My self Summary <span class="far fa-edit edit-icon"></span></h4>
+									<h4>자기소개 <span><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editIntroduceModal" id="location" class="font-color-pink"><i class="far fa-edit edit-icon"></i></a></span></h4>
 									<p>The Best Solution For Your Business Website. Creative & Interaction Design |
 										Social Media Management | Software Development | Website Designing | Graphic
 										Design | WordPress Theme | Logo Design + Branding | SEO | App Development
 									</p>
 								</div>
 								<div class="profile-tab w-100 float-start">
-									<h4>Basic general information <span class="far fa-edit edit-icon"></span></h4>
+									<h4>상세정보 <span><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editDetailModal" id="location" class="font-color-pink"><i class="far fa-edit edit-icon"></i></a></span></h4>
 									<ul>
-										<li>Gender <p>Female</p>
+										<li>성별 <p>여성</p>
 										</li>
-										<li>Age <p>22 Years old </p>
+										<li>나이 <p>22 세 </p>
 										</li>
-										<li>Country <p>France </p>
+										<li>시,도 <p>경기도 </p>
 										</li>
-										<li>City <p>Paris</p>
+										<li>시,군,구 <p>과천시</p>
 										</li>
-										<li>Birthday <p>15 July 1997</p>
+										<li>생일 <p>1997-07-22</p>
 										</li>
-										<li>Relationship <p>Single</p>
+										<li>관계상태 <p>싱글</p>
 										</li>
-										<li>Height <p>5.7</p>
+										<li>키 <p>161</p>
 										</li>
-										<li>Weight <p>56 </p>
+										<li>몸무게 <p>56 </p>
 										</li>
 									</ul>
 									<ul>
-										<li>Education <p>Graduate Degree</p>
+										<li>학력 <p>학사</p>
 										</li>
-										<li>Know <p>French Russian</p>
+										<li>MBTI <p>ESFP</p>
 										</li>
-										<li>Interests <p>Billiards</p>
+										<li>관심사 <p>연애</p>
 										</li>
-										<li>Smoking <p>No</p>
+										<li>흡연여부 <p>No</p>
 										</li>
-										<li>Eye Color <p>Brown</p>
+										<li>반려동물 <p>또치</p>
 										</li>
-										<li>Marital Status <p>Single</p>
+										<li>혼인상태 <p>미혼</p>
 										</li>
-										<li>Looking <p>Man</p>For A</li>
-										<li>Work as <p>Designer</p>
+										<li>연애성향 <p>열정적인 만남</p>
+										</li>
+										<li>직업 <p>Designer</p>
 										</li>
 									</ul>
 								</div>
@@ -404,19 +407,197 @@
 			</div>
 		</footer>
 	</div>
-	<script src="js/jquery-3.6.0.min.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
-	<script src="js/bootstrap.bundle.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/owl.carousel.js"></script>
-	<script src="js/range-slider.js"></script>
-	<script src="js/jquery.uploader.min.js"></script>
-	<script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
-	<script src="js/custom.js"></script>
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Location</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="map" style="width:770px;height:300px;"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+	<div class="modal fade" id="editIntroduceModal" tabindex="-1" aria-labelledby="editIntroduceModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editIntroduceModal">자기소개 수정하기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="form-floating mb-3">
+		<textarea class="form-control" placeholder=" " id="introduce" name="introduce" style="height: 150px;"></textarea>
+		<label for="exampleTextarea">내용 입력</label>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editDetailModal">상세정보 수정하기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+      <div class="col-md-6">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="gender" name="gender" placeholder=" ">
+    <label for="gender">성별</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="age" name="age" placeholder=" ">
+    <label for="age">나이</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="sido" name="sido" placeholder=" " onclick="sample4_execDaumPostcode()">
+    <label for="sido">시,도</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="sigungu" name="sigungu" placeholder=" " onclick="sample4_execDaumPostcode()">
+    <label for="sigungu">시,군,구</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="dob" name="dob" placeholder=" ">
+    <label for="dob">생일</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="relationship" name="relationship" placeholder=" ">
+    <label for="relationship">관계상태</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="height" name="height" placeholder=" ">
+    <label for="height">키</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="weight" name="weight" placeholder=" ">
+    <label for="weight">몸무게</label>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control " id="education" name="education" placeholder=" ">
+    <label for="education">학력</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="mbti" name="mbti" placeholder=" ">
+    <label for="mbti">MBTI</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="interests" name="interests" placeholder=" ">
+    <label for="interests">관심사</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="smoking" name="smoking" placeholder=" ">
+    <label for="smoking">흡연여부</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="pet" name="pet" placeholder=" ">
+    <label for="pet">반려동물</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="mary" name="mary" placeholder=" ">
+    <label for="mary">혼인상태</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="lookfor" name="lookfor" placeholder=" ">
+    <label for="lookfor">연애성향</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="job" name="job" placeholder=" ">
+    <label for="job">직업</label>
+  </div>
+</div>
+
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f7d210607aa49a67c830e2baeb80358f&libraries=services"></script>
 
 	<div th:replace="~{love/include/footer :: footer}"></div>
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
 	<script>
+	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	        mapOption = {
+	            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+	            level: 5 // 지도의 확대 레벨
+	        };
+	
+	    //지도를 미리 생성
+	    var map = new daum.maps.Map(mapContainer, mapOption);
+	    //주소-좌표 변환 객체를 생성
+	    var geocoder = new daum.maps.services.Geocoder();
+	    //마커를 미리 생성
+	    var marker = new daum.maps.Marker({
+	        position: new daum.maps.LatLng(37.537187, 127.005476),
+	        map: map
+	    });
+
+	    var exampleModal = document.getElementById('exampleModal');
+		exampleModal.addEventListener('shown.bs.modal', function () {
+	    	map.relayout(); // 모달이 열릴 때 지도 다시 그리기
+	    	map.setCenter(marker.getPosition());
+    	});
+	</script>
+	<script>
+	    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+	    function sample4_execDaumPostcode() {
+	    	
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	
+	                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var roadAddr = data.roadAddress; // 도로명 주소 변수
+	                var extraRoadAddr = ''; // 참고 항목 변수
+	
+	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraRoadAddr += data.bname;
+	                }
+	                // 건물명이 있고, 공동주택일 경우 추가한다.
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                if(extraRoadAddr !== ''){
+	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+	                }
+	                
+                    document.getElementById("sido").value = data.sido;
+                    document.getElementById("sigungu").value = data.sigungu;
+	                        
+	
+	            }
+	        }).open();
+	        
+	    }
+	</script>
+	<script>
+	    
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
