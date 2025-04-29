@@ -1,0 +1,117 @@
+/* 달력이 다른 요소들 위에 표시되도록 z-index 조정 */
+.ui-datepicker {
+    z-index: 9999 !important; /* 매우 높은 값으로 설정 */
+    position: absolute;
+}
+
+/* 날짜 선택기 커스텀 스타일 */
+.date-picker-container {
+    position: relative;
+}
+
+.date-picker-container i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ff6b6b;
+    z-index: 2;
+}
+
+#dob {
+    padding-left: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 파일 업로드 커스텀 스타일 */
+.file-upload-container {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.file-upload-label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.file-upload-wrapper {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+
+.file-upload-btn {
+    background: #f8f9fa;
+    border: 1px dashed #ddd;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.file-upload-btn i {
+    color: #ff6b6b;
+    margin-right: 8px;
+}
+
+#profileImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.selected-file {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #495057;
+}
+
+/* 이미지 미리보기 스타일 */
+.image-preview {
+    text-align: center;
+}
+
+.preview-image {
+    border: 1px solid #ddd;
+    padding: 5px;
+    background: #f8f9fa;
+}
+
+/* 유효성 검사 스타일 */
+      .form-input input:required:invalid {
+          border-color: #ff3860;
+      }
+      
+      .form-input input:required:valid {
+          border-color: #09c372;
+      }
+      
+      .error-message {
+          color: #ff3860;
+          font-size: 12px;
+          margin-top: 5px;
+          display: none;
+      }
+      
+      .form-input.invalid label i {
+          color: #ff3860;
+      }
+      
+      .form-input.invalid input {
+          border-color: #ff3860;
+      }
+  
+.custum-select {
+	border: 1px solid red;
+	width: 100%;
+	display: inline-block;
+}

@@ -19,119 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/love/assets/css/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="/love/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/love/assets/css/responsive.css">
-    <style>
-        /* 달력이 다른 요소들 위에 표시되도록 z-index 조정 */
-        .ui-datepicker {
-            z-index: 9999 !important; /* 매우 높은 값으로 설정 */
-            position: absolute;
-        }
-        
-        /* 날짜 선택기 커스텀 스타일 */
-        .date-picker-container {
-            position: relative;
-        }
-        
-        .date-picker-container i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #ff6b6b;
-            z-index: 2;
-        }
-        
-        #dob {
-            padding-left: 40px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* 파일 업로드 커스텀 스타일 */
-        .file-upload-container {
-            text-align: center;
-            margin: 15px 0;
-        }
-        
-        .file-upload-label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        
-        .file-upload-wrapper {
-            display: inline-block;
-            position: relative;
-            width: 100%;
-            max-width: 300px;
-        }
-        
-        .file-upload-btn {
-            background: #f8f9fa;
-            border: 1px dashed #ddd;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-        
-        .file-upload-btn i {
-            color: #ff6b6b;
-            margin-right: 8px;
-        }
-        
-        #profileImage {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        
-        .selected-file {
-            margin-top: 8px;
-            font-size: 14px;
-            color: #495057;
-        }
-        
-        /* 이미지 미리보기 스타일 */
-        .image-preview {
-            text-align: center;
-        }
-        
-        .preview-image {
-            border: 1px solid #ddd;
-            padding: 5px;
-            background: #f8f9fa;
-        }
-        
-        /* 유효성 검사 스타일 */
-        .form-input input:required:invalid {
-            border-color: #ff3860;
-        }
-        
-        .form-input input:required:valid {
-            border-color: #09c372;
-        }
-        
-        .error-message {
-            color: #ff3860;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-        
-        .form-input.invalid label i {
-            color: #ff3860;
-        }
-        
-        .form-input.invalid input {
-            border-color: #ff3860;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/signUp.css">
 </head>
 
 <body>
@@ -181,6 +69,18 @@
                                         <input type="tel" name="phone" id="phone" placeholder="전화번호" required>
                                         <label for="phone"><i class="fas fa-phone"></i></label>
                                     </div>
+                                    
+                                    <!-- 주소 -->
+		                            <div class="form-input">
+		                                <div class="custum-select">
+											<select class="" id="city" required>
+												<option value="">&ensp;도시</option>
+												<option value="Man-Looking-a-woman">&ensp;서울시</option>
+												<option value="Woman-Looking-a-Man">&ensp;부산시</option>
+											</select>
+											<label for="city"><i class="fas fa-city"></i></label>
+										</div>
+		                            </div>
                                 </div>
                                 <div class="col-md-6">
                                     <!-- 아이디 -->
@@ -206,15 +106,20 @@
                                         <input type="text" name="nickname" id="nickname" placeholder="닉네임" required>
                                         <label for="nickname"><i class="fas fa-user-tag"></i></label>
                                     </div>
+                                    
+                                    <!-- 주소 -->
+		                            <div class="form-input">
+		                                <div class="custum-select">
+											<select class="" id="city" required>
+												<option value="">&ensp;지역</option>
+												<option value="Man-Looking-a-woman">&ensp;노원구</option>
+												<option value="Woman-Looking-a-Man">&ensp;관악구</option>
+											</select>
+											<label for="city"><i class="fas fa-location"></i></label>
+										</div>
+		                            </div>
                                 </div>
                             </div>
-                            
-                            <!-- 주소 -->
-                            <div class="form-input">
-                                <input type="text" name="userZipcode" id="sample5_address" placeholder="주소" required readonly onclick="openPostcode()">
-                                <label for="userZipcode"><i class="fas fa-home"></i></label>
-                            </div>
-                            <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
                             
                             <!-- 사진 업로드 -->
                             <div class="file-upload-container">
