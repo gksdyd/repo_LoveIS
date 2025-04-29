@@ -154,7 +154,7 @@
                             </div>
                             
                             <!-- 약관 동의 -->
-                            <div class="form-input-checkbox" style="text-align: center; margin: 20px 0;">
+                            <div class="form-input-checkbox">
                                 <input type="checkbox" name="termsAgreed" id="termsAgreed" required>
                                 <label for="termsAgreed">이용약관 및 개인정보 처리방침에 동의합니다</label>
                             </div>
@@ -225,9 +225,16 @@
         });
         
         $(".main-btn").on("click", function() {
-        	let count = $(".form-input").length;
+        	if (!validation()) {
+        		return;
+        	}
+        });
+        
+        function validation() {
+			let count = $(".form-input").length;
         	
         	$(".valid").remove();
+        	$("#termsAgreed").next().css("color", "");
         	
         	for(let i = 0; i < count; i++) {
         		if ($(".form-input").eq(i).find("input[type=text]").length > 0) {
@@ -237,52 +244,52 @@
         				if (value === "") {
         					let text = "<div class='valid' style='color: red;''>이름을 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				} else if (!NAME_CHECK.test(value)) {
         					let text = "<div class='valid' style='color: red;''>올바른 이름을 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "userId") {
         				if (value === "") {
         					let text = "<div class='valid' style='color: red;''>아이디를 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				} else if (!ID_CHECK.test(value)) {
         					let text = "<div class='valid' style='color: red;''>유효하지 않은 아이디입니다.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "dob") {
         				let now = new Date();
         				if (value === "") {
         					let text = "<div class='valid' style='color: red;''>생일을 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				} else if (now.getFullYear() - Number(value.substr(0, 4)) <= 19) {
         					let text = "<div class='valid' style='color: red;''>만 19세 이상 가입할 수 있습니다.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "phone") {
         				if (value === "") {
         					let text = "<div class='valid' style='color: red;''>핸드폰 번호를 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				} else if (!PHONE_CHECK.test(value)) {
         					let text = "<div class='valid' style='color: red;''>유효하지 않은 번호입니다.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "nickname") {
         				if (value === "") {
         					let text = "<div class='valid' style='color: red;''>닉네임을 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				} else if (!NICKNAME_CHECK.test(value)) {
         					let text = "<div class='valid' style='color: red;''>유효하지 않은 닉네임입니다.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				}
         			}
         		} else if ($(".form-input").eq(i).find("input[type=password]").length > 0) {
@@ -292,17 +299,17 @@
         				if (value === "") {
         					let text = "<div class='valid' style='color: red;''>비밀번호를 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				} else if (!PASSWORD_CHECK.test(value)) {
         					let text = "<div class='valid' style='color: red;''>대문자 최소 1개, 소문자 최소 1개, 숫자 최소 1개, 특수문자 최소 1개</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=password]").attr("id") === "confirmPassword") {
         				if (value === "" || value !== $("#password").val()) {
         					let text = "<div class='valid' style='color: red;''>비밀번호가 일치하지 않습니다.</div>";
         					$(".col-md-6").eq(i).append(text);
-        					return;
+        					return false;
         				}
         			}
         		} else if ($(".form-input").eq(i).find("input[type=email]").length > 0) {
@@ -311,11 +318,11 @@
        				if (value === "") {
        					let text = "<div class='valid' style='color: red;''>이메일을 입력해주세요.</div>";
        					$(".col-md-6").eq(i).append(text);
-       					return;
+       					return false;
        				} else if (!EMAIL_CHECK.test(value)) {
        					let text = "<div class='valid' style='color: red;''>올바른 이메일을 입력해주세요.</div>";
        					$(".col-md-6").eq(i).append(text);
-       					return;
+       					return false;
        				}
         		} else if ($(".form-input").eq(i).find("select").length > 0) {
 					let value = $(".form-input").eq(i).find("select").val();
@@ -328,11 +335,23 @@
        						text = "<div class='valid' style='color: red;''>지역을 선택해주세요.</div>";
        					}
        					$(".col-md-6").eq(i).append(text);
-       					return;
+       					return false;
        				}
         		}
         	}
-        });
+        	
+        	if ($("img").attr("src") === "") {
+        		let text = "<div class='valid' style='color: red;''>사진을 선택해주세요.</div>";
+        		$(".file-upload-container").append(text);
+        		return false;
+        	}
+        	
+        	if (!$("#termsAgreed").is(":checked")) {
+        		$("#termsAgreed").next().css("color", "red");
+        		return false;
+        	}
+        	return true;
+        }
     </script>
 </body>
 </html>
