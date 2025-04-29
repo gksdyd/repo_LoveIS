@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Fervor</title>
+    <title>로그인</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="fervor" />
     <meta name="keywords" content="fervor" />
@@ -19,6 +19,30 @@
     <link rel="stylesheet" type="text/css" href="/love/assets/css/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="/love/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/love/assets/css/responsive.css">
+    
+    <style>
+        /* 유효성 검사 메시지 스타일 */
+        .error-message {
+            color: #ff3860;
+            font-size: 12px;
+            margin-top: 5px;
+            height: 18px; /* 공간을 미리 확보 */
+            display: none; /* 처음에는 숨김 */
+        }
+        .input-error {
+            border-color: #ff3860 !important;
+        }
+        .input-success {
+            border-color: #09c372 !important;
+        }
+        /* 기존 유효성 검사 메시지 숨기기 */
+        input:invalid {
+            box-shadow: none; /* 기본 브라우저 유효성 검사 스타일 제거 */
+        }
+        input:required:invalid {
+            border-color: initial; /* 기본 required 스타일 제거 */
+        }
+    </style>
 </head>
 
 <body>
@@ -70,21 +94,23 @@
                 <div class="singin-right">
                     <div class="main-form">
                         <img src="/love/assets/images/login-logo-Image.png" alt="logo" style="max-width: 200px; display: block; margin: 0 auto; cursor: default;">
-                        <form>
+                        <form id="loginForm" novalidate>
                             <div class="form-input">
                                 <input type="text" name="username" id="username" placeholder="아이디(ID)"
                                     required="">
                                 <label for="username"><i class="fas fa-id-card"></i></label>
+                                <div class="error-message" id="username-error">아이디를 입력해주세요.</div>
                             </div>
                             <div class="form-input">
                                 <input type="password" name="password" id="password" placeholder="비밀번호"
                                     required="">
                                 <label for="password"><i class="fas fa-lock"></i></label>
+                                <div class="error-message" id="password-error">비밀번호를 입력해주세요.</div>
                             </div>
                             <div class="form-input-checkbox">
                                 <input type="checkbox" name="rememberme" id="rememberme">
                                 <label for="rememberme">아이디 저장</label>
-                                <a href="javascript:;">비밀번호 찾기</a>
+                                <a href="/love/user/findPassword">비밀번호 찾기</a>
                             </div>
                             <div class="form-input">
                                 <button class="main-btn" type="submit">로그인</button>
@@ -119,10 +145,172 @@
     <script src="/love/assets/js/range-slider.js"></script>
     <script src="/love/assets/js/custom.js"></script>
     <script>
-        $(window).on("load resize", function () {
-            windowHeight = $(window).height();
-            $(".main-singin-box").css({ "height": windowHeight });
+    $(window).on("load resize", function () {
+        windowHeight = $(window).height();
+        $(".main-singin-box").css({ "height": windowHeight });
+    });
+
+    // 문서 준비 완료 시 실행
+    $(document).ready(function() {
+        // 폼에 novalidate 속성 추가로 기본 HTML5 유효성 검사 비활성화
+        $('#loginForm').attr('novalidate', true);
+        
+        // 필드 검사 상태 추적
+        let hasInteracted = {
+            username: false,
+            password: false
+        };
+        
+        /**
+         * 아이디 유효성 검사 함수
+         */
+        function validateUsername() {
+            const username = $('#username').val().trim();
+            const usernameError = $('#username-error');
+            
+            if (username === '') {
+                $('#username').addClass('input-error').removeClass('input-success');
+                usernameError.text('아이디를 입력해주세요.').show();
+                return false;
+            }
+            
+            // 아이디 형식 검사 (영문, 숫자만 허용, 4자 이상)
+            const regex = /^[a-zA-Z0-9]{4,}$/;
+            if (!regex.test(username)) {
+                $('#username').addClass('input-error').removeClass('input-success');
+                usernameError.text('아이디는 4자 이상의 영문 또는 숫자로 입력해주세요.').show();
+                return false;
+            }
+            
+            // 유효성 통과
+            $('#username').addClass('input-success').removeClass('input-error');
+            usernameError.hide();
+            return true;
+        }
+        
+        /**
+         * 비밀번호 유효성 검사 함수
+         */
+        function validatePassword() {
+            const password = $('#password').val();
+            const passwordError = $('#password-error');
+            
+            if (password === '') {
+                $('#password').addClass('input-error').removeClass('input-success');
+                passwordError.text('비밀번호를 입력해주세요.').show();
+                return false;
+            }
+            
+            if (password.length < 6) {
+                $('#password').addClass('input-error').removeClass('input-success');
+                passwordError.text('비밀번호는 6자 이상이어야 합니다.').show();
+                return false;
+            }
+            
+            // 유효성 통과
+            $('#password').addClass('input-success').removeClass('input-error');
+            passwordError.hide();
+            return true;
+        }
+        
+        // 아이디 입력 시 실시간 검사 (처음 입력 후부터)
+        $('#username').on('input', function() {
+            hasInteracted.username = true;
+            validateUsername();
         });
+        
+        // 비밀번호 입력 시 실시간 검사 (처음 입력 후부터)
+        $('#password').on('input', function() {
+            hasInteracted.password = true;
+            validatePassword();
+        });
+        
+        // 필드 포커스 아웃 시 검사
+        $('#username, #password').on('blur', function() {
+            const fieldId = $(this).attr('id');
+            hasInteracted[fieldId] = true;
+            
+            if (fieldId === 'username') {
+                validateUsername();
+            } else {
+                validatePassword();
+            }
+        });
+        
+        /**
+         * 폼 제출 핸들러
+         */
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            // 모든 필드에 대해 상호작용 플래그 설정
+            hasInteracted.username = true;
+            hasInteracted.password = true;
+            
+            // 모든 필드 검사
+            const isUsernameValid = validateUsername();
+            const isPasswordValid = validatePassword();
+            
+            if (isUsernameValid && isPasswordValid) {
+                performLogin($('#username').val().trim(), $('#password').val());
+            } else {
+                // 유효성 검사 실패 시 첫 번째 오류 필드로 포커스 이동
+                if (!isUsernameValid) {
+                    $('#username').focus();
+                } else if (!isPasswordValid) {
+                    $('#password').focus();
+                }
+            }
+        });
+        
+        /**
+         * 로그인 수행 함수 (AJAX)
+         */
+        function performLogin(username, password) {
+            // 로딩 표시
+            $('#loginBtn').prop('disabled', true).text('로그인 중...');
+            
+            // AJAX로 로그인 요청 (예시)
+            $.ajax({
+            	async: true 
+    			,cache: false
+                ,type: 'POST'
+                ,url: '/love/user/login'
+                ,data: {
+                    username: username,
+                    password: password
+                }
+                ,success: function(response) {
+                    if (response.success) {
+                        // 로그인 성공 시 리다이렉트
+                        window.location.href = '/love/main';
+                    } else {
+                        // 로그인 실패 시 에러 메시지 표시
+                        alert(response.message || '로그인에 실패했습니다.');
+                        $('#loginBtn').prop('disabled', false).text('로그인');
+                    }
+                }
+                ,error: function() {
+                    alert('서버 오류가 발생했습니다.');
+                    $('#loginBtn').prop('disabled', false).text('로그인');
+                }
+            });
+        }
+        
+        // 아이디 저장 기능 (기존과 동일)
+        if (localStorage.getItem('rememberedUsername')) {
+            $('#username').val(localStorage.getItem('rememberedUsername'));
+            $('#rememberme').prop('checked', true);
+        }
+        
+        $('#rememberme').change(function() {
+            if ($(this).is(':checked')) {
+                localStorage.setItem('rememberedUsername', $('#username').val());
+            } else {
+                localStorage.removeItem('rememberedUsername');
+            }
+        });
+    });
 
     </script>
 </body>
