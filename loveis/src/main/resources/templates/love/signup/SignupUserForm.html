@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>회원가입</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="회원가입 페이지" />
+    <meta name="keywords" content="회원가입" />
+    <meta name="author" content="" />
+    <meta name="MobileOptimized" content="320" />
+    <link rel="icon" type="image/png" href="/love/assets/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/owl.carousel.css" />
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/love/assets/css/responsive.css">
+    <style>
+    	
+	    	/* [수정] 기존 left → right로 변경 및 패딩 조정 */
+	    .form-input label {
+	        position: absolute;
+	        right: 15px; /* [변경] left → right */
+	        top: 50%;
+	        transform: translateY(-50%);
+	        color: #ff6b6b;
+	    }
+	    
+	    /* [수정] 오른쪽 아이콘을 위한 패딩 추가 */
+	    .form-input input {
+	        padding-right: 40px !important; /* [추가] 오른쪽 패딩 */
+	        padding-left: 15px !important;  /* [조정] 왼쪽 패딩 */
+	    }
+    	
+        /* 달력이 다른 요소들 위에 표시되도록 z-index 조정 */
+        .ui-datepicker {
+            z-index: 9999 !important; /* 매우 높은 값으로 설정 */
+            position: absolute;
+        }
+    	
+        /* 날짜 선택기 커스텀 스타일 */
+        .date-picker-container {
+            position: relative;
+        }
+        
+        .date-picker-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff6b6b;
+            z-index: 2;
+        }
+        
+        #dob {
+            padding-left: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 파일 업로드 커스텀 스타일 */
+        .file-upload-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .file-upload-label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .file-upload-wrapper {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .file-upload-btn {
+            background: #f8f9fa;
+            border: 1px dashed #ddd;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .file-upload-btn i {
+            color: #ff6b6b;
+            margin-right: 8px;
+        }
+        
+        #profileImage {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .selected-file {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #495057;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preloder" id="preloder">
+        <div class="heart">
+            <div class="heart-piece-0"></div>
+            <div class="heart-piece-1"></div>
+            <div class="heart-piece-2"></div>
+            <div class="heart-piece-3"></div>
+            <div class="heart-piece-4"></div>
+            <div class="heart-piece-5"></div>
+            <div class="heart-piece-6"></div>
+            <div class="heart-piece-7"></div>
+            <div class="heart-piece-8"></div>
+            <p>loading...</p>
+        </div>
+    </div>
+    <div class="main-singin-box">
+        <div class="container">
+            <div class="singin-box" style="width: 100%; max-width: 600px; margin: 0 auto;">
+                <div class="singin-right" style="width: 100%;">
+                    <div class="main-form">
+                        <h4 style="text-align: center; margin-bottom: 25px;">회원가입</h4>
+                        <form th:action="@{/register}" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- 이름 -->
+                                    <div class="form-input">
+                                        <input type="text" name="name" id="name" placeholder="이름" required>
+                                        <label for="name"><i class="fas fa-user"></i></label>
+                                    </div>
+                                    
+                                    <!-- 생년월일 -->
+                                    <div class="form-input">
+									    <input type="text" id="dob" name="dob" placeholder="생년월일 선택" required>
+									    <label for="dob"><i class="fas fa-birthday-cake"></i></label> <!-- [유지] 케이크 아이콘 -->
+									</div>
+                                    
+                                    <!-- 이메일 -->
+                                    <div class="form-input">
+                                        <input type="email" name="email" id="email" placeholder="이메일 주소" required>
+                                        <label for="email"><i class="fas fa-envelope"></i></label>
+                                    </div>
+                                    
+                                    <!-- 전화번호 -->
+                                    <div class="form-input">
+                                        <input type="tel" name="phone" id="phone" placeholder="전화번호" required>
+                                        <label for="phone"><i class="fas fa-phone"></i></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- 아이디 -->
+                                    <div class="form-input">
+                                        <input type="text" name="username" id="username" placeholder="아이디" required>
+                                        <label for="username"><i class="fas fa-id-card"></i></label>
+                                    </div>
+                                    
+                                    <!-- 비밀번호 -->
+                                    <div class="form-input">
+                                        <input type="password" name="password" id="password" placeholder="비밀번호" required>
+                                        <label for="password"><i class="fas fa-lock"></i></label>
+                                    </div>
+                                    
+                                    <!-- 비밀번호 확인 -->
+                                    <div class="form-input">
+                                        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="비밀번호 확인" required>
+                                        <label for="confirmPassword"><i class="fas fa-lock"></i></label>
+                                    </div>
+                                    
+                                    <!-- 닉네임 -->
+                                    <div class="form-input">
+                                        <input type="text" name="nickname" id="nickname" placeholder="닉네임" required>
+                                        <label for="nickname"><i class="fas fa-user-tag"></i></label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 주소 -->
+                            <div class="form-input">
+                                <input type="text" name="address" id="address" placeholder="주소" required>
+                                <label for="address"><i class="fas fa-home"></i></label>
+                            </div>
+                            
+                            <!-- 사진 업로드 (수정된 부분) -->
+                            <div class="file-upload-container">
+                                <label class="file-upload-label">프로필 사진</label>
+                                <div class="file-upload-wrapper">
+                                    <label for="profileImage" class="file-upload-btn">
+                                        <i class="fas fa-camera"></i>
+                                        파일 선택
+                                    </label>
+                                    <input type="file" name="profileImage" id="profileImage" accept="image/*">
+                                </div>
+                                <div class="selected-file" id="selectedFileName"></div>
+                            </div>
+                            
+                            <!-- 약관 동의 -->
+                            <div class="form-input-checkbox" style="text-align: center; margin: 20px 0;">
+                                <input type="checkbox" name="termsAgreed" id="termsAgreed" required>
+                                <label for="termsAgreed">이용약관 및 개인정보 처리방침에 동의합니다</label>
+                            </div>
+                            
+                            <!-- 제출 버튼 -->
+                            <div class="form-input" style="text-align: center;">
+                                <button class="main-btn" type="submit" style="width: 200px; margin: 0 auto;">회원가입</button>
+                            </div>
+                        </form>
+                        <p style="text-align: center; margin-top: 20px;">이미 회원이신가요? <a href="login.html">로그인</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/love/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/love/assets/js/jquery-ui.min.js"></script>
+    <script src="/love/assets/js/bootstrap.min.js"></script>
+    <script src="/love/assets/js/bootstrap.bundle.js"></script>
+    <script src="/love/assets/js/vanilla-tilt.min.js"></script>
+    <script src="/love/assets/js/owl.carousel.js"></script>
+    <script src="/love/assets/js/range-slider.js"></script>
+    <script src="/love/assets/js/custom.js"></script>
+    <script>
+        $(window).on("load resize", function () {
+            var windowHeight = $(window).height();
+            $(".main-singin-box").css({ 
+                "min-height": windowHeight,
+                "height": "auto"
+            });
+        });
+        
+        // 날짜 선택기 초기화
+        $(function() {
+            $("#dob").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '1900:+0'
+            });
+            
+            // 파일 선택 이벤트 처리
+            $("#profileImage").change(function() {
+                const fileName = $(this).val().split('\\').pop();
+                if(fileName) {
+                    $("#selectedFileName").text(fileName).show();
+                } else {
+                    $("#selectedFileName").hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
