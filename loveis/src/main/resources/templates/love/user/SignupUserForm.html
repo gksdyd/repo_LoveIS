@@ -55,8 +55,8 @@
                                 <div class="col-md-6">
                                 	<!-- 아이디 -->
                                     <div class="form-input">
-                                        <input type="text" name="username" id="username" placeholder="아이디" required>
-                                        <label for="username"><i class="fas fa-id-card"></i></label>
+                                        <input type="text" name=userId id="userId" placeholder="아이디" required>
+                                        <label for="userId"><i class="fas fa-id-card"></i></label>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                         		<div class="col-md-6">
                                     <!-- 전화번호 -->
                                     <div class="form-input">
-                                        <input type="tel" name="phone" id="phone" placeholder="전화번호" required>
+                                        <input type="text" name="phone" id="phone" placeholder="전화번호" maxlength="11" required>
                                         <label for="phone"><i class="fas fa-phone"></i></label>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                                 	<!-- 지역 -->
 		                            <div class="form-input">
 		                                <div class="custum-select">
-											<select class="" id="city" required>
+											<select class="" id="local" required>
 												<option value="">&ensp;지역</option>
 												<option value="Man-Looking-a-woman">&ensp;노원구</option>
 												<option value="Woman-Looking-a-Man">&ensp;관악구</option>
@@ -160,9 +160,7 @@
                             </div>
                             
                             <!-- 제출 버튼 -->
-                            <div class="form-input" style="text-align: center;">
-                                <button class="main-btn" type="button" style="width: 200px; margin: 0 auto;">회원가입</button>
-                            </div>
+                            <button class="main-btn" type="button" style="width: 200px; margin: 0 auto;">회원가입</button>
                         </form>
                         <p style="text-align: center; margin-top: 20px;">이미 회원이신가요? <a href="/love/user/LoginUserForm">로그인</a></p>
                     </div>
@@ -181,6 +179,7 @@
     <script src="/love/assets/js/owl.carousel.js"></script>
     <script src="/love/assets/js/range-slider.js"></script>
     <script src="/love/assets/js/custom.js"></script>
+    <script src="/love/assets/js/constant.js"></script>
     
     <script>
         $(document).ready(function() {
@@ -226,7 +225,113 @@
         });
         
         $(".main-btn").on("click", function() {
-        	alert("dfs");
+        	let count = $(".form-input").length;
+        	
+        	$(".valid").remove();
+        	
+        	for(let i = 0; i < count; i++) {
+        		if ($(".form-input").eq(i).find("input[type=text]").length > 0) {
+        			let value = $(".form-input").eq(i).find("input[type=text]").val();
+        			
+        			if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "name") {
+        				if (value === "") {
+        					let text = "<div class='valid' style='color: red;''>이름을 입력해주세요.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				} else if (!NAME_CHECK.test(value)) {
+        					let text = "<div class='valid' style='color: red;''>올바른 이름을 입력해주세요.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				}
+        			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "userId") {
+        				if (value === "") {
+        					let text = "<div class='valid' style='color: red;''>아이디를 입력해주세요.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				} else if (!ID_CHECK.test(value)) {
+        					let text = "<div class='valid' style='color: red;''>유효하지 않은 아이디입니다.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				}
+        			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "dob") {
+        				let now = new Date();
+        				if (value === "") {
+        					let text = "<div class='valid' style='color: red;''>생일을 입력해주세요.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				} else if (now.getFullYear() - Number(value.substr(0, 4)) <= 19) {
+        					let text = "<div class='valid' style='color: red;''>만 19세 이상 가입할 수 있습니다.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				}
+        			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "phone") {
+        				if (value === "") {
+        					let text = "<div class='valid' style='color: red;''>핸드폰 번호를 입력해주세요.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				} else if (!PHONE_CHECK.test(value)) {
+        					let text = "<div class='valid' style='color: red;''>유효하지 않은 번호입니다.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				}
+        			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "nickname") {
+        				if (value === "") {
+        					let text = "<div class='valid' style='color: red;''>닉네임을 입력해주세요.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				} else if (!NICKNAME_CHECK.test(value)) {
+        					let text = "<div class='valid' style='color: red;''>유효하지 않은 닉네임입니다.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				}
+        			}
+        		} else if ($(".form-input").eq(i).find("input[type=password]").length > 0) {
+        			let value = $(".form-input").eq(i).find("input[type=password]").val();
+        			
+        			if ($(".form-input").eq(i).find("input[type=password]").attr("id") === "password") {
+        				if (value === "") {
+        					let text = "<div class='valid' style='color: red;''>비밀번호를 입력해주세요.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				} else if (!PASSWORD_CHECK.test(value)) {
+        					let text = "<div class='valid' style='color: red;''>대문자 최소 1개, 소문자 최소 1개, 숫자 최소 1개, 특수문자 최소 1개</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				}
+        			} else if ($(".form-input").eq(i).find("input[type=password]").attr("id") === "confirmPassword") {
+        				if (value === "" || value !== $("#password").val()) {
+        					let text = "<div class='valid' style='color: red;''>비밀번호가 일치하지 않습니다.</div>";
+        					$(".col-md-6").eq(i).append(text);
+        					return;
+        				}
+        			}
+        		} else if ($(".form-input").eq(i).find("input[type=email]").length > 0) {
+					let value = $(".form-input").eq(i).find("input[type=email]").val();
+        			
+       				if (value === "") {
+       					let text = "<div class='valid' style='color: red;''>이메일을 입력해주세요.</div>";
+       					$(".col-md-6").eq(i).append(text);
+       					return;
+       				} else if (!EMAIL_CHECK.test(value)) {
+       					let text = "<div class='valid' style='color: red;''>올바른 이메일을 입력해주세요.</div>";
+       					$(".col-md-6").eq(i).append(text);
+       					return;
+       				}
+        		} else if ($(".form-input").eq(i).find("select").length > 0) {
+					let value = $(".form-input").eq(i).find("select").val();
+        			
+       				if (value === "") {
+       					let text;
+       					if ($(".form-input").eq(i).find("select").attr("id") === "city") {
+       						text = "<div class='valid' style='color: red;''>도시를 선택해주세요.</div>";
+       					} else if ($(".form-input").eq(i).find("select").attr("id") === "local") {
+       						text = "<div class='valid' style='color: red;''>지역을 선택해주세요.</div>";
+       					}
+       					$(".col-md-6").eq(i).append(text);
+       					return;
+       				}
+        		}
+        	}
         });
     </script>
 </body>
