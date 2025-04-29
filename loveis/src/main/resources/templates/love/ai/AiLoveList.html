@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
-  <div th:replace="~{love/include/head :: head}"></div>
+   <div th:replace="~{love/include/aihead :: aihead}"></div>
 	<div class="main-my-profile w-100 float-start">
 		<div class="container">
 			<div class="match-slider">
@@ -70,11 +70,11 @@
 								intellectual/psychological mindfuck movies (watched).
 							</p>
 							<ul class="media-list" style="white-space: nowrap;">
-								<li data-tooltip="OOTD"><a href="#" class="active" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="fas fa-redo-alt" id="ootd"></i></a></li>
+								<li data-tooltip="애정도"><a href="#" class="active"><i class="fas fa-bolt" id="affection"></i></a></li>
+								<li data-tooltip="OOTD"><a href="#" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="fas fa-redo-alt" id="ootd"></i></a></li>
 								<li data-tooltip="오늘의 운세"><a href="#" ><i class="fas fa-expand-arrows-alt"></i></a></li>
 								<li data-tooltip="내 프로필 어때?"><a href="#"><i class="fas fa-star"></i></a></li>
 								<li data-tooltip="오늘 나의 기분"><a href="#"><i class="fas fa-heart"></i></a></li>
-								<li data-tooltip="애정도"><a href="#"><i class="fas fa-bolt"></i></a></li>
 								<li><a href="#"><i class="fas fa-redo-alt"></i></a></li>
 								<li><a href="#"><i class="fas fa-expand-arrows-alt"></i></a></li>
 								<li><a href="#"><i class="fas fa-star"></i></a></li>
@@ -100,6 +100,24 @@
 				</div>						
 			</div>
 		</div>
+	</div>
+	<div class="modal fade" id="activityModal" tabindex="-1" aria-labelledby="activityModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="activityModalLabel">OOTD</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+			<div class="media-uploader mb-3">
+				<input type="text" id="ootdPhotoUpload" value="">
+			</div>
+	      </div>
+	      <div class="modal-footer">
+			<button type="button" id="submitOotdBtn" class="main-btn">전송</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	<div th:replace="~{love/include/footer :: footer}"></div>		
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>		
@@ -153,6 +171,7 @@
 		});
 
 	</script>
+	
 	<script type="application/javascript">
 		let ajaxConfig = {
 			ajaxRequester: function (config, uploadFile, pCall, sCall, eCall) {
@@ -170,8 +189,8 @@
 				}, 300)
 			}
 		}
-		$("#activityPhotoUploder").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
-		$("#activityAttachFileUploader").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
+		$("#ootdPhotoUpload").uploader({multiple: false, ajaxConfig: ajaxConfig,autoUpload: false})
+		$("#ootdAttachFileUploader").uploader({multiple: false, ajaxConfig: ajaxConfig,autoUpload: false})
 	</script>
 	
 	<script>
@@ -253,8 +272,8 @@
 	  });
 	});
 
-	// 기본적으로 'OOTD' 버튼을 active 상태로 만들기
-	document.querySelector('li[data-tooltip="OOTD"] a').classList.add('active');
+	// 기본적으로 'affection' 버튼을 active 상태로 만들기
+	document.querySelector('li[data-tooltip="affection"] a').classList.add('active');
 	</script>
 	
 

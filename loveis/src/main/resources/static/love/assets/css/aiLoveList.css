@@ -1,0 +1,86 @@
+/* 업로드 영역 전체 크기 키우기 */
+.jquery-uploader-select-card {
+  width: 250px;
+  height: 250px;
+  border: 2px dashed #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto; /* 가운데 정렬 */
+}
+
+/* 아이콘과 텍스트 정렬 */
+.jquery-uploader-select .upload-button {
+  text-align: center;
+  font-size: 20px;
+}
+
+/* 업로드된 이미지 크게 보이게 */
+.jquery-uploader-preview-container .preview-card {
+  width: 100% !important;
+  height: 300px !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  margin: auto;
+}
+
+/* 1. 업로드 버튼 박스 크게 + 가운데 정렬 */
+.jquery-uploader-select-card {
+  width: 250px;
+  height: 250px;
+  border: 2px dashed #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+/* Upload 텍스트와 아이콘 정렬 */
+.jquery-uploader-select .upload-button {
+  text-align: center;
+  font-size: 20px;
+}
+
+/* 2. 업로드 후 미리보기 카드 전체 크기 설정 + 정렬 */
+.jquery-uploader-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jquery-uploader-card {
+  width: 250px !important;
+  height: 250px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  box-shadow: 0 0 0 0 transparent !important; /* 필요에 따라 제거 가능 */
+}
+
+/* 3. 업로드된 이미지 자체 크게 만들기 */
+.jquery-uploader-card img.files_img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* 부모 li 태그에 대한 스타일 */
+.file-delete {
+  position: relative; /* 부모 요소를 기준으로 자식 요소를 위치시킬 수 있게 해줍니다. */
+  display: flex;
+  justify-content: center;  /* 수평 중앙 */
+  align-items: center; /* 수직 중앙 */
+  width: 40px; /* 아이콘 크기에 맞게 설정 */
+  height: 40px; /* 아이콘 크기에 맞게 설정 */
+  margin-top: 50px;
+  padding: 0;
+}
+
+/* 아이콘을 중앙에 배치 */
+.file-delete i {
+  font-size: 24px; /* 아이콘 크기 설정 */
+  position: relative; /* 부모 요소를 기준으로 상대적인 위치 지정 */
+}
