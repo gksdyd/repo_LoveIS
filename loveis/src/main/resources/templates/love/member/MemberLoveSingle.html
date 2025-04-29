@@ -16,6 +16,7 @@
   <div th:replace="~{love/include/head :: head}"></div>
 	<div class="main-profile w-100 float-start">
 		<div class="container">
+		<form id="form" name="form" method="post" autocomplete="off" enctype="multipart/form-data">
 			<div class="cover-img">
 				<div class="edit-img">
 					<label for="background_input"><i class="far fa-edit"></i></label>
@@ -32,7 +33,7 @@
 				<div class="profile-details">
 					<div class="left">
 						<div class="profile-img">
-							<img src="/love/assets/images/profile-img.png" alt="profile-img" class="img-fluid">
+							<img src="/love/assets/images/profile-img.png" id="profileImage" alt="profile-img" class="img-fluid">
 						</div>
 						<div class="profile-name">
 						
@@ -40,6 +41,7 @@
 							<span>33 year old Woman</span> <br>
 							<label for="profile_input"><i class="far fa-edit"></i></label>
 							<input id="profile_input" type="file" accept="image/*" style="display: none;" />
+					        <button type="button" class="btn btn-primary-sm" style="justify-content: end;">사진변경</button>
 							<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal" id="location" class="font-color-pink"><i class="fas fa-map-marker-alt"></i> Tokyo,
 								Japan</a>
 						</div>
@@ -106,7 +108,7 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div></form>
 		</div>
 	</div>
 	<div class="blog-page pt-0 pb-4 w-100 float-start">
@@ -408,129 +410,215 @@
 		</footer>
 	</div>
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Location</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div id="map" style="width:770px;height:300px;"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-	<div class="modal fade" id="editIntroduceModal" tabindex="-1" aria-labelledby="editIntroduceModal" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editIntroduceModal">자기소개 수정하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="form-floating mb-3">
-		<textarea class="form-control" placeholder=" " id="introduce" name="introduce" style="height: 150px;"></textarea>
-		<label for="exampleTextarea">내용 입력</label>
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModal" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editDetailModal">상세정보 수정하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="row">
-      <div class="col-md-6">
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="gender" name="gender" placeholder=" ">
-    <label for="gender">성별</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="age" name="age" placeholder=" ">
-    <label for="age">나이</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="sido" name="sido" placeholder=" " onclick="sample4_execDaumPostcode()">
-    <label for="sido">시,도</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="sigungu" name="sigungu" placeholder=" " onclick="sample4_execDaumPostcode()">
-    <label for="sigungu">시,군,구</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="dob" name="dob" placeholder=" ">
-    <label for="dob">생일</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="relationship" name="relationship" placeholder=" ">
-    <label for="relationship">관계상태</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="height" name="height" placeholder=" ">
-    <label for="height">키</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="weight" name="weight" placeholder=" ">
-    <label for="weight">몸무게</label>
-  </div>
-</div>
-
-<div class="col-md-6">
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control " id="education" name="education" placeholder=" ">
-    <label for="education">학력</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="mbti" name="mbti" placeholder=" ">
-    <label for="mbti">MBTI</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="interests" name="interests" placeholder=" ">
-    <label for="interests">관심사</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="smoking" name="smoking" placeholder=" ">
-    <label for="smoking">흡연여부</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="pet" name="pet" placeholder=" ">
-    <label for="pet">반려동물</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="mary" name="mary" placeholder=" ">
-    <label for="mary">혼인상태</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="lookfor" name="lookfor" placeholder=" ">
-    <label for="lookfor">연애성향</label>
-  </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="job" name="job" placeholder=" ">
-    <label for="job">직업</label>
-  </div>
-</div>
-
-    </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">Location</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <div id="map" style="width:770px;height:300px;"></div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+		<div class="modal fade" id="editIntroduceModal" tabindex="-1" aria-labelledby="editIntroduceModal" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="editIntroduceModal">자기소개 수정하기</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+		      <form id="formIntroduce" name="formIntroduce">>
+			      <div class="form-floating mb-3">
+					<textarea class="form-control" placeholder=" " id="introduce" name="introduce" style="height: 150px;"></textarea>
+					<label for="exampleTextarea">내용 입력</label>
+				  </div>
+		      </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-primary">저장하기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="modal fade" id="editDetailModal" tabindex="-1" aria-labelledby="editDetailModal" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="editDetailModal">상세정보 수정하기</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body"><form id="formDtail" name="formDetail">
+			<div class="row">
+			  <!-- 왼쪽 컬럼 시작 -->
+			  <div class="col-md-6">
+				<div class="row mb-3">
+					<div class="form-floating col-6">
+						<input type="text" class="form-control form-control-sm" id="height" name="height" placeholder="키">
+						<label for="height">&emsp;키</label>
+					</div>
+					<div class="form-floating col-6">
+						<input type="text" class="form-control form-control-sm" id="weight" name="weight" placeholder="몸무게">
+						<label for="weight">&emsp;몸무게</label>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+					<div class="col custum-select body">
+						<select class="">
+							<option value="" data-display-text="체형">상관없음</option>
+							<option value="USA">마름</option>
+							<option value="Astralia">보통</option>
+							<option value="India">건강미</option>
+							<option value="Astralia">근육질</option>
+							<option value="Astralia">통통</option>
+							<option value="Astralia">풍만</option>
+						</select>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+					<div class="col custum-select style">
+						<select class="">
+							<option value="" data-display-text="스타일">상관없음</option>
+							<option value="Singing">깔끔</option>
+							<option value="Dance">캐주얼</option>
+							<option value="Singing">꾸안꾸</option>
+							<option value="Singing">감성적</option>
+							<option value="Singing">트렌디</option>
+						</select>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+					<div class="col custum-select face">
+						<select class="">
+							<option value="" data-display-text="첫인상">상관없음</option>
+							<option value="Singing">부드러움</option>
+							<option value="Dance">밝은</option>
+							<option value="Singing">진중한</option>
+							<option value="Singing">귀여운</option>
+							<option value="Singing">멋있는</option>
+							<option value="Singing">섹시한</option>
+						</select>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+					<div class="col custum-select personality">
+						<select class="">
+							<option value="" data-display-text="성격">상관없음</option>
+							<option value="Singing">다정한</option>
+							<option value="Dance">차분한</option>
+							<option value="Singing">유쾌한</option>
+							<option value="Singing">배려심있는</option>
+							<option value="Singing">조용한</option>
+							<option value="Singing">활동적인</option>
+						</select>
+					</div>
+			    </div>
+				<div class="row mb-3">
+					<div class="col custum-select smoking">
+						<select class="">
+							<option value="" data-display-text="흡연 여부">상관없음</option>
+							<option value="Dance">흡연자</option>
+							<option value="Singing">비흡연자</option>
+							<option value="Singing">가끔</option>
+						</select>
+					</div>
+			    </div>
+			  </div>
+			
+			  <!-- 오른쪽 컬럼 시작 -->
+			  <div class="col-md-6">
+				<div class="row mb-3">
+					<div class="form-floating col-6">
+					  <input type="text" class="form-control form-control-sm" onclick="sample4_execDaumPostcode()" id="sido" name="sido" placeholder="시,도">
+					  <label for="sido">&emsp;시,도</label>
+					</div>
+					<div class="form-floating col-6">
+					  <input type="text" class="form-control form-control-sm" onclick="sample4_execDaumPostcode()" id="sigungu" name="sigungu" placeholder="시,군,구">
+					    <label for="sigungu">&emsp;시,군,구</label>
+					</div>
+				</div>
+			    <div class="row mb-3">
+					<div class="custum-select education">
+						<select class="">
+							<option value="" data-display-text="학력">상관없음</option>
+							<option value="Dance">중졸</option>
+							<option value="Singing">고졸</option>
+							<option value="Singing">전문학사</option>
+							<option value="Singing">학사</option>
+							<option value="Singing">석사</option>
+							<option value="Singing">박사</option>
+						</select>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+					<div class="col custum-select mbti">
+						<select class="">
+							<option value="" data-display-text="MBTI">상관없음</option>
+							<option value="Singing">ENFJ</option>
+							<option value="Dance">ENTJ</option>
+							<option value="Singing">INFP</option>
+						</select>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+					<div class="col custum-select hobby">
+						<select class="">
+							<option value="" data-display-text="취미">상관없음</option>
+							<option value="Dance">산책</option>
+							<option value="Singing">영화</option>
+							<option value="Singing">음악</option>
+							<option value="Singing">맛집 탐방</option>
+							<option value="Singing">여행</option>
+							<option value="Singing">운동</option>
+							<option value="Singing">독서</option>
+							<option value="Singing">전시회</option>
+						</select>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+					<div class="col custum-select pet">
+						<select class="">
+							<option value="" data-display-text="반려동물">상관없음</option>
+							<option value="Dance">함께 키워요</option>
+							<option value="Singing">좋아해요</option>
+							<option value="Singing">알레르기 있어요</option>
+						</select>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+					<div class="col custum-select dating">
+						<select class="">
+							<option value="" data-display-text="연애성향">상관없음</option>
+							<option value="Singing">진지한 만남</option>
+							<option value="Dance">배려있는 만남</option>
+							<option value="Singing">친구같은 만남</option>
+							<option value="Singing">열정적인 만남</option>
+							<option value="Singing">활동적인 만남</option>
+						</select>
+					</div>
+			    </div>
+			    <div class="row mb-3">
+			      <div class="form-floating col-12">
+			        <input type="text" class="form-control form-control-sm" id="job" name="job" placeholder="직업">
+			        <label for="job">&emsp;직업</label>
+			      </div>
+			    </div>
+			  </div>
+			</div></form>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-primary">저장하기</button>
+	      </div>
+	    </div>
+	  </div>
+	  </div>
+	</div>
 	
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f7d210607aa49a67c830e2baeb80358f&libraries=services"></script>
@@ -612,6 +700,29 @@
 		$("#background_input").change(function () {
 			readURL(this);
 		});
+		
+		$("#profile_input").change(function() {
+            const file = this.files[0];
+            
+            if (file) {
+                if (file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+//                         $("#profileImage").show();
+                        $("#profileImage").attr('src', e.target.result);
+                    }
+                    
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('이미지 파일만 업로드 가능합니다.');
+                    $(this).val('');
+                    $("#imagePreview").hide();
+                }
+            } else {
+                $("#imagePreview").hide();
+            }
+        });
 	</script>
 	<script>
 		$(".tabbox .nav a.slideBottomLine").click(function () {
