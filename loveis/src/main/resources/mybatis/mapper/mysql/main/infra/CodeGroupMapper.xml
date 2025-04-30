@@ -5,7 +5,7 @@
 
 	<resultMap type="com.loveis.demo.module.codegroup.CodeGroupDto" id="resultMapObj"></resultMap>
 	
-	<!-- <sql id="selectCommon">
+	<sql id="selectCommon">
         FROM codegroup a
         WHERE 1=1
         <if test="shUseFlag != null and !shUseFlag.equals('')">AND a.cogrUseFlag = #{shUseFlag}</if>
@@ -143,5 +143,5 @@
 		<foreach collection="listArray" item="item" open="(" separator="," close=")">
 			#{item}
 		</foreach>
-	</delete> -->
+	</delete>
 </mapper>
