@@ -96,6 +96,8 @@
                                 <button class="main-btn" type="button">로그인</button>
                             </div>
                         </form>
+                        
+                        
                         <p>처음 이신가요? <a href="/love/user/SignupUserForm">회원가입</a> </p>
                     </div>
                 </div>
@@ -116,6 +118,26 @@
             </div>
         </div>
     </div>
+	<!-- 로그인 오류 모달 -->
+	<div class="modal fade" id="loginErrorModal" tabindex="-1" role="dialog" aria-labelledby="loginErrorModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="loginErrorModalLabel">로그인 오류</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+	                아이디 또는 비밀번호가 일치하지 않습니다.
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
     <script src="/love/assets/js/jquery-3.6.0.min.js"></script>
     <script src="/love/assets/js/jquery-ui.min.js"></script>
     <script src="/love/assets/js/bootstrap.min.js"></script>
@@ -144,6 +166,15 @@
     	}
     });
     
+    $(".main-btn").on("click", function() {
+        if (!validation()) {
+            $("#loginErrorModal").modal("show");
+            return;
+        }
+        // 유효성 검사 통과 시 폼 제출
+        $("#registerForm").submit();
+    });
+    
     function validation() {
 		let count = $(".form-input").length;
     	
@@ -160,8 +191,6 @@
     					$(".mb-3").eq(i).append(text);
     					return false;
     				} else if (!ID_CHECK.test(value)) {
-    					let text = "<div class='valid' style='color: red;''>올바른 아이디를 입력해주세요.</div>";
-    					$(".mb-3").eq(i).append(text);
     					return false;
     				}
     			}
@@ -174,14 +203,10 @@
     					$(".mb-3").eq(i).append(text);
     					return false;
     				} else if (!PASSWORD_CHECK.test(value)) {
-    					let text = "<div class='valid' style='color: red;''>대문자 최소 1개, 소문자 최소 1개, 숫자 최소 1개, 특수문자 최소 1개</div>";
-    					$(".mb-3").eq(i).append(text);
     					return false;
     				}
     			} else if ($(".form-input").eq(i).find("input[type=password]").attr("id") === "confirmPassword") {
     				if (value === "" || value !== $("#password").val()) {
-    					let text = "<div class='valid' style='color: red;''>비밀번호가 일치하지 않습니다.</div>";
-    					$(".mb-3").eq(i).append(text);
     					return false;
     				}
     			}
