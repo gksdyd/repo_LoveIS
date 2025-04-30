@@ -6,7 +6,7 @@
         <form name="formList" id="formList" method="post" autocomplete="off">
           <input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
           <input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
-          <div class="card mb-3" id="customersTable" data-list='{"valueNames":["#","name", "gender", "id","email", "phone", "address", "petCnt", "resist-date", "modify-date"]}'>
+          <div class="card mb-3" id="customersTable" data-list='{"valueNames":["#","name", "gender", "id","email", "phone", "address", "peanutCnt", "resist-date", "modify-date"]}'>
             <div class="card-header">
               <div class="mb-2 row g-3">
                 <h1>회원 목록</h1>
@@ -77,7 +77,7 @@
                       <th class="text-900 sort white-nowrap" data-sort="email">이메일</th>
                       <th class="text-900 sort white-nowrap" data-sort="phone">전화번호</th>
                       <th class="text-900 sort white-nowrap" data-sort="address">주소</th>
-                      <th class="text-900 sort white-nowrap" data-sort="petCnt">반려동물 수</th>
+                      <th class="text-900 sort white-nowrap" data-sort="peanutCnt">피넛 갯수</th>
                       <th class="text-900 sort white-nowrap" data-sort="resist-date">등록일</th>
                       <th class="text-900 sort white-nowrap text-end" data-sort="modify-date">수정일</th>
                     </tr>
@@ -102,8 +102,8 @@
                       <td class="id"><a th:href="@{/xdm/member/MemberXdmView(userSeq=${list.userSeq})}" th:text="${list.userId}"></a></td>
                       <td class="email" th:text="${list.userEmail}"></td>
                       <td class="phone" th:text="${list.userPhone}"></td>
-                      <td class="address" th:text="${list.userAddr} + ' ' + ${list.userDetailAddr}"></td>
-                      <td class="petCnt"><a th:href="@{/xdm/pet/PetXdmListSelectUser(userSeq=${list.userSeq})}" th:text="${list.petCount}"></a></td>
+                      <td class="address" th:text="${list.userCity} + ' ' + ${list.userLocal}"></td>
+                      <td class="peanutCnt" th:text="${list.userPeanut}"></td>
                       <td class="resist-date" th:text="${list.userRegDate}"></td>
                       <td class="modify-date text-end" th:text="${list.userModDate}"></td>
                     </tr>

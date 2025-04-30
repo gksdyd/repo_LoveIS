@@ -5,7 +5,7 @@
 
 	<resultMap type="com.loveis.demo.module.member.MemberDto" id="resultMapObj"></resultMap>
 	
-	<!-- <sql id="selectCommon">
+	<sql id="selectCommon">
         FROM user a
         WHERE 1=1
         <if test="shDelFlag != null and !shDelFlag.equals('')">AND a.userDelFlag = #{shDelFlag}</if>
@@ -21,7 +21,8 @@
             <when test="shOption == 2">AND a.userId LIKE CONCAT('%',#{shValue},'%')</when>
             <when test="shOption == 3">AND a.userEmail LIKE CONCAT('%',#{shValue},'%')</when>
             <when test="shOption == 4">AND a.userPhone LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 5">AND a.userAddr LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 5">AND a.userCity LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 5">AND a.userLocal LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
     </sql>
     
@@ -33,20 +34,26 @@
 			a.userId,
 			a.userEmail,
 			a.userPhone,
-			a.userAddr,
-			a.userJibunAddr,
-			a.userReference,
-			a.userLatitude,
-			a.userLongitude,
-			a.userDetailAddr,
+			a.userCity,
+			a.userLocal,
+			a.userPeanut,
+			a.userHeight,
+			a.userWeight,
+			a.userEducation,
+			a.userMBTI,
+			a.userSmoking,
+			a.userPetNy,
+			a.userDatingStyle,
+			a.userJob,
+			a.userStyle,
+			a.userFirstFace,
+			a.userChurch,
+			a.userAlcohol,
 			a.userRegDate,
 			a.userModDate,
-			(SELECT
-				COUNT(*)
-			FROM
-				pet
-			WHERE 1=1
-				AND userSeq = user_userSeq) AS petCount
+			(SELECT COUNT(*) FROM hobby WHERE a.userSeq = user_userSeq) AS hobbyCount,
+			(SELECT COUNT(*) FROM personality WHERE a.userSeq = user_userSeq) AS personalCount,
+			(SELECT COUNT(*) FROM interest WHERE a.userSeq = user_userSeq) AS interestCount
 		<include refid="selectCommon"></include>
 		ORDER BY userSeq DESC
 		limit #{rowNumToShow} offset #{startRnumForMysql}
@@ -231,5 +238,5 @@
 		<selectKey resultType="String" keyProperty="reviSeq" order="AFTER">
 			SELECT last_insert_id()
 		</selectKey>
-	</insert> -->
+	</insert>
 </mapper>
