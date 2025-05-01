@@ -51,8 +51,7 @@
 			a.userRegDate,
 			a.userModDate,
 			(SELECT COUNT(*) FROM hobby WHERE a.userSeq = user_userSeq) AS hobbyCount,
-			(SELECT COUNT(*) FROM personality WHERE a.userSeq = user_userSeq) AS personalCount,
-			(SELECT COUNT(*) FROM interest WHERE a.userSeq = user_userSeq) AS interestCount
+			(SELECT COUNT(*) FROM personality WHERE a.userSeq = user_userSeq) AS personalCount
 		<include refid="selectCommon"></include>
 		ORDER BY userSeq DESC
 		limit #{rowNumToShow} offset #{startRnumForMysql}
@@ -65,29 +64,35 @@
 	
 	<select id="selectOne" resultMap="resultMapObj">
 		SELECT
-			userSeq,
-			userGender,
-			userName,
-			userId,
-			userPassword,
-			userBirth,
-			userEmail,
-			userAgency,
-			userPhone,
-			userRecvNotiFlag,
-			userPostCode,
-			userAddr,
-			userJibunAddr,
-			userDetailAddr,
-			userReference,
-			userLatitude,
-			userLongitude,
-			userDelFlag,
-			userSavePoint,
-			userSecession,
-			userEtcReason
+			a.userSeq,
+			a.userGender,
+			a.userName,
+			a.userId,
+			a.userEmail,
+			a.userPhone,
+			a.userCity,
+			a.userLocal,
+			a.userPeanut,
+			a.userHeight,
+			a.userWeight,
+			a.userEducation,
+			a.userMBTI,
+			a.userSmoking,
+			a.userPetNy,
+			a.userDatingStyle,
+			a.userJob,
+			a.userStyle,
+			a.userFirstFace,
+			a.userChurch,
+			a.userAlcohol,
+			a.userRegDate,
+			a.userModDate,
+			h.hobbyText,
+			p.persnalText
 		FROM
-			user
+			user a
+			LEFT JOIN (SELECT user_userSeq, GROUP_CONCAT(hobbText) AS hobbyText FROM hobby GROUP BY user_userSeq) h ON a.userSeq = h.user_userSeq
+			LEFT JOIN (SELECT user_userSeq, GROUP_CONCAT(persText) AS persnalText FROM personality GROUP BY user_userSeq) p ON a.userSeq = p.user_userSeq
 		WHERE 1=1
 			AND userSeq = #{userSeq}
 	</select>

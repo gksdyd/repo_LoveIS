@@ -33,14 +33,12 @@ public class MemberDto {
 	private String persSeq;
 	private Integer persText;
 	private Integer personalCount;
-	
-	private String inteSeq;
-	private Integer inteText;
-	private Integer interestCount;
+	private String persnalText;
 	
 	private String hobbSeq;
 	private Integer hobbText;
 	private Integer hobbyCount;
+	private String hobbyText;
 	
 	private String newPassword;
 	
@@ -224,18 +222,6 @@ public class MemberDto {
 	public void setPersText(Integer persText) {
 		this.persText = persText;
 	}
-	public String getInteSeq() {
-		return inteSeq;
-	}
-	public void setInteSeq(String inteSeq) {
-		this.inteSeq = inteSeq;
-	}
-	public Integer getInteText() {
-		return inteText;
-	}
-	public void setInteText(Integer inteText) {
-		this.inteText = inteText;
-	}
 	public String getHobbSeq() {
 		return hobbSeq;
 	}
@@ -254,16 +240,22 @@ public class MemberDto {
 	public void setPersonalCount(Integer personalCount) {
 		this.personalCount = personalCount;
 	}
-	public Integer getInterestCount() {
-		return interestCount;
-	}
-	public void setInterestCount(Integer interestCount) {
-		this.interestCount = interestCount;
-	}
 	public Integer getHobbyCount() {
 		return hobbyCount;
 	}
 	public void setHobbyCount(Integer hobbyCount) {
 		this.hobbyCount = hobbyCount;
+	}
+	public String getPersnalText() {
+		return persnalText;
+	}
+	public void setPersnalText(String persnalText) {
+		this.persnalText = persnalText;
+	}
+	public String getHobbyText() {
+		return hobbyText;
+	}
+	public void setHobbyText(String hobbyText) {
+		this.hobbyText = hobbyText;
 	}
 }

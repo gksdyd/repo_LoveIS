@@ -47,40 +47,140 @@
                 <div class="col-3">
                   <label class="form-label-JHY" for="userPhone">전화번호</label>
                 </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userCity">도시</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userLocal">지역</label>
+                </div>
               </div>
-              <div class="row g-3">
+              <div class="mb-3 row g-3">
                 <div class="col-3">
                   <input class="form-control-JHY" name="userEmail" id="userEmail" type="text" th:value="${item.userEmail}" />
-                  <div class="d-flex mt-2">
-                    <input class="form-check" name="userRecvNotiFlag" id="userRecvNotiFlag" th:if="${item.userRecvNotiFlag} == '0'" type="checkbox">
-                    <input class="form-check" name="userRecvNotiFlag" id="userRecvNotiFlag" th:if="${item.userRecvNotiFlag} == '1'" type="checkbox" checked>
-                    <span class="fs-10">&ensp;이메일 수신 알림 동의</span>
-                  </div>
                 </div>
                 <div class="col-3">
                   <input class="form-control-JHY" name="userPhone" id="userPhone" type="text" th:value="${item.userPhone}" />
                 </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userCity" id="userCity" type="text" th:value="${item.userCity}" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userLocal" id="userLocal" type="text" th:value="${item.userLocal}" />
+                </div>
               </div>
               <div class="row g-3">
                 <div class="col-3">
-                  <label class="form-label-JHY" for="userPostCode">우편번호</label>
+                  <label class="form-label-JHY" for="userWeight">무게</label>
                 </div>
                 <div class="col-3">
-                  <label class="form-label-JHY" for="userAddr">주소</label>
+                  <label class="form-label-JHY" for="userHeight">키</label>
                 </div>
                 <div class="col-3">
-                  <label class="form-label-JHY" for="userDetailAddr">상세 주소</label>
+                  <label class="form-label-JHY" for="userEducation">학력</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userMBTI">MBTI</label>
                 </div>
               </div>
-              <div class="row g-3 mb-1">
+              <div class="mb-3 row g-3">
                 <div class="col-3">
-                  <input class="form-control-JHY" name="userPostCode" id="userPostCode" type="text" th:value="${item.userPostCode}" />
+                  <input class="form-control-JHY" name="userWeight" id="userWeight" type="text" th:value="${item.userWeight}" />
                 </div>
                 <div class="col-3">
-                  <input class="form-control-JHY" name="userAddr" id="userAddr" type="text" th:value="${item.userAddr}" />
+                  <input class="form-control-JHY" name="userHeight" id="userHeight" type="text" th:value="${item.userHeight}" />
                 </div>
                 <div class="col-3">
-                  <input class="form-control-JHY" name="userDetailAddr" id="userDetailAddr" type="text" th:value="${item.userDetailAddr}" />
+                  <input class="form-control-JHY" name="userEducation" id="userEducation" type="text" th:if="${item.userEducation} != null" th:value="${@codeService.selectOneCachedCode(item.userEducation)}" />
+                  <input class="form-control-JHY" name="userEducation" id="userEducation" type="text" th:if="${item.userEducation} == null" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userMBTI" id="userMBTI" type="text" th:if="${item.userMBTI} != null" th:value="${@codeService.selectOneCachedCode(item.userMBTI)}" />
+                  <input class="form-control-JHY" name="userMBTI" id="userMBTI" type="text" th:if="${item.userMBTI} == null" />
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userSmoking">흡연 여부</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userPetNy">반려동물</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userDatingStyle">연애성향</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userJob">직업</label>
+                </div>
+              </div>
+              <div class="mb-3 row g-3">
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userSmoking" id="userSmoking" type="text" th:if="${item.userSmoking} != null" th:value="${@codeService.selectOneCachedCode(item.userSmoking)}" />
+                  <input class="form-control-JHY" name="userSmoking" id="userSmoking" type="text" th:if="${item.userSmoking} == null" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userPetNy" id="userPetNy" type="text" th:if="${item.userPetNy} != null" th:value="${@codeService.selectOneCachedCode(item.userPetNy)}" />
+                  <input class="form-control-JHY" name="userPetNy" id="userPetNy" type="text" th:if="${item.userPetNy} == null" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userDatingStyle" id="userDatingStyle" type="text" th:if="${item.userDatingStyle} != null" th:value="${@codeService.selectOneCachedCode(item.userDatingStyle)}" />
+                  <input class="form-control-JHY" name="userDatingStyle" id="userDatingStyle" type="text" th:if="${item.userDatingStyle} == null" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userJob" id="userJob" type="text" th:value="${item.userJob}" />
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userStyle">스타일</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userFirstFace">첫인상</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userChurch">종교</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userAlcohol">음주 여부</label>
+                </div>
+              </div>
+              <div class="mb-3 row g-3">
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userStyle" id="userStyle" type="text" th:if="${item.userStyle} != null" th:value="${@codeService.selectOneCachedCode(item.userStyle)}" />
+                  <input class="form-control-JHY" name="userStyle" id="userStyle" type="text" th:if="${item.userStyle} == null" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userFirstFace" id="userFirstFace" type="text" th:if="${item.userFirstFace} != null" th:value="${@codeService.selectOneCachedCode(item.userFirstFace)}" />
+                  <input class="form-control-JHY" name="userFirstFace" id="userFirstFace" type="text" th:if="${item.userFirstFace} == null" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userChurch" id="userChurch" type="text" th:if="${item.userChurch} != null" th:value="${@codeService.selectOneCachedCode(item.userChurch)}" />
+                  <input class="form-control-JHY" name="userChurch" id="userChurch" type="text" th:if="${item.userChurch} == null" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userAlcohol" id="userAlcohol" type="text" th:if="${item.userAlcohol} != null" th:value="${@codeService.selectOneCachedCode(item.userAlcohol)}" />
+                  <input class="form-control-JHY" name="userAlcohol" id="userAlcohol" type="text" th:if="${item.userAlcohol} == null" />
+                </div>
+              </div>
+              <div class="row g-3">
+                <div class="col-3">
+                  <label class="form-label-JHY" for="hobbyText">취미</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="persnalText">성격</label>
+                </div>
+                <div class="col-3">
+                  <label class="form-label-JHY" for="userPeanut">피넛 갯수</label>
+                </div>
+              </div>
+              <div class="mb-3 row g-3">
+                <div class="col-3">
+                  <input class="form-control-JHY" name="hobbyText" id="hobbyText" type="text" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="persnalText" id="persnalText" type="text" />
+                </div>
+                <div class="col-3">
+                  <input class="form-control-JHY" name="userPeanut" id="userPeanut" type="text" th:value="${item.userPeanut}" />
                 </div>
               </div>
               <div class="row g-3">
@@ -90,21 +190,6 @@
                   <input class="form-check" type="checkbox" th:if="${item.userDelFlag} == '1'" checked>
                 </div>
               </div>
-              <div class="row g-3">
-                <div class="col-3">
-                  <label class="form-label-JHY" for="userSecession">탈퇴이유</label>
-                </div>
-              </div>
-              <div class="mb-3 row g-3 mb-1">
-                <div class="col-3">
-                  <input class="form-control-JHY" name="userSecession" id="userSecession" type="text" th:value="${@codeService.selectOneCachedCode(item.userSecession)}" />
-                </div>
-              </div>
-              <div class="mb-3 row g-3 mb-1">
-                <div class="col-6">
-                  <textarea class="form-control-JHY" name="userEtcReason" id="userEtcReason" type="text" th:text="${item.userEtcReason}"></textarea>
-                </div>
-              </div>
               <div class="mb-3 row g-3">
                 <div class="col">
                   <a href="/xdm/member/MemberXdmList"><button class="btn btn-outline-dark btn-sm" type="button"><span class="fas fa-list-ul"></span></button></a>
@@ -112,15 +197,42 @@
               </div>
             </div>
           </div>
-          <div th:replace="~{xdm/include/footer :: footer}"><div>
+          <div th:replace="~{xdm/include/footer :: footer}"></div>
         </div>
       </div>
     </main>
   <!-- ===============================================-->
   <!--    End of Main Content-->
   <!-- ===============================================-->
-  <div th:replace="~{xdm/include/includeXdmFalcon :: includeXdmFalcon}"><div>
-    <div th:replace="~{xdm/include/includeXdmCommon :: includeXdmCommon}"></div>
+  <div th:replace="~{xdm/include/includeXdmFalcon :: includeXdmFalcon}"></div>
+  <div th:replace="~{xdm/include/includeXdmCommon :: includeXdmCommon}"></div>
+  <script th:inline="javascript">
+    window.cache = /*[[${code}]]*/ [];
+    let hobby = /*[[${item.hobbyText}]]*/"";
+    let personal = /*[[${item.persnalText}]]*/"";
+    let arr1 = hobby.split(",");
+    let arr2 = personal.split(",");
+
+    let text1 = "";
+    arr1.forEach(function(h, index) {
+      text1 += window.cache[h - 1].codeName;
+      if (index < arr1.length - 1) {
+        text1 += ", ";
+      }
+    });
+
+    $("#hobbyText").val(text1);
+
+    let text2 = "";
+    arr2.forEach(function(h, index) {
+      text2 += window.cache[h - 1].codeName;
+      if (index < arr2.length - 1) {
+        text2 += ", ";
+      }
+    });
+
+    $("#persnalText").val(text2);
+  </script>
   </body>
   
   </html>

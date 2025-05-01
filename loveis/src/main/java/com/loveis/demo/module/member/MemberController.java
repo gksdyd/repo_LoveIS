@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.loveis.demo.module.base.BaseController;
 import com.loveis.demo.module.base.Constants;
+import com.loveis.demo.module.code.CodeDto;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -34,6 +35,7 @@ public class MemberController extends BaseController {
 	
 	@RequestMapping(value = "/MemberXdmView")
 	public String memberXdmView(Model model, MemberDto memberDto) {
+		model.addAttribute("code", CodeDto.cachedCodeArrayList);
 		model.addAttribute("item", memberService.selectOne(memberDto));
 		return "xdm/member/MemberXdmView";
 	}
