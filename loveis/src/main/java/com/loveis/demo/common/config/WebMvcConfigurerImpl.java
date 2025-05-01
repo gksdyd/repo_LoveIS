@@ -14,7 +14,7 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer {
 		registry.addInterceptor(new CheckLoginSessionInterceptor())
 //		.order(1)
 //		.addPathPatterns("/*/*/*Xdm*", "/*/*/*Love*")
-		.addPathPatterns("")
+		.addPathPatterns("/*/*/*Xdm*")
 		.excludePathPatterns(
 //				"/resources/**",
 				"/static/**",
