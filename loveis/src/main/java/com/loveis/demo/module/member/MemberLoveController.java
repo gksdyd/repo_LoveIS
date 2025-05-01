@@ -107,6 +107,7 @@ public class MemberLoveController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/SignUpLoveProc")
     public void signUpLoveProc(MemberDto dto) throws Exception {
+    	dto.setUserPassword(encodeBcrypt(dto.getUserPassword(), 10));
     	memberService.insert(dto);
     }
 }
