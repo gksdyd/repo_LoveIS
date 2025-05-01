@@ -103,4 +103,10 @@ public class MemberLoveController extends BaseController {
         // DB 조회 로직 필요 (예시: memberService.findByUsernameAndEmail(username, email))
         return "testuser".equals(username) && "test@email.com".equals(email);
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/SignUpLoveProc")
+    public void signUpLoveProc(MemberDto dto) throws Exception {
+    	memberService.insert(dto);
+    }
 }

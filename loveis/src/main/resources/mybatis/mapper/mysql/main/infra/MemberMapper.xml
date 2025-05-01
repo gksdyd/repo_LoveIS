@@ -133,43 +133,31 @@
 		INSERT INTO user (
 			userGender,
 			userName,
-			userId,
-			userPassword,
+			userNickname,
 			userBirth,
+			userId,
 			userEmail,
-			userAgency,
 			userPhone,
-			userRecvNotiFlag,
-			userPostCode,
-			userAddr,
-			userJibunAddr,
-			userDetailAddr,
-			userReference,
-			userLatitude,
-			userLongitude,
-			userDelFlag,
-			userSavePoint,
-			userRegDate
+			userCity,
+			userLocal,
+			userPeanut,
+			userPassword,
+			userRegDate,
+			userDelFlag
 		) VALUE (
 			#{userGender},
 			#{userName},
-			#{userId},
-			#{userPassword},
+			#{userNickname},
 			#{userBirth},
+			#{userId},
 			#{userEmail},
-			#{userAgency},
 			#{userPhone},
-			#{userRecvNotiFlag},
-			#{userPostCode},
-			#{userAddr},
-			#{userJibunAddr},
-			#{userDetailAddr},
-			#{userReference},
-			#{userLatitude},
-			#{userLongitude},
+			#{userCity},
+			#{userLocal},
 			0,
-			0,
-			date_format(NOW(), '%Y-%m-%d %H:%i:%S')
+			#{userPassword},
+			DATE_FORMAT(CONVERT_TZ(NOW(), 'UTC', 'Asia/Seoul'), '%Y-%m-%d %H:%i:%S'),
+			0
 		)
 		<selectKey resultType="String" keyProperty="userSeq" order="AFTER">
 			SELECT last_insert_id()
@@ -242,5 +230,9 @@
 		<selectKey resultType="String" keyProperty="reviSeq" order="AFTER">
 			SELECT last_insert_id()
 		</selectKey>
+	</insert>
+	
+	<insert id="insertUploaded">
+		<include refid="Base.insertUploaded"></include>
 	</insert>
 </mapper>

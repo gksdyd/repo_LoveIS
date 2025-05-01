@@ -1,10 +1,13 @@
 package com.loveis.demo.module.member;
 
-public class MemberDto {
+import com.loveis.demo.module.base.BaseDto;
+
+public class MemberDto extends BaseDto {
 
 	private String userSeq;	
 	private int userGender;	
 	private String userName;	
+	private String userNickname;	
 	private String userId;
 	private String userPassword;
 	private String userBirth;	
@@ -257,5 +260,11 @@ public class MemberDto {
 	}
 	public void setHobbyText(String hobbyText) {
 		this.hobbyText = hobbyText;
+	}
+	public String getUserNickname() {
+		return userNickname;
+	}
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
 	}
 }

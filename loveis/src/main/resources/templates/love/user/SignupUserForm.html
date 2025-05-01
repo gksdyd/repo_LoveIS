@@ -46,6 +46,20 @@
                         <form th:action="@{/register}" method="post" enctype="multipart/form-data" novalidate id="registerForm">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <!-- 성별 -->
+                                    <div class="form-input">
+		                                <div class="custum-select">
+											<select class="" id="gender" required>
+												<option value="">&ensp;성별</option>
+												<option th:each="gender : ${@codeService.selectListCachedCode(1)}" th:text="'&ensp;' + ${gender.codeName}" th:value="${gender.codeSeq}"></option>
+											</select>
+											<label for="gender"><i class="fas fa-male"></i><i class="fas fa-female"></i></label>
+										</div>
+		                            </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <!-- 이름 -->
                                     <div class="form-input">
                                         <input type="text" name="name" id="name" placeholder="이름" required>
@@ -115,8 +129,8 @@
 		                                <div class="custum-select">
 											<select class="" id="city" required>
 												<option value="">&ensp;도시</option>
-												<option value="Man-Looking-a-woman">&ensp;서울시</option>
-												<option value="Woman-Looking-a-Man">&ensp;부산시</option>
+												<option value="서울시">&ensp;서울시</option>
+												<option value="부산시">&ensp;부산시</option>
 											</select>
 											<label for="city"><i class="fas fa-city"></i></label>
 										</div>
@@ -128,8 +142,8 @@
 		                                <div class="custum-select">
 											<select class="" id="local" required>
 												<option value="">&ensp;지역</option>
-												<option value="Man-Looking-a-woman">&ensp;노원구</option>
-												<option value="Woman-Looking-a-Man">&ensp;관악구</option>
+												<option value="노원구">&ensp;노원구</option>
+												<option value="관악구">&ensp;관악구</option>
 											</select>
 											<label for="city"><i class="fas fa-location"></i></label>
 										</div>
@@ -228,6 +242,37 @@
         	if (!validation()) {
         		return;
         	}
+            
+            let formdata = new FormData();
+            formdata.append("userGender", $("#gender").val());
+            formdata.append("userName", $("#name").val());
+            formdata.append("userId", $("#userId").val());
+            formdata.append("userPassword", $("#password").val());
+            formdata.append("userEmail", $("#email").val());
+            formdata.append("userBirth", $("#dob").val());
+            formdata.append("userPhone", $("#phone").val());
+            formdata.append("userNickname", $("#nickname").val());
+            formdata.append("userCity", $("#city").val());
+            formdata.append("userLocal", $("#local").val());
+            formdata.append("uploadImg1[]", $("#profileImage")[0].files[0]);
+            formdata.append("uploadImg1Type", 1);
+            formdata.append("uploadImg1MaxNumber", 1);
+
+            $.ajax({
+                async: true 
+                ,cache: false
+                ,type: "post"
+                ,url: "/love/member/SignUpLoveProc"
+                ,data: formdata
+                ,processData: false
+                ,contentType: false
+                ,success: function(response) {
+                    location = "/love/index/IndexLoveView";
+                }
+                ,error : function(jqXHR){
+                    alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+                }
+            });
         });
         
         function validation() {
@@ -333,6 +378,8 @@
        						text = "<div class='valid' style='color: red;''>도시를 선택해주세요.</div>";
        					} else if ($(".form-input").eq(i).find("select").attr("id") === "local") {
        						text = "<div class='valid' style='color: red;''>지역을 선택해주세요.</div>";
+       					} else if ($(".form-input").eq(i).find("select").attr("id") === "gender") {
+       						text = "<div class='valid' style='color: red;''>성별을 선택해주세요.</div>";
        					}
        					$(".col-md-6").eq(i).append(text);
        					return false;
