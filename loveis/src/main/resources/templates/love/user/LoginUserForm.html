@@ -65,7 +65,7 @@
                             <a href="javascript:;" class="btn-g"><i class="fab fa-google" style="margin-right: 8px;"></i>Google으로 로그인</a>
                         </li>
                     </ul>
-                    <a href="/love/member/SignupUserForm" class="tag">회원가입</a>
+                    <a href="/love/user/SignupUserForm" class="tag">회원가입</a>
                 </div>
                 <div class="singin-right">
                     <div class="main-form">
@@ -74,31 +74,31 @@
                            <div class="row">
                            	<div class="mb-3">
                             <div class="form-input">
-                                <input type="text" name="userId" id="userId" placeholder="아이디(ID)"
-                                    required>
+                                <input type="text" name="userId" id="userId" placeholder="아이디(ID)" required>
                                 <label for="userId"><i class="fas fa-id-card"></i></label>
+                                <div class='validId' id="validId" style='color: red; display: none;'>아이디를 입력해주세요.</div>
                               </div>                            
                             </div>
                            <div class="mb-3">
                             <div class="form-input">
-                                <input type="password" name="password" id="password" placeholder="비밀번호"
-                                    required>
-                                <label for="password"><i class="fas fa-lock"></i></label>
+                                <input type="password" name="userPassword" id="userPassword" placeholder="비밀번호" onkeyup="enterkey(event)" required>
+                                <label for="userPassword"><i class="fas fa-lock"></i></label>
+                                <div class='validPw' id="validPw" style='color: red; display: none;'>비밀번호를 입력해주세요.</div>
                                 </div>
                             </div>
                            </div>
                             <div class="form-input-checkbox">
                                 <input type="checkbox" name="rememberme" id="rememberme">
                                 <label for="rememberme">아이디 저장</label>
-                                <a href="/love/member/findPassword">비밀번호 찾기</a>
+                                <a href="/love/user/findPassword">비밀번호 찾기</a>
                             </div>
                             <div class="form-input">
-                                <button class="main-btn" type="button">로그인</button>
+                                <button class="main-btn" id="buttonSignIn" name="buttonSignIn" type="button">로그인</button>
                             </div>
                         </form>
                         
                         
-                        <p>처음 이신가요? <a href="/love/member/SignupUserForm">회원가입</a> </p>
+                        <p>처음 이신가요? <a href="/love/user/SignupUserForm">회원가입</a> </p>
                     </div>
                 </div>
             </div>
@@ -119,23 +119,21 @@
         </div>
     </div>
 	<!-- 로그인 오류 모달 -->
-	<div class="modal fade" id="loginErrorModal" tabindex="-1" role="dialog" aria-labelledby="loginErrorModalLabel" aria-hidden="true">
-	    <div class="modal-dialog" role="document">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <h5 class="modal-title" id="loginErrorModalLabel">로그인 오류</h5>
-	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	                    <span aria-hidden="true">&times;</span>
-	                </button>
-	            </div>
-	            <div class="modal-body">
-	                아이디 또는 비밀번호가 일치하지 않습니다.
-	            </div>
-	            <div class="modal-footer">
-	                <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
-	            </div>
-	        </div>
+	<div class="modal fade" id="loginErrorModal" tabindex="-1" aria-labelledby="loginErrorModal" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="loginErrorModal">로그인 오류</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        아이디 또는 비밀번호가 일치하지 않습니다.
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	      </div>
 	    </div>
+	  </div>
 	</div>
 	
     <script src="/love/assets/js/jquery-3.6.0.min.js"></script>
@@ -159,67 +157,52 @@
             });
         });
     });
-    
-    $(".main-btn").on("click", function() {
-    	if (!validation()) {
-    		return;
-    	}
-    });
-    
-    $(".main-btn").on("click", function() {
-        if (!validation()) {
-            $("#loginErrorModal").modal("show");
-            return;
-        }
-        // 유효성 검사 통과 시 폼 제출
-        $("#registerForm").submit();
-    });
-    
-    function validation() {
-		let count = $(".form-input").length;
-    	
-    	$(".valid").remove();
-    	$("#termsAgreed").next().css("color", "");
-    	
-    	for(let i = 0; i < count; i++) {
-    		if ($(".form-input").eq(i).find("input[type=text]").length > 0) {
-    			let value = $(".form-input").eq(i).find("input[type=text]").val();
-    			
-    			if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "userId") {
-    				if (value === "") {
-    					let text = "<div class='valid' style='color: red;''>아이디를 입력해주세요.</div>";
-    					$(".mb-3").eq(i).append(text);
-    					return false;
-    				} else if (!ID_CHECK.test(value)) {
-    					return false;
-    				}
-    			}
-    		} else if ($(".form-input").eq(i).find("input[type=password]").length > 0) {
-    			let value = $(".form-input").eq(i).find("input[type=password]").val();
-    			
-    			if ($(".form-input").eq(i).find("input[type=password]").attr("id") === "password") {
-    				if (value === "") {
-    					let text = "<div class='valid' style='color: red;''>비밀번호를 입력해주세요.</div>";
-    					$(".mb-3").eq(i).append(text);
-    					return false;
-    				} else if (!PASSWORD_CHECK.test(value)) {
-    					return false;
-    				}
-    			} else if ($(".form-input").eq(i).find("input[type=password]").attr("id") === "confirmPassword") {
-    				if (value === "" || value !== $("#password").val()) {
-    					return false;
-    				}
-    			}
-    		}  
-    	}
-    	
-    	if (!$("#termsAgreed").is(":checked")) {
-    		$("#termsAgreed").next().css("color", "red");
-    		return false;
-    	}
-    	return true;
-    }
     </script>
+    
+    <script type="text/javascript">
+function loginLogic (){
+	$.ajax({
+		async: true 
+		,cache: false
+		,type: "post"
+		,url: "/xdm/member/LoginXdmProc"
+		,data : { "userId" : $("#userId").val(), "userPassword" : $("#userPassword").val()}
+		,success: function(response) {
+			if(response.rt == "success") {
+				location.href = "/love/index/IndexLoveView";
+			} else {
+				$("#loginErrorModal").modal("show");
+			}
+		}
+		,error : function(jqXHR, textStatus, errorThrown){
+			alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+		}
+	});
+}
+document.getElementById("buttonSignIn").onclick = function () {
+	if(document.getElementById("userId").value.trim() == null || document.getElementById("userId").value.trim() == "") {
+		$('#validId').show();
+		return false;
+	} else {
+		$('#validId').hide();
+	}
+	if(document.getElementById("userPassword").value.trim() == null || document.getElementById("userPassword").value.trim() == "") {
+		$('#validPw').show();
+		return false;
+	} else {
+		$('#validPw').hide();
+	}
+	loginLogic ();
+}
+
+function enterkey(e) {
+	  if (e.key === "Enter") {
+		  loginLogic ();
+	  }
+	}
+	
+
+</script>
 </body>
 
 </html>
