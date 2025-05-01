@@ -21,8 +21,7 @@
             <when test="shOption == 2">AND a.userId LIKE CONCAT('%',#{shValue},'%')</when>
             <when test="shOption == 3">AND a.userEmail LIKE CONCAT('%',#{shValue},'%')</when>
             <when test="shOption == 4">AND a.userPhone LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 5">AND a.userCity LIKE CONCAT('%',#{shValue},'%')</when>
-            <when test="shOption == 5">AND a.userLocal LIKE CONCAT('%',#{shValue},'%')</when>
+            <when test="shOption == 5">AND CONCAT(a.userCity, a.userLocal) LIKE CONCAT('%',#{shValue},'%')</when>
         </choose>
     </sql>
     

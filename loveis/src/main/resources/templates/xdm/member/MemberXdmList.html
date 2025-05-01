@@ -17,12 +17,6 @@
                     <option value="0" th:selected="${vo.shDelFlag == 0}">N</option>  
                   </select>
                 </div>
-                <div class="col-4">
-                  <select class="form-select-JHY" id="shSecession" name="shSecession" aria-label="Default select example">
-                    <option value="" th:selected="${vo.shDelFlag == null}">탈퇴이유</option>
-                    <option th:each="WithdrawReason : ${@codeService.selectListCachedCode(30)}" th:value="${WithdrawReason.codeSeq}" th:text="${WithdrawReason.codeName}" th:selected="${WithdrawReason.codeSeq} == ${vo.shSecession}"></option>
-                  </select>
-                </div>
               </div>
               <div class="mb-2 row g-3">
                 <div class="col-4">
@@ -79,7 +73,7 @@
                       <th class="text-900 sort white-nowrap" data-sort="address">주소</th>
                       <th class="text-900 sort white-nowrap" data-sort="peanutCnt">피넛 갯수</th>
                       <th class="text-900 sort white-nowrap" data-sort="resist-date">등록일</th>
-                      <th class="text-900 sort white-nowrap text-end" data-sort="modify-date">수정일</th>
+                      <th class="text-900 sort white-nowrap" data-sort="modify-date">수정일</th>
                     </tr>
                   </thead>
                   <tbody class="list" id="table-customers-body">
