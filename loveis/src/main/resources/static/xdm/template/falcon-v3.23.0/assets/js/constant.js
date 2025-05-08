@@ -25,7 +25,7 @@ const URL_PRODUCT_XDM_LIST = "/xdm/product/ProductXdmList";
 
 // 정규식 상수
 const regex1 = /^[a-z|A-Z|0-9|]+$/;
-const regex2 = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|~|/|(-)|,|]+$/;
+const regex2 = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|~|/|(-)|,|+|]+$/;
 const regex3 = /^[a-z|A-Z|0-9|~|/|(-)|,|]+$/;
 const regex4 = /^[0-9|]+$/;
 const regex5 = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|!-/|]+$/;

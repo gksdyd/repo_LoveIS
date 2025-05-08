@@ -79,6 +79,14 @@ public class MemberLoveController extends BaseController {
 		return returnMap;
 	}
 	
+	@RequestMapping(value = "/MemberLoveProc")
+	public String memberLoveProc(@ModelAttribute("vo") MemberVo vo, Model model) {
+		vo.setRowNumToShow(6);
+		vo.setParamsPaging(memberService.selectMemberCount(vo));
+		model.addAttribute("list", memberService.selectMemberList(vo));
+		return "love/include/memberList :: memberList";
+	}
+	
 	// 1. 비밀번호 찾기 화면 띄우기
     @GetMapping("/findPassword")
     public String findPasswordForm() {

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="ko" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="memberList">
+	<div class="col-lg-8 col-md-12 col-12" id="removeMember">
+		<div class="main-members-section">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-12" th:each="list : ${list}">
+					<div class="members-box">
+						<div class="members-img">
+							<img th:if="${list.imagePath == null}" src="/love/assets/images/community-img1.jpg" alt="community-img1" class="img-fluid">
+							<img th:if="${list.imagePath != null}" th:src="${list.imagePath}" alt="community-img1" class="img-fluid" style="width: 350px; height: 320px;">
+							<span class="profile-status off"><i class="far fa-clock"></i> Active 10 days
+								ago</span>
+						</div>
+						<div class="members-text">
+							<a href="profile-single.html">
+								<h6 th:text="${list.userNickname}"></h6>
+							</a>
+							<span th:text="${@codeService.selectOneCachedCode(list.userGender)}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="~{love/include/pagination :: pagination}"></div>
+	</div>
+</th:block>

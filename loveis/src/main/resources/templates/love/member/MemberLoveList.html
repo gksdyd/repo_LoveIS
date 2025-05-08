@@ -3,8 +3,8 @@
   <div th:replace="~{love/include/head :: head}"></div>
 	<div class="blog blog-page community-page w-100 float-start">
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-md-12 col-12">
+			<div class="row" id="refreshMember">
+				<div class="col-lg-8 col-md-12 col-12" id="removeMember">
 					<div class="main-members-section">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6 col-12" th:each="list : ${list}">
@@ -35,135 +35,86 @@
 								<div class="custum-select your-gender">
 									<select class="">
 										<option value="" data-display-text="성별">성별</option>
-										<option value="Man-Looking-a-woman">남성</option>
-										<option value="Woman-Looking-a-Man">여성</option>
+										<option th:each="gender : ${@codeService.selectListCachedCode(1)}" th:text="${gender.codeName}" th:value="${gender.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select age">
 									<select class="">
 										<option value="" data-display-text="나이">상관없음</option>
-										<option value="18+">20+</option>
-										<option value="21+">30+</option>
-										<option value="26+">40+</option>
-										<option value="26+">50+</option>
+										<option th:each="age : ${@codeService.selectListCachedCode(14)}" th:text="${age.codeName}" th:value="${age.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select country">
 									<select class="">
 										<option value="" data-display-text="거리">상관없음</option>
-										<option value="Woman">5km</option>
-										<option value="Woman">10km</option>
-										<option value="Man">20km</option>
-										<option value="Man">50km</option>
+										<option th:each="distance : ${@codeService.selectListCachedCode(15)}" th:text="${distance.codeName}" th:value="${distance.codeSeq}"></option>
 									</select>
 								</div>
 								
 								<div class="custum-select body">
 									<select class="">
 										<option value="" data-display-text="체형">상관없음</option>
-										<option value="USA">마름</option>
-										<option value="Astralia">보통</option>
-										<option value="India">건강미</option>
-										<option value="Astralia">근육질</option>
-										<option value="Astralia">통통</option>
-										<option value="Astralia">풍만</option>
+										<option th:each="weight : ${@codeService.selectListCachedCode(2)}" th:text="${weight.codeName}" th:value="${weight.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select style">
 									<select class="">
 										<option value="" data-display-text="스타일">상관없음</option>
-										<option value="Singing">깔끔</option>
-										<option value="Dance">캐주얼</option>
-										<option value="Singing">꾸안꾸</option>
-										<option value="Singing">감성적</option>
-										<option value="Singing">트렌디</option>
+										<option th:each="style : ${@codeService.selectListCachedCode(3)}" th:text="${style.codeName}" th:value="${style.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select face">
 									<select class="">
 										<option value="" data-display-text="첫인상">상관없음</option>
-										<option value="Singing">부드러움</option>
-										<option value="Dance">밝은</option>
-										<option value="Singing">진중한</option>
-										<option value="Singing">귀여운</option>
-										<option value="Singing">멋있는</option>
-										<option value="Singing">섹시한</option>
+										<option th:each="face : ${@codeService.selectListCachedCode(4)}" th:text="${face.codeName}" th:value="${face.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select personality">
 									<select class="">
 										<option value="" data-display-text="성격">상관없음</option>
-										<option value="Singing">다정한</option>
-										<option value="Dance">차분한</option>
-										<option value="Singing">유쾌한</option>
-										<option value="Singing">배려심있는</option>
-										<option value="Singing">조용한</option>
-										<option value="Singing">활동적인</option>
+										<option th:each="personal : ${@codeService.selectListCachedCode(5)}" th:text="${personal.codeName}" th:value="${personal.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select dating">
 									<select class="">
 										<option value="" data-display-text="연애성향">상관없음</option>
-										<option value="Singing">진지한 만남</option>
-										<option value="Dance">배려있는 만남</option>
-										<option value="Singing">친구같은 만남</option>
-										<option value="Singing">열정적인 만남</option>
-										<option value="Singing">활동적인 만남</option>
+										<option th:each="datingStyle : ${@codeService.selectListCachedCode(12)}" th:text="${datingStyle.codeName}" th:value="${datingStyle.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select mbti">
 									<select class="">
 										<option value="" data-display-text="MBTI">상관없음</option>
-										<option value="Singing">ENFJ</option>
-										<option value="Dance">ENTJ</option>
-										<option value="Singing">INFP</option>
+										<option th:each="mbti : ${@codeService.selectListCachedCode(9)}" th:text="${mbti.codeName}" th:value="${mbti.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select smoking">
 									<select class="">
 										<option value="" data-display-text="흡연 여부">상관없음</option>
-										<option value="Dance">흡연자</option>
-										<option value="Singing">비흡연자</option>
-										<option value="Singing">가끔</option>
+										<option th:each="smoking : ${@codeService.selectListCachedCode(6)}" th:text="${smoking.codeName}" th:value="${smoking.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select hobby">
 									<select class="">
 										<option value="" data-display-text="취미">상관없음</option>
-										<option value="Dance">산책</option>
-										<option value="Singing">영화</option>
-										<option value="Singing">음악</option>
-										<option value="Singing">맛집 탐방</option>
-										<option value="Singing">여행</option>
-										<option value="Singing">운동</option>
-										<option value="Singing">독서</option>
-										<option value="Singing">전시회</option>
+										<option th:each="hobby : ${@codeService.selectListCachedCode(10)}" th:text="${hobby.codeName}" th:value="${hobby.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select pet">
 									<select class="">
 										<option value="" data-display-text="반려동물">상관없음</option>
-										<option value="Dance">함께 키워요</option>
-										<option value="Singing">좋아해요</option>
-										<option value="Singing">알레르기 있어요</option>
+										<option th:each="pet : ${@codeService.selectListCachedCode(11)}" th:text="${pet.codeName}" th:value="${pet.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select church">
 									<select class="">
 										<option value="" data-display-text="종교">상관없음</option>
-										<option value="Dance">기독교</option>
-										<option value="Singing">천주교</option>
-										<option value="Singing">불교</option>
-										<option value="Singing">무교</option>
+										<option th:each="religion : ${@codeService.selectListCachedCode(13)}" th:text="${religion.codeName}" th:value="${religion.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select beer">
 									<select class="">
 										<option value="" data-display-text="음주">상관없음</option>
-										<option value="Dance">거의 안함</option>
-										<option value="Singing">가끔</option>
-										<option value="Singing">분위기 있을 때만</option>
-										<option value="Singing">자주</option>
+										<option th:each="drink : ${@codeService.selectListCachedCode(7)}" th:text="${drink.codeName}" th:value="${drink.codeSeq}"></option>
 									</select>
 								</div>
 								<a href="javascript:;" class="main-btn">연인 찾기</a>
@@ -176,6 +127,7 @@
 	</div>
 	<div th:replace="~{love/include/footer :: footer}"></div>
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
+	<script src="/love/assets/js/pagination.js"></script>
 </body>
 
 </html>
