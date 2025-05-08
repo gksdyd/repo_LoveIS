@@ -1,5 +1,6 @@
 package com.loveis.demo.module.member;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +79,15 @@ public class MemberService extends BaseService {
 	
 	public int selectMemberCount(MemberVo vo) {
 		return memberDao.selectMemberCount(vo);
+	}
+	
+	public Integer calculateAge(String userBirth) {
+		LocalDate now = LocalDate.now();
+		
+		int currYear = now.getYear();
+		
+		int birth = Integer.parseInt(userBirth.substring(0, 4));
+		Integer age = (Integer)(currYear - birth + 1);
+		return age;
 	}
 }

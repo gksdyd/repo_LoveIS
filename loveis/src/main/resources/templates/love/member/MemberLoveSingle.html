@@ -154,9 +154,9 @@
 									<ul>
 										<li>성별 <p th:text="${@codeService.selectOneCachedCode(item?.userGender)}"></p>
 										</li>
-										<li>나이 <p th:text="${item?.userGender}">22 세 </p>
+										<li>나이 <p th:text="${@memberService.calculateAge(item?.userBirth)}">22 세 </p>
 										</li>
-										<li>시,도 <p th:text="${item?.userGender}">경기도 </p>
+										<li>시,도 <p>경기도 </p>
 										</li>
 										<li>시,군,구 <p>과천시</p>
 										</li>
@@ -176,7 +176,7 @@
 										</li>
 										<li>MBTI <p th:text="${@codeService.selectOneCachedCode(item?.userMBTI)}">ESFP</p>
 										</li>
-										<li>관심사 <p th:text="${@codeService.selectOneCachedCode(item?.userGender)}">연애</p>
+										<li>취미 <p th:text="${@codeService.selectOneCachedCode(item?.userGender)}">연애</p>
 										</li>
 										<li>흡연여부 <p th:text="${@codeService.selectOneCachedCode(item?.userSmoking)}">No</p>
 										</li>

@@ -48,6 +48,8 @@ public class MemberDto extends BaseDto {
 	
 	private String imagePath;
 	
+	private Integer userAge;
+//	-----
 	public String getUserSeq() {
 		return userSeq;
 	}
@@ -281,6 +283,12 @@ public class MemberDto extends BaseDto {
 	}
 	public void setUserbodyShape(Integer userbodyShape) {
 		this.userbodyShape = userbodyShape;
+	}
+	public Integer getUserAge() {
+		return userAge;
+	}
+	public void setUserAge(Integer userAge) {
+		this.userAge = userAge;
 	}
 	
 }

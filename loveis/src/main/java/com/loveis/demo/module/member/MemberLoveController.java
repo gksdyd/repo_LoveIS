@@ -34,7 +34,7 @@ public class MemberLoveController extends BaseController {
 		return "love/member/MemberLoveList";
 	}
 	@RequestMapping(value = "/MemberLoveMypage")
-	public String MemberLoveMypage(Model model, MemberDto dto, HttpSession httpSession) {
+	public String MemberLoveMypage(Model model, MemberDto dto, MemberVo vo, HttpSession httpSession) {
 		dto.setUserSeq(httpSession.getAttribute("sessSeqXdm").toString());
 		model.addAttribute("item", memberService.selectOne(dto));
 		return "love/member/MemberLoveSingle";
