@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,10 @@ public class MemberLoveController extends BaseController {
 	MemberService memberService;
 	
 	@RequestMapping(value = "/MemberLoveList")
-	public String memberLoveList() {
+	public String memberLoveList(@ModelAttribute("vo") MemberVo vo, Model model) {
+		vo.setRowNumToShow(6);
+		vo.setParamsPaging(memberService.selectMemberCount(vo));
+		model.addAttribute("list", memberService.selectMemberList(vo));
 		return "love/member/MemberLoveList";
 	}
 	@RequestMapping(value = "/MemberLoveMypage")

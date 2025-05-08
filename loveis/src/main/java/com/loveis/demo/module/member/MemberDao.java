@@ -23,4 +23,6 @@ public interface MemberDao extends BaseDao {
 	public MemberDto checkPhone(MemberDto memberDto);
 	public int reviewInsert(MemberDto memberDto);
 	public int insertUploaded(BaseDto dto);
+	public List<MemberDto> selectMemberList(MemberVo vo);
+	public int selectMemberCount(MemberVo vo);
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="pagination">
+	<div class="main-pagination">
+		<ul class="pagination" style="justify-content: center;">
+			<li th:if="${vo.startPage gt vo.pageNumToShow}">
+				<a href="javascript:goList(${vo.startPage - 1})" th:attr="onclick=|goList('${vo.startPage - 1}')|">
+					<i class="fas fa-arrow-left"></i>
+				</a>
+			</li>
+			<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" th:classappend="${num eq vo.thisPage} ? active : ''">
+				<a th:attr="onclick=|goList('${num}')|" th:text="${num}"></a>
+			</li>
+			<li th:if="${vo.endPage ne vo.totalPages}">
+				<a th:attr="onclick=|goList('${vo.endPage + 1}')|">
+					<i class="fas fa-arrow-right"></i>
+				</a>
+			</li>
+		</ul>
+	</div>
+</th:block>

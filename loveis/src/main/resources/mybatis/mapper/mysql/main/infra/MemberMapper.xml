@@ -235,4 +235,27 @@
 	<insert id="insertUploaded">
 		<include refid="Base.insertUploaded"></include>
 	</insert>
+	
+	<select id="selectMemberList" resultMap="resultMapObj">
+		SELECT
+			userSeq,
+			userGender,
+			userNickname,
+			(SELECT path FROM image WHERE pseq = userSeq AND delNy = 0 AND type = 1) AS imagePath
+		FROM
+			user
+		WHERE 1=1
+			AND userDelFlag = 0
+		ORDER BY userSeq DESC
+		limit #{rowNumToShow} offset #{startRnumForMysql}
+	</select>
+	
+	<select id="selectMemberCount" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			user
+		WHERE 1=1
+			AND userDelFlag = 0
+	</select>
 </mapper>

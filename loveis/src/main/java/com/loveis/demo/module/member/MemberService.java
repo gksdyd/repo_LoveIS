@@ -67,4 +67,12 @@ public class MemberService extends BaseService {
 	public int reviewInsert(MemberDto memberDto) {
 		return memberDao.reviewInsert(memberDto);
 	}
+	
+	public List<MemberDto> selectMemberList(MemberVo vo) {
+		return memberDao.selectMemberList(vo);
+	}
+	
+	public int selectMemberCount(MemberVo vo) {
+		return memberDao.selectMemberCount(vo);
+	}
 }

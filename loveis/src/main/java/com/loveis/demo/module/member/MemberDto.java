@@ -45,6 +45,8 @@ public class MemberDto extends BaseDto {
 	
 	private String newPassword;
 	
+	private String imagePath;
+	
 	public String getUserSeq() {
 		return userSeq;
 	}
@@ -266,5 +268,11 @@ public class MemberDto extends BaseDto {
 	}
 	public void setUserNickname(String userNickname) {
 		this.userNickname = userNickname;
+	}
+	public String getImagePath() {
+		return imagePath;
+	}
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 }
