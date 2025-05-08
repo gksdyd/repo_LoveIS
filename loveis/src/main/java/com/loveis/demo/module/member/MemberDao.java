@@ -15,6 +15,7 @@ public interface MemberDao extends BaseDao {
 	public MemberDto selectOne(MemberDto memberDto);
 	public MemberDto selectOneLogin(MemberDto memberDto);
 	public int update(MemberDto memberDto);
+	public int updateSingle(MemberDto memberDto);
 	public int insert(MemberDto memberDto);
 	public int checkId(MemberDto memberDto);
 	public int checkEmail(MemberDto memberDto);

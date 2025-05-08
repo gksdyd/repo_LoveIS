@@ -16,7 +16,8 @@
   <div th:replace="~{love/include/head :: head}"></div>
 	<div class="main-profile w-100 float-start">
 		<div class="container">
-		<form id="form" name="form" method="post" autocomplete="off" enctype="multipart/form-data">
+		<form id="formImg" name="formImg" method="post" autocomplete="off" enctype="multipart/form-data">
+		<input type="hidden" id="userSeq" name="userSeq" th:value="${item?.userSeq}"/>
 			<div class="cover-img">
 				<div class="edit-img">
 					<label for="background_input"><i class="far fa-edit"></i></label>
@@ -151,43 +152,43 @@
 								<div class="profile-tab w-100 float-start">
 									<h4>상세정보 <span><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editDetailModal" id="location" class="font-color-pink"><i class="far fa-edit edit-icon"></i></a></span></h4>
 									<ul>
-										<li>성별 <p>여성</p>
+										<li>성별 <p th:text="${@codeService.selectOneCachedCode(item?.userGender)}"></p>
 										</li>
-										<li>나이 <p>22 세 </p>
+										<li>나이 <p th:text="${item?.userGender}">22 세 </p>
 										</li>
-										<li>시,도 <p>경기도 </p>
+										<li>시,도 <p th:text="${item?.userGender}">경기도 </p>
 										</li>
 										<li>시,군,구 <p>과천시</p>
 										</li>
-										<li>생일 <p>1997-07-22</p>
+										<li>생일 <p th:text="${item?.userBirth}">1997-07-22</p>
 										</li>
-										<li>체형 <p>건강미</p>
+										<li>체형 <p th:text="${@codeService.selectOneCachedCode(item?.userbodyShape)}">건강미</p>
 										</li>
-										<li>키 <p>161</p>
+										<li>키 <p th:text="${item?.userHeight}">161</p>
 										</li>
-										<li>몸무게 <p>56 </p>
+										<li>몸무게 <p th:text="${item?.userWeight}">56 </p>
 										</li>
-										<li>스타일 <p>캐주얼 </p>
+										<li>스타일 <p th:text="${@codeService.selectOneCachedCode(item?.userStyle)}">캐주얼 </p>
 										</li>
 									</ul>
 									<ul>
-										<li>학력 <p>학사</p>
+										<li>학력 <p th:text="${@codeService.selectOneCachedCode(item?.userEducation)}">학사</p>
 										</li>
-										<li>MBTI <p>ESFP</p>
+										<li>MBTI <p th:text="${@codeService.selectOneCachedCode(item?.userMBTI)}">ESFP</p>
 										</li>
-										<li>관심사 <p>연애</p>
+										<li>관심사 <p th:text="${@codeService.selectOneCachedCode(item?.userGender)}">연애</p>
 										</li>
-										<li>흡연여부 <p>No</p>
+										<li>흡연여부 <p th:text="${@codeService.selectOneCachedCode(item?.userSmoking)}">No</p>
 										</li>
-										<li>음주여부 <p>가끔</p>
+										<li>음주여부 <p th:text="${@codeService.selectOneCachedCode(item?.userAlcohol)}">가끔</p>
 										</li>
-										<li>반려동물 <p>또치</p>
+										<li>반려동물 <p th:text="${@codeService.selectOneCachedCode(item?.userPetNy)}">또치</p>
 										</li>
-										<li>종교 <p>천주교</p>
+										<li>종교 <p th:text="${@codeService.selectOneCachedCode(item?.userChurch)}">천주교</p>
 										</li>
-										<li>연애성향 <p>열정적인 만남</p>
+										<li>연애성향 <p th:text="${@codeService.selectOneCachedCode(item?.userDatingStyle)}">열정적인 만남</p>
 										</li>
-										<li>직업 <p>Designer</p>
+										<li>직업 <p th:text="${item?.userJob}">Designer</p>
 										</li>
 									</ul>
 								</div>
@@ -458,89 +459,68 @@
 	        <h1 class="modal-title fs-5" id="editDetailModal">상세정보 수정하기</h1>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	      <div class="modal-body"><form id="formDtail" name="formDetail">
+	      <div class="modal-body"><form id="formDetail" name="formDetail" method="post">
+	      <input type="hidden" id="userSeqD" name="userSeq" th:value="${item?.userSeq}"/>
+	      
 			<div class="row">
 			  <!-- 왼쪽 컬럼 시작 -->
 			  <div class="col-md-6">
 				<div class="row mb-3">
 					<div class="form-floating col-6">
-						<input type="text" class="form-control form-control-sm" id="height" name="height" placeholder="키">
-						<label for="height">&emsp;키</label>
+						<input type="text" class="form-control form-control-sm" id="userHeight" name="userHeight" th:value="${item?.userHeight}" placeholder="키">
+						<label for="userHeight">&emsp;키</label>
 					</div>
 					<div class="form-floating col-6">
-						<input type="text" class="form-control form-control-sm" id="weight" name="weight" placeholder="몸무게">
-						<label for="weight">&emsp;몸무게</label>
+						<input type="text" class="form-control form-control-sm" id="userWeight" name="userWeight" th:value="${item?.userWeight}" placeholder="몸무게">
+						<label for="userWeight">&emsp;몸무게</label>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select body">
-						<select class="">
+						<select class="" id="userbodyShape" name="userbodyShape" th:value="${item?.userbodyShape}">
 							<option value="" data-display-text="체형">상관없음</option>
-							<option value="USA">마름</option>
-							<option value="Astralia">보통</option>
-							<option value="India">건강미</option>
-							<option value="Astralia">근육질</option>
-							<option value="Astralia">통통</option>
-							<option value="Astralia">풍만</option>
+                     		<option th:each="list : ${@codeService.selectListCachedCode(2)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userbodyShape}"></option>
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select style">
-						<select class="">
+						<select class="" id="userStyle" name="userStyle" th:value="${item?.userStyle}">
 							<option value="" data-display-text="스타일">상관없음</option>
-							<option value="Singing">깔끔</option>
-							<option value="Dance">캐주얼</option>
-							<option value="Singing">꾸안꾸</option>
-							<option value="Singing">감성적</option>
-							<option value="Singing">트렌디</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(3)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userStyle}"></option>
+
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select face">
-						<select class="">
+						<select class="" id="userFirstFace" name="userFirstFace" th:value="${item?.userFirstFace}">
 							<option value="" data-display-text="첫인상">상관없음</option>
-							<option value="Singing">부드러움</option>
-							<option value="Dance">밝은</option>
-							<option value="Singing">진중한</option>
-							<option value="Singing">귀여운</option>
-							<option value="Singing">멋있는</option>
-							<option value="Singing">섹시한</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(4)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userFirstFace}"></option>
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select personality">
-						<select class="">
+						<select class="" id="persText" name="persText" multiple aria-label="Select categories">
 							<option value="" data-display-text="성격">상관없음</option>
-							<option value="Singing">다정한</option>
-							<option value="Dance">차분한</option>
-							<option value="Singing">유쾌한</option>
-							<option value="Singing">배려심있는</option>
-							<option value="Singing">조용한</option>
-							<option value="Singing">활동적인</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(5)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.persText}"></option>
 						</select>
 					</div>
 			    </div>
 				<div class="row mb-3">
 					<div class="col custum-select smoking">
-						<select class="">
+						<select class="" id="userSmoking" name="userSmoking" th:value="${item?.userSmoking}">
 							<option value="" data-display-text="흡연 여부">상관없음</option>
-							<option value="Dance">흡연자</option>
-							<option value="Singing">비흡연자</option>
-							<option value="Singing">가끔</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(6)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userSmoking}"></option>
 						</select>
 					</div>
 			    </div>
 				<div class="row mb-3">
 					<div class="col custum-select church">
-						<select class="">
+						<select class="" id="userChurch" name="userChurch" th:value="${item?.userChurch}">
 							<option value="" data-display-text="종교">상관없음</option>
-							<option value="Dance">기독교</option>
-							<option value="Singing">천주교</option>
-							<option value="Singing">불교</option>
-							<option value="Singing">무교</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(13)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userChurch}"></option>
 						</select>
 					</div>
 			    </div>
@@ -560,86 +540,63 @@
 				</div>
 			    <div class="row mb-3">
 					<div class="custum-select education">
-						<select class="">
+						<select class="" id="userEducation" name="userEducation" th:value="${item?.userEducation}">
 							<option value="" data-display-text="학력">상관없음</option>
-							<option value="Dance">중졸</option>
-							<option value="Singing">고졸</option>
-							<option value="Singing">전문학사</option>
-							<option value="Singing">학사</option>
-							<option value="Singing">석사</option>
-							<option value="Singing">박사</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(8)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userEducation}"></option>
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select mbti">
-						<select class="">
+						<select class="" id="userMBTI" name="userMBTI" th:value="${item?.userMBTI}">
 							<option value="" data-display-text="MBTI">상관없음</option>
-							<option value="Singing">ENFJ</option>
-							<option value="Dance">ENTJ</option>
-							<option value="Singing">INFP</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(9)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userMBTI}"></option>
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select hobby">
-						<select class="">
+						<select class="" id="hobbText" name="hobbText" th:value="${item?.hobbText}">
 							<option value="" data-display-text="취미">상관없음</option>
-							<option value="Dance">산책</option>
-							<option value="Singing">영화</option>
-							<option value="Singing">음악</option>
-							<option value="Singing">맛집 탐방</option>
-							<option value="Singing">여행</option>
-							<option value="Singing">운동</option>
-							<option value="Singing">독서</option>
-							<option value="Singing">전시회</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(10)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.hobbText}"></option>
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select pet">
-						<select class="">
+						<select class="" id="userPetNy" name="userPetNy" th:value="${item?.userPetNy}">
 							<option value="" data-display-text="반려동물">상관없음</option>
-							<option value="Dance">함께 키워요</option>
-							<option value="Singing">좋아해요</option>
-							<option value="Singing">알레르기 있어요</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(11)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userPetNy}"></option>
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select dating">
-						<select class="">
+						<select class="" id="userDatingStyle" name="userDatingStyle" th:value="${item?.userDatingStyle}">
 							<option value="" data-display-text="연애성향">상관없음</option>
-							<option value="Singing">진지한 만남</option>
-							<option value="Dance">배려있는 만남</option>
-							<option value="Singing">친구같은 만남</option>
-							<option value="Singing">열정적인 만남</option>
-							<option value="Singing">활동적인 만남</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(12)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userDatingStyle}"></option>
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select dating">
-						<select class="">
+						<select class="" id="userAlcohol" name="userAlcohol" th:value="${item?.userAlcohol}">
 							<option value="" data-display-text="음주">상관없음</option>
-							<option value="Dance">거의 안함</option>
-							<option value="Singing">가끔</option>
-							<option value="Singing">분위기 있을 때만</option>
-							<option value="Singing">자주</option>
+							<option th:each="list : ${@codeService.selectListCachedCode(7)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.userAlcohol}"></option>
 						</select>
 					</div>
 			    </div>
 			    <div class="row mb-3">
 			      <div class="form-floating col-12">
-			        <input type="text" class="form-control form-control-sm" id="job" name="job" placeholder="직업">
-			        <label for="job">&emsp;직업</label>
+			        <input type="text" class="form-control form-control-sm" id="userJob" name="userJob" th:value="${item?.userJob}" placeholder="직업">
+			        <label for="userJob">&emsp;직업</label>
 			      </div>
 			    </div>
 			  </div>
 			</div></form>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	        <button type="button" class="btn btn-primary">저장하기</button>
+	        <button type="button" id="btnUpdtSubmit" class="btn btn-primary">저장하기</button>
 	      </div>
 	    </div>
 	  </div>
@@ -778,7 +735,17 @@
 		$("#activityPhotoUploder").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
 		$("#activityAttachFileUploader").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
 	</script>
+	<script type="text/javascript">
+	let seq = document.getElementById("userSeqD");
+	let formDetail = document.getElementById("formDetail");
 	
+	document.getElementById("btnUpdtSubmit").onclick = function() {
+		alert("D");
+		formDetail.action = "/love/member/MemberLoveMypageUpdt";
+		formDetail.submit();
+	}
+	
+	</script>
 	
 </body>
 

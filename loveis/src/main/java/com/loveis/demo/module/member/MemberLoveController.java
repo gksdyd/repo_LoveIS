@@ -1,5 +1,6 @@
 package com.loveis.demo.module.member;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,8 +34,15 @@ public class MemberLoveController extends BaseController {
 		return "love/member/MemberLoveList";
 	}
 	@RequestMapping(value = "/MemberLoveMypage")
-	public String MemberLoveMypage() {
+	public String MemberLoveMypage(Model model, MemberDto dto, HttpSession httpSession) {
+		dto.setUserSeq(httpSession.getAttribute("sessSeqXdm").toString());
+		model.addAttribute("item", memberService.selectOne(dto));
 		return "love/member/MemberLoveSingle";
+	}
+	@RequestMapping(value = "/MemberLoveMypageUpdt")
+	public String MemberLoveMypageUpdt(MemberDto dto) {
+		memberService.updateSingle(dto);
+		return "redirect:/love/member/MemberLoveMypage";
 	}
 	
 	@RequestMapping(value = "/SignupUserForm")

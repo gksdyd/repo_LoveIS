@@ -32,6 +32,7 @@ public class MemberDto extends BaseDto {
 	private Integer userFirstFace;
 	private Integer userChurch;
 	private Integer userAlcohol;
+	private Integer userbodyShape;
 	
 	private String persSeq;
 	private Integer persText;
@@ -275,4 +276,11 @@ public class MemberDto extends BaseDto {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	public Integer getUserbodyShape() {
+		return userbodyShape;
+	}
+	public void setUserbodyShape(Integer userbodyShape) {
+		this.userbodyShape = userbodyShape;
+	}
+	
 }

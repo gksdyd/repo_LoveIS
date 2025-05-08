@@ -75,6 +75,7 @@
 			a.userPeanut,
 			a.userHeight,
 			a.userWeight,
+			a.userbodyShape,
 			a.userEducation,
 			a.userMBTI,
 			a.userSmoking,
@@ -125,6 +126,26 @@
 			userReference = #{userReference},
 			userLatitude = #{userLatitude},
 			userLongitude = #{userLongitude}
+		WHERE
+			userSeq = #{userSeq}
+	</update>
+	<update id="updateSingle">
+		UPDATE user
+		SET 
+			userHeight = #{userHeight},
+			userWeight = #{userWeight},
+			userModDate = date_format(NOW(), '%Y-%m-%d %H:%i:%S'),
+			userbodyShape = #{userbodyShape},
+			userEducation = #{userEducation},
+			userMBTI = #{userMBTI},
+			userSmoking = #{userSmoking},
+			userPetNy = #{userPetNy},
+			userDatingStyle = #{userDatingStyle},
+			userJob = #{userJob},
+			userStyle = #{userStyle},
+			userFirstFace = #{userFirstFace},
+			userChurch = #{userChurch},
+			userAlcohol = #{userAlcohol}
 		WHERE
 			userSeq = #{userSeq}
 	</update>
