@@ -12,11 +12,11 @@ public class MemberVo extends BaseVo {
 	private Integer shWeight;
 	private Integer shStyle;
 	private Integer shFirstFace;
-	private Integer shPersonality;
+	private String[] shPersonality;
 	private Integer shDatingStyle;
 	private Integer shMbti;
 	private Integer shSmoking;
-	private Integer shHobby;
+	private String[] shHobby;
 	private Integer shPet;
 	private Integer shReligion;
 	private Integer shDrink;
@@ -77,11 +77,11 @@ public class MemberVo extends BaseVo {
 		this.shFirstFace = shFirstFace;
 	}
 
-	public Integer getShPersonality() {
+	public String[] getShPersonality() {
 		return shPersonality;
 	}
 
-	public void setShPersonality(Integer shPersonality) {
+	public void setShPersonality(String[] shPersonality) {
 		this.shPersonality = shPersonality;
 	}
 
@@ -109,11 +109,11 @@ public class MemberVo extends BaseVo {
 		this.shSmoking = shSmoking;
 	}
 
-	public Integer getShHobby() {
+	public String[] getShHobby() {
 		return shHobby;
 	}
 
-	public void setShHobby(Integer shHobby) {
+	public void setShHobby(String[] shHobby) {
 		this.shHobby = shHobby;
 	}
 

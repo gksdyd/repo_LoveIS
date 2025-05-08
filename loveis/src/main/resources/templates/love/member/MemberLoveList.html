@@ -71,9 +71,9 @@
 									</select>
 								</div>
 								<div class="custum-select personality">
-									<select class="" id="shPersonality">
+									<select class="" id="shPersonality" onchange="selectMultiPersonal(this)">
 										<option value="" data-display-text="성격">상관없음</option>
-										<option th:each="personal : ${@codeService.selectListCachedCode(5)}" th:text="${personal.codeName}" th:value="${personalStat.count}"></option>
+										<option th:each="personal : ${@codeService.selectListCachedCode(5)}" th:text="${personal.codeName}" th:value="${personal.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select dating">
@@ -95,9 +95,9 @@
 									</select>
 								</div>
 								<div class="custum-select hobby">
-									<select class="" id="shHobby">
+									<select class="" id="shHobby" onchange="selectMultiHobby(this)">
 										<option value="" data-display-text="취미">상관없음</option>
-										<option th:each="hobby : ${@codeService.selectListCachedCode(10)}" th:text="${hobby.codeName}" th:value="${hobbyStat.count}"></option>
+										<option th:each="hobby : ${@codeService.selectListCachedCode(10)}" th:text="${hobby.codeName}" th:value="${hobby.codeSeq}"></option>
 									</select>
 								</div>
 								<div class="custum-select pet">
@@ -129,6 +129,7 @@
 	<div th:replace="~{love/include/footer :: footer}"></div>
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
 	<script src="/love/assets/js/pagination.js"></script>
+	<script src="/love/assets/js/userDerivation.js"></script>
 	<script>
 		function refreshMember() {
 			fetch("/love/member/MemberLoveProc", {    // payList fragment만 반환하는 컨트롤러
@@ -141,11 +142,11 @@
 					"shWeight" : $("#shWeight").val(),
 					"shStyle" : $("#shStyle").val(),
 					"shFirstFace" : $("#shFirstFace").val(),
-					"shPersonality" : $("#shPersonality").val(),
+					"shPersonality" : personalityArray,
 					"shDatingStyle" : $("#shDatingStyle").val(),
 					"shMbti" : $("#shMbti").val(),
 					"shSmoking" : $("#shSmoking").val(),
-					"shHobby" : $("#shHobby").val(),
+					"shHobby" : hobbyArray,
 					"shPet" : $("#shPet").val(),
 					"shReligion" : $("#shReligion").val(),
 					"shDrink" : $("#shDrink").val()

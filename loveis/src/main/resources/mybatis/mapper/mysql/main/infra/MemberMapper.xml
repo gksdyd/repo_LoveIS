@@ -309,15 +309,15 @@
             <when test="shFirstFace == 6">AND userFirstFace = 21</when>
         </choose>
         
-        <choose>
-            <when test="shPersonality == 1">AND EXISTS (SELECT 1 FROM personality p WHERE userSeq = p.user_userSeq AND persText = 22)</when>
-            <when test="shPersonality == 2">AND EXISTS (SELECT 1 FROM personality p WHERE userSeq = p.user_userSeq AND persText = 23)</when>
-            <when test="shPersonality == 3">AND EXISTS (SELECT 1 FROM personality p WHERE userSeq = p.user_userSeq AND persText = 24)</when>
-            <when test="shPersonality == 4">AND EXISTS (SELECT 1 FROM personality p WHERE userSeq = p.user_userSeq AND persText = 25)</when>
-            <when test="shPersonality == 5">AND EXISTS (SELECT 1 FROM personality p WHERE userSeq = p.user_userSeq AND persText = 26)</when>
-            <when test="shPersonality == 6">AND EXISTS (SELECT 1 FROM personality p WHERE userSeq = p.user_userSeq AND persText = 27)</when>
-            <when test="shPersonality == 7">AND EXISTS (SELECT 1 FROM personality p WHERE userSeq = p.user_userSeq AND persText = 28)</when>
-        </choose>
+        <if test="shPersonality != null and shPersonality.length != 0">
+        	AND (SELECT COUNT(*) FROM personality p WHERE userSeq = p.user_userSeq AND persText IN
+	        	<foreach collection="shPersonality" open="(" separator="," close=")" item="personal">
+	        		#{personal}
+	        	</foreach>
+        	) = <foreach collection="shPersonality" separator="+" item="personal">
+	        		1
+	        	</foreach>
+        </if>
         
         <choose>
             <when test="shDatingStyle == 1">AND userDatingStyle = 73</when>
@@ -352,20 +352,15 @@
             <when test="shSmoking == 3">AND userSmoking = 31</when>
         </choose>
         
-        <choose>
-            <when test="shHobby == 1">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 57)</when>
-            <when test="shHobby == 2">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 58)</when>
-            <when test="shHobby == 3">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 59)</when>
-            <when test="shHobby == 4">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 60)</when>
-            <when test="shHobby == 5">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 61)</when>
-            <when test="shHobby == 6">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 62)</when>
-            <when test="shHobby == 7">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 63)</when>
-            <when test="shHobby == 8">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 64)</when>
-            <when test="shHobby == 9">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 65)</when>
-            <when test="shHobby == 10">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 66)</when>
-            <when test="shHobby == 11">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 67)</when>
-            <when test="shHobby == 12">AND EXISTS (SELECT 1 FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText = 68)</when>
-        </choose>
+        <if test="shHobby != null and shHobby.length != 0">
+        	AND (SELECT COUNT(*) FROM hobby h WHERE userSeq = h.user_userSeq AND hobbText IN
+	        	<foreach collection="shHobby" open="(" separator="," close=")" item="hobby">
+	        		#{hobby}
+	        	</foreach>
+        	) = <foreach collection="shHobby" separator="+" item="hobby">
+	        		1
+	        	</foreach>
+        </if>
         
         <choose>
             <when test="shPet == 1">AND userPetNy = 69</when>
