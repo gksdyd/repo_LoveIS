@@ -2,6 +2,7 @@
 <html data-bs-theme="light" lang="ko" dir="ltr" xmlns:th="http://www.thymeleaf.org">
   <div th:replace="~{love/include/head :: head}"></div>
 	<div class="blog blog-page community-page w-100 float-start">
+		<input type="hidden" name="thisPage" th:value="${vo.thisPage}" default="1"/>
 		<div class="container">
 			<div class="row" id="refreshMember">
 				<div class="col-lg-8 col-md-12 col-12" id="removeMember">
@@ -33,91 +34,91 @@
 							<h5>사랑을 찾아서...</h5>
 							<div class="pannal-content">
 								<div class="custum-select your-gender">
-									<select class="">
+									<select class="" id="shGender">
 										<option value="" data-display-text="성별">성별</option>
-										<option th:each="gender : ${@codeService.selectListCachedCode(1)}" th:text="${gender.codeName}" th:value="${gender.codeSeq}"></option>
+										<option th:each="gender : ${@codeService.selectListCachedCode(1)}" th:text="${gender.codeName}" th:value="${genderStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select age">
-									<select class="">
+									<select class="" id="shAge">
 										<option value="" data-display-text="나이">상관없음</option>
-										<option th:each="age : ${@codeService.selectListCachedCode(14)}" th:text="${age.codeName}" th:value="${age.codeSeq}"></option>
+										<option th:each="age : ${@codeService.selectListCachedCode(14)}" th:text="${age.codeName}" th:value="${ageStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select country">
-									<select class="">
+									<select class="" id="shDistance">
 										<option value="" data-display-text="거리">상관없음</option>
-										<option th:each="distance : ${@codeService.selectListCachedCode(15)}" th:text="${distance.codeName}" th:value="${distance.codeSeq}"></option>
+										<option th:each="distance : ${@codeService.selectListCachedCode(15)}" th:text="${distance.codeName}" th:value="${distanceStat.count}"></option>
 									</select>
 								</div>
 								
 								<div class="custum-select body">
-									<select class="">
+									<select class="" id="shWeight">
 										<option value="" data-display-text="체형">상관없음</option>
-										<option th:each="weight : ${@codeService.selectListCachedCode(2)}" th:text="${weight.codeName}" th:value="${weight.codeSeq}"></option>
+										<option th:each="weight : ${@codeService.selectListCachedCode(2)}" th:text="${weight.codeName}" th:value="${weightStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select style">
-									<select class="">
+									<select class="" id="shStyle">
 										<option value="" data-display-text="스타일">상관없음</option>
-										<option th:each="style : ${@codeService.selectListCachedCode(3)}" th:text="${style.codeName}" th:value="${style.codeSeq}"></option>
+										<option th:each="style : ${@codeService.selectListCachedCode(3)}" th:text="${style.codeName}" th:value="${styleStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select face">
-									<select class="">
+									<select class="" id="shFirstFace">
 										<option value="" data-display-text="첫인상">상관없음</option>
-										<option th:each="face : ${@codeService.selectListCachedCode(4)}" th:text="${face.codeName}" th:value="${face.codeSeq}"></option>
+										<option th:each="face : ${@codeService.selectListCachedCode(4)}" th:text="${face.codeName}" th:value="${faceStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select personality">
-									<select class="">
+									<select class="" id="shPersonality">
 										<option value="" data-display-text="성격">상관없음</option>
-										<option th:each="personal : ${@codeService.selectListCachedCode(5)}" th:text="${personal.codeName}" th:value="${personal.codeSeq}"></option>
+										<option th:each="personal : ${@codeService.selectListCachedCode(5)}" th:text="${personal.codeName}" th:value="${personalStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select dating">
-									<select class="">
+									<select class="" id="shDatingStyle">
 										<option value="" data-display-text="연애성향">상관없음</option>
-										<option th:each="datingStyle : ${@codeService.selectListCachedCode(12)}" th:text="${datingStyle.codeName}" th:value="${datingStyle.codeSeq}"></option>
+										<option th:each="datingStyle : ${@codeService.selectListCachedCode(12)}" th:text="${datingStyle.codeName}" th:value="${datingStyleStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select mbti">
-									<select class="">
+									<select class="" id="shMbti">
 										<option value="" data-display-text="MBTI">상관없음</option>
-										<option th:each="mbti : ${@codeService.selectListCachedCode(9)}" th:text="${mbti.codeName}" th:value="${mbti.codeSeq}"></option>
+										<option th:each="mbti : ${@codeService.selectListCachedCode(9)}" th:text="${mbti.codeName}" th:value="${mbtiStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select smoking">
-									<select class="">
+									<select class="" id="shSmoking">
 										<option value="" data-display-text="흡연 여부">상관없음</option>
-										<option th:each="smoking : ${@codeService.selectListCachedCode(6)}" th:text="${smoking.codeName}" th:value="${smoking.codeSeq}"></option>
+										<option th:each="smoking : ${@codeService.selectListCachedCode(6)}" th:text="${smoking.codeName}" th:value="${smokingStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select hobby">
-									<select class="">
+									<select class="" id="shHobby">
 										<option value="" data-display-text="취미">상관없음</option>
-										<option th:each="hobby : ${@codeService.selectListCachedCode(10)}" th:text="${hobby.codeName}" th:value="${hobby.codeSeq}"></option>
+										<option th:each="hobby : ${@codeService.selectListCachedCode(10)}" th:text="${hobby.codeName}" th:value="${hobbyStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select pet">
-									<select class="">
+									<select class="" id="shPet">
 										<option value="" data-display-text="반려동물">상관없음</option>
-										<option th:each="pet : ${@codeService.selectListCachedCode(11)}" th:text="${pet.codeName}" th:value="${pet.codeSeq}"></option>
+										<option th:each="pet : ${@codeService.selectListCachedCode(11)}" th:text="${pet.codeName}" th:value="${petStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select church">
-									<select class="">
+									<select class="" id="shReligion">
 										<option value="" data-display-text="종교">상관없음</option>
-										<option th:each="religion : ${@codeService.selectListCachedCode(13)}" th:text="${religion.codeName}" th:value="${religion.codeSeq}"></option>
+										<option th:each="religion : ${@codeService.selectListCachedCode(13)}" th:text="${religion.codeName}" th:value="${religionStat.count}"></option>
 									</select>
 								</div>
 								<div class="custum-select beer">
-									<select class="">
+									<select class="" id="shDrink">
 										<option value="" data-display-text="음주">상관없음</option>
-										<option th:each="drink : ${@codeService.selectListCachedCode(7)}" th:text="${drink.codeName}" th:value="${drink.codeSeq}"></option>
+										<option th:each="drink : ${@codeService.selectListCachedCode(7)}" th:text="${drink.codeName}" th:value="${drinkStat.count}"></option>
 									</select>
 								</div>
-								<a href="javascript:;" class="main-btn">연인 찾기</a>
+								<a href="javascript:void(0);" class="main-btn" onclick="refreshMember()">연인 찾기</a>
 							</div>
 						</div>
 					</div>
@@ -128,6 +129,35 @@
 	<div th:replace="~{love/include/footer :: footer}"></div>
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
 	<script src="/love/assets/js/pagination.js"></script>
+	<script>
+		function refreshMember() {
+			fetch("/love/member/MemberLoveProc", {    // payList fragment만 반환하는 컨트롤러
+				method: 'POST',  // POST 요청
+				body: new URLSearchParams({  // POST 데이터 설정
+					"thisPage" : $("input[name=thisPage]").val(),
+					"shGender" : $("#shGender").val(),
+					"shAge" : $("#shAge").val(),
+					"shDistance" : $("#shDistance").val(),
+					"shWeight" : $("#shWeight").val(),
+					"shStyle" : $("#shStyle").val(),
+					"shFirstFace" : $("#shFirstFace").val(),
+					"shPersonality" : $("#shPersonality").val(),
+					"shDatingStyle" : $("#shDatingStyle").val(),
+					"shMbti" : $("#shMbti").val(),
+					"shSmoking" : $("#shSmoking").val(),
+					"shHobby" : $("#shHobby").val(),
+					"shPet" : $("#shPet").val(),
+					"shReligion" : $("#shReligion").val(),
+					"shDrink" : $("#shDrink").val()
+				})
+			})
+			.then(res => res.text())
+			.then(html => {
+				$("#removeMember").remove();
+				$("#refreshMember").prepend(html);
+			});
+		}
+	</script>
 </body>
 
 </html>
