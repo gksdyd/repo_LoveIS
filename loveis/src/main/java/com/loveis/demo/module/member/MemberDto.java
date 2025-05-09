@@ -38,11 +38,13 @@ public class MemberDto extends BaseDto {
 	private Integer persText;
 	private Integer personalCount;
 	private String persnalText;
+	private int persnalDelNy;
 	
 	private String hobbSeq;
 	private Integer hobbText;
 	private Integer hobbyCount;
 	private String hobbyText;
+	private int hobbyDelNy;
 	
 	private String newPassword;
 	
@@ -289,6 +291,18 @@ public class MemberDto extends BaseDto {
 	}
 	public void setUserAge(Integer userAge) {
 		this.userAge = userAge;
+	}
+	public int getPersnalDelNy() {
+		return persnalDelNy;
+	}
+	public void setPersnalDelNy(int persnalDelNy) {
+		this.persnalDelNy = persnalDelNy;
+	}
+	public int getHobbyDelNy() {
+		return hobbyDelNy;
+	}
+	public void setHobbyDelNy(int hobbyDelNy) {
+		this.hobbyDelNy = hobbyDelNy;
 	}
 	
 }

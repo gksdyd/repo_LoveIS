@@ -1,7 +1,8 @@
 package com.loveis.demo.module.member;
 
-import java.lang.ProcessBuilder.Redirect;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,45 @@ public class MemberLoveController extends BaseController {
 		return "love/member/MemberLoveList";
 	}
 	@RequestMapping(value = "/MemberLoveMypage")
-	public String MemberLoveMypage(Model model, MemberDto dto, MemberVo vo, HttpSession httpSession) {
+	public String MemberLoveMypage(Model model, MemberDto dto, HttpSession httpSession, @ModelAttribute Member4ListDto listDto) {
 		dto.setUserSeq(httpSession.getAttribute("sessSeqXdm").toString());
+		
 		model.addAttribute("item", memberService.selectOne(dto));
 		return "love/member/MemberLoveSingle";
 	}
 	@RequestMapping(value = "/MemberLoveMypageUpdt")
-	public String MemberLoveMypageUpdt(MemberDto dto) {
+	public String MemberLoveMypageUpdt(MemberDto dto, @ModelAttribute Member4ListDto listDto) {
+		List<MemberDto> dtoListP = new ArrayList<>();
+		List<MemberDto> dtoListH = new ArrayList<>();
+		
+		if (listDto.getPersText() != null && !listDto.getPersText().isEmpty()) {
+	        for (Integer code : listDto.getPersText()) {
+	        	MemberDto memberDto = new MemberDto();
+	        	memberDto.setUserSeq(listDto.getUser_userSeq());
+	        	memberDto.setPersText(code);
+	            dtoListP.add(memberDto);
+	        }
+	    }
+		if (listDto.getHobbText() != null && !listDto.getHobbText().isEmpty()) {
+			for (Integer code : listDto.getPersText()) {
+				MemberDto memberDto = new MemberDto();
+				memberDto.setUserSeq(listDto.getUser_userSeq());
+				memberDto.setHobbText(code);
+				dtoListH.add(memberDto);
+			}
+		}
+		
+		if (!dtoListP.isEmpty()) {
+			memberService.personalityInsert(dtoListH, dto);
+		} else {
+//			memberService.deletePersonalityByUser(dto);
+			
+		}
+		if (!dtoListH.isEmpty()) {
+			memberService.hobbyInsert(dtoListH, dto);
+		} else {
+//			memberService.deleteHobbyByUser(dto);
+		}
 		memberService.updateSingle(dto);
 		return "redirect:/love/member/MemberLoveMypage";
 	}

@@ -90,4 +90,28 @@ public class MemberService extends BaseService {
 		Integer age = (Integer)(currYear - birth + 1);
 		return age;
 	}
+	
+	
+	public int deletePersonalityByUser(MemberDto memberDto) {
+		return memberDao.deletePersonalityByUser(memberDto);
+	}
+	public int deleteHobbyByUser(MemberDto memberDto) {
+		return memberDao.deleteHobbyByUser(memberDto);
+	}
+	
+	public void personalityInsert(List<MemberDto> listDto, MemberDto memberDto) {
+		memberDao.deletePersonalityByUser(memberDto);
+		if (listDto != null && !listDto.isEmpty()) {
+			memberDao.personalityInsert(listDto);
+		}
+	}
+	public void hobbyInsert(List<MemberDto> listDto, MemberDto memberDto) {
+		memberDao.deleteHobbyByUser(memberDto);
+		if (listDto != null && !listDto.isEmpty()) {
+			memberDao.hobbyInsert(listDto);
+		}
+	}
+	
+	
+	
 }

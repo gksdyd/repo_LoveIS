@@ -502,7 +502,7 @@
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select personality">
-						<select class="" id="persText" name="persText" multiple aria-label="Select categories">
+						<select class="" id="persText" name="persText" onchange="selectMultiPersonal(this)" multiple aria-label="Select categories">
 							<option value="" data-display-text="성격">상관없음</option>
 							<option th:each="list : ${@codeService.selectListCachedCode(5)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.persText}"></option>
 						</select>
@@ -556,7 +556,7 @@
 			    </div>
 			    <div class="row mb-3">
 					<div class="col custum-select hobby">
-						<select class="" id="hobbText" name="hobbText" th:value="${item?.hobbText}">
+						<select class="" id="hobbText" name="hobbText" th:value="${item?.hobbText}" onchange="selectMultiHobby(this)">
 							<option value="" data-display-text="취미">상관없음</option>
 							<option th:each="list : ${@codeService.selectListCachedCode(10)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.hobbText}"></option>
 						</select>
@@ -602,7 +602,7 @@
 	  </div>
 	  </div>
 	</div>
-	
+	<script src="/love/assets/js/userDerivation.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f7d210607aa49a67c830e2baeb80358f&libraries=services"></script>
 

@@ -186,6 +186,37 @@
 		</selectKey>
 	</insert>
 	
+	<insert id="personalityInsert">
+	INSERT INTO personality (
+			persText
+			,user_userSeq
+
+		) VALUES 
+		<foreach collection="listDto" item="dto" separator=",">
+	        (#{dto.persText}
+			,#{dto.user_userSeq})
+	    </foreach>
+	</insert>
+	
+	<insert id="hobbyInsert">
+	INSERT INTO hobby (
+			hobbText
+			,user_userSeq
+
+		) VALUES 
+		<foreach collection="listDto" item="dto" separator=",">
+	        (#{dto.hobbText}
+			,#{dto.user_userSeq})
+	    </foreach>
+	</insert>
+	<delete id="deletePersonalityByUser">
+	    DELETE FROM personality
+	    WHERE user_userSeq = #{userSeq}
+	</delete>
+	<delete id="deleteHobbyByUser">
+	    DELETE FROM hobby
+	    WHERE user_userSeq = #{userSeq}
+	</delete>
 	<select id="checkId" resultType="Integer">
 		SELECT COUNT(*)
 		FROM

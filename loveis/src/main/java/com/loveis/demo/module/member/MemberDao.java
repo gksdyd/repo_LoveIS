@@ -2,6 +2,7 @@ package com.loveis.demo.module.member;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.loveis.demo.module.base.BaseDao;
@@ -26,4 +27,9 @@ public interface MemberDao extends BaseDao {
 	public int insertUploaded(BaseDto dto);
 	public List<MemberDto> selectMemberList(MemberVo vo);
 	public int selectMemberCount(MemberVo vo);
+	
+	public void personalityInsert(@Param("listDto") List<MemberDto> listDto);
+	public void hobbyInsert(@Param("listDto") List<MemberDto> listDto);
+	public int deletePersonalityByUser(MemberDto memberDto);
+	public int deleteHobbyByUser(MemberDto memberDto);
 }
