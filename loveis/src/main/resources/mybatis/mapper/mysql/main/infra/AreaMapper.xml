@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+				 
+<mapper namespace="com.loveis.demo.module.area.AreaDao">
+
+	<resultMap type="com.loveis.demo.module.area.AreaDto" id="resultMapObj"></resultMap>
+	
+	<update id="update">
+		UPDATE area
+		SET
+			longitude = #{longitude},
+			latitude = #{latitude}
+		WHERE 1=1
+			AND ifcaName = #{ifcaName}
+	</update>
+</mapper>
