@@ -28,7 +28,8 @@ public class MemberLoveController extends BaseController {
 	MemberService memberService;
 	
 	@RequestMapping(value = "/MemberLoveList")
-	public String memberLoveList(@ModelAttribute("vo") MemberVo vo, Model model) {
+	public String memberLoveList(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession) {
+		vo.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
 		vo.setRowNumToShow(6);
 		vo.setParamsPaging(memberService.selectMemberCount(vo));
 		model.addAttribute("list", memberService.selectMemberList(vo));

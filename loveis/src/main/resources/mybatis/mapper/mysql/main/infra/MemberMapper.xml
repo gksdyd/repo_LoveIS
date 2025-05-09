@@ -295,7 +295,8 @@
         	LEFT JOIN area a ON a.ifcaSeq = u.userLocal
         	LEFT JOIN area b ON b.ifcaSeq = #{userLocal}
         WHERE 1=1
-        	AND userDelFlag = 0		
+        	AND userDelFlag = 0	
+        	AND userSeq != #{userSeq}	
 		<choose>
 			<when test="shGender == 1">AND userGender = 1</when>
 			<when test="shGender == 2">AND userGender = 2</when>
