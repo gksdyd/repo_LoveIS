@@ -21,6 +21,7 @@ public class MemberVo extends BaseVo {
 	private Integer shReligion;
 	private Integer shDrink;
 	
+	private String userSeq;
 	private Integer userLocal;
 
 	public Integer getShSecession() {
@@ -149,6 +150,14 @@ public class MemberVo extends BaseVo {
 
 	public void setUserLocal(Integer userLocal) {
 		this.userLocal = userLocal;
+	}
+
+	public String getUserSeq() {
+		return userSeq;
+	}
+
+	public void setUserSeq(String userSeq) {
+		this.userSeq = userSeq;
 	}
 
 	public String ranCertification() {
