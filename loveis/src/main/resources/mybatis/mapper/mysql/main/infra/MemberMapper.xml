@@ -104,7 +104,8 @@
 			userSeq,
 			userName,
 			userId,
-			userPassword
+			userPassword,
+			userLocal
 		FROM
 			user
 		WHERE 1=1
@@ -290,7 +291,9 @@
 	</insert>
 	
 	<sql id="selectMemberCommon">
-        FROM user
+        FROM user u
+        	LEFT JOIN area a ON a.ifcaSeq = u.userLocal
+        	LEFT JOIN area b ON b.ifcaSeq = #{userLocal}
         WHERE 1=1
         	AND userDelFlag = 0		
 		<choose>
@@ -305,12 +308,28 @@
             <when test="shAge == 4">AND (YEAR(NOW()) - CAST(SUBSTRING(userBirth, 1, 4) AS UNSIGNED) + 1) >= 50</when>
         </choose>
         
-        <!-- <choose>
-            <when test="shDistance == 1">AND </when>
-            <when test="shDistance == 2">AND </when>
-            <when test="shDistance == 3">AND </when>
-            <when test="shDistance == 4">AND </when>
-        </choose> -->
+        <choose>
+            <when test="shDistance == 1">
+            	AND (6371 * acos(cos(radians(b.latitude)) * cos(radians(a.latitude)) * 
+            	cos(radians(a.longitude) - radians(b.longitude) ) + sin(radians(b.latitude)) * 
+            	sin(radians(a.latitude)))) &lt; 5
+            </when>
+            <when test="shDistance == 2">
+            	AND (6371 * acos(cos(radians(b.latitude)) * cos(radians(a.latitude)) * 
+            	cos(radians(a.longitude) - radians(b.longitude) ) + sin(radians(b.latitude)) * 
+            	sin(radians(a.latitude)))) &lt; 10
+            </when>
+            <when test="shDistance == 3">
+            	AND (6371 * acos(cos(radians(b.latitude)) * cos(radians(a.latitude)) * 
+            	cos(radians(a.longitude) - radians(b.longitude) ) + sin(radians(b.latitude)) * 
+            	sin(radians(a.latitude)))) &lt; 20
+            </when>
+            <when test="shDistance == 4">
+            	AND (6371 * acos(cos(radians(b.latitude)) * cos(radians(a.latitude)) * 
+            	cos(radians(a.longitude) - radians(b.longitude) ) + sin(radians(b.latitude)) * 
+            	sin(radians(a.latitude)))) &lt; 50
+            </when>
+        </choose>
         
         <choose>
             <when test="shWeight == 1">AND userbodyShape = 3</when>
@@ -417,10 +436,10 @@
 	
 	<select id="selectMemberList" resultMap="resultMapObj">
 		SELECT
-			userSeq,
-			userGender,
-			userNickname,
-			(SELECT path FROM image WHERE pseq = userSeq AND delNy = 0 AND type = 1) AS imagePath
+			u.userSeq,
+			u.userGender,
+			u.userNickname,
+			(SELECT path FROM image WHERE pseq = u.userSeq AND delNy = 0 AND type = 1) AS imagePath
 		<include refid="selectMemberCommon"></include>
 		ORDER BY userSeq DESC
 		limit #{rowNumToShow} offset #{startRnumForMysql}

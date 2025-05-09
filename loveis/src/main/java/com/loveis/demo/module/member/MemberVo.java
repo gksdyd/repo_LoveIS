@@ -20,6 +20,8 @@ public class MemberVo extends BaseVo {
 	private Integer shPet;
 	private Integer shReligion;
 	private Integer shDrink;
+	
+	private Integer userLocal;
 
 	public Integer getShSecession() {
 		return shSecession;
@@ -139,6 +141,14 @@ public class MemberVo extends BaseVo {
 
 	public void setShDrink(Integer shDrink) {
 		this.shDrink = shDrink;
+	}
+
+	public Integer getUserLocal() {
+		return userLocal;
+	}
+
+	public void setUserLocal(Integer userLocal) {
+		this.userLocal = userLocal;
 	}
 
 	public String ranCertification() {

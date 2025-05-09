@@ -165,7 +165,7 @@ function loginLogic (){
 		async: true 
 		,cache: false
 		,type: "post"
-		,url: "/xdm/member/LoginXdmProc"
+		,url: "/love/member/LoginUserProc"
 		,data : { "userId" : $("#userId").val(), "userPassword" : $("#userPassword").val()}
 		,success: function(response) {
 			if(response.rt == "success") {

@@ -97,9 +97,10 @@ public class MemberLoveController extends BaseController {
 		
 		if (rtMember != null && matchesBcrypt(dto.getUserPassword(), rtMember.getUserPassword(), 10)) {
 			httpSession.setMaxInactiveInterval(60 * Constants.SESSION_MINUTE_XDM); // 60second * 30 = 30minute
-			httpSession.setAttribute("sessSeqXdm", rtMember.getUserSeq());
-			httpSession.setAttribute("sessIdXdm", rtMember.getUserId());
-			httpSession.setAttribute("sessNameXdm", rtMember.getUserName());
+			httpSession.setAttribute("sessSeqUser", rtMember.getUserSeq());
+			httpSession.setAttribute("sessIdUser", rtMember.getUserId());
+			httpSession.setAttribute("sessNameUser", rtMember.getUserName());
+			httpSession.setAttribute("sessLocalUser", rtMember.getUserLocal());
 			
 			returnMap.put("rt", "success");
 		} else {
