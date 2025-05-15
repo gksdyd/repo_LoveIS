@@ -144,7 +144,7 @@
 								aria-labelledby="profile-tab">
 								<div class="profile-tab w-100 float-start">
 									<h4>자기소개 <span><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editIntroduceModal" id="location" class="font-color-pink"><i class="far fa-edit edit-icon"></i></a></span></h4>
-									<p>The Best Solution For Your Business Website. Creative & Interaction Design |
+									<p th:text="${item?.userIntroduce}">The Best Solution For Your Business Website. Creative & Interaction Design |
 										Social Media Management | Software Development | Website Designing | Graphic
 										Design | WordPress Theme | Logo Design + Branding | SEO | App Development
 									</p>
@@ -195,24 +195,23 @@
 							</div>
 							<div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
 								<div class="add-post">
-									<div class="add-post">
-										<div class="post-type p-3 border rounded bg-white">
-										  <div class="d-flex mb-3">
-											<img src="/love/assets/images/profile-img2.png" alt="profile-img2" class="img-fluid profile-img me-2" style="width: 48px; height: 48px;">
-											<textarea id="postText" name="post" class="form-control" placeholder="Share a post, link, photo or video" rows="3"></textarea>
-										  </div>
-									  
-										  <!-- 이미지 업로더 -->
-										  <div class="media-uploader mb-3">
-											<input type="text" id="activityPhotoUploder" value="">
-										  </div>
-									  
-										  <!-- 버튼 정렬 (오른쪽) -->
-										  <div class="text-end">
-											<button id="submitPostBtn" class="main-btn">Post</button>
-										  </div>
-										</div>
+								<form id="postUpload" method="post" autocomplete="off" enctype="multipart/form-data">
+									<div class="post-type p-3 border rounded bg-white">
+									  <div class="d-flex mb-3">
+										<img src="/love/assets/images/profile-img2.png" alt="profile-img2" class="img-fluid profile-img me-2" style="width: 48px; height: 48px;">
+										<textarea id="postText" name="post" class="form-control" placeholder="Share a post, link, photo or video" rows="3"></textarea>
 									  </div>
+								  
+									  <!-- 이미지 업로더 -->
+									  <div class="media-uploader mb-3">
+										<input type="text" id="activityPhoto" value="">
+									  </div>
+									  <!-- 버튼 정렬 (오른쪽) -->
+									  <div class="text-end">
+										<button type="button" id="submitPostBtn" class="main-btn">Post</button>
+									  </div>
+									</div>
+									</form>
 								</div>
 								<div class="posts-box">
 									<div class="profile-details">
@@ -430,7 +429,7 @@
 	    </div>
 	  </div>
 	</div>
-		<div class="modal fade" id="editIntroduceModal" tabindex="-1" aria-labelledby="editIntroduceModal" aria-hidden="true">
+	<div class="modal fade" id="editIntroduceModal" tabindex="-1" aria-labelledby="editIntroduceModal" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -438,16 +437,17 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-		      <form id="formIntroduce" name="formIntroduce">>
+		      <form id="formIntroduce" th:object="${item}">
+		      <input type="hidden" name="userSeq" th:field="*{userSeq}"/>
 			      <div class="form-floating mb-3">
-					<textarea class="form-control" placeholder=" " id="introduce" name="introduce" style="height: 150px;"></textarea>
-					<label for="exampleTextarea">내용 입력</label>
+					<textarea class="form-control" placeholder=" " th:field="*{userIntroduce}" style="height: 150px;"></textarea>
+					<label th:for="*{userIntroduce}">내용 입력</label>
 				  </div>
 		      </form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	        <button type="button" class="btn btn-primary">저장하기</button>
+	        <button type="button" id="btnUpdtISubmit" class="btn btn-primary">저장하기</button>
 	      </div>
 	    </div>
 	  </div>
@@ -596,18 +596,37 @@
 			</div></form>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-	        <button type="button" id="btnUpdtSubmit" class="btn btn-primary">저장하기</button>
+	        <button type="button" id="btnUpdtDSubmit" class="btn btn-primary">저장하기</button>
 	      </div>
 	    </div>
 	  </div>
 	  </div>
 	</div>
+	<div th:replace="~{love/include/footer :: footer}"></div>
+	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
 	<script src="/love/assets/js/userDerivation.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f7d210607aa49a67c830e2baeb80358f&libraries=services"></script>
-
-	<div th:replace="~{love/include/footer :: footer}"></div>
-	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
+	<script type="application/javascript">
+		let ajaxConfig = {
+			ajaxRequester: function (config, uploadFile, pCall, sCall, eCall) {
+				let progress = 0
+				let interval = setInterval(() => {
+					progress += 10;
+					pCall(progress)
+					if (progress >= 100) {
+						clearInterval(interval)
+						const windowURL = window.URL || window.webkitURL;
+						sCall({
+							data: windowURL.createObjectURL(uploadFile.file)
+						})
+					}
+				}, 300)
+			}
+		}
+		$("#activityPhoto").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
+		$("#activityAttachFileUploader").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
+	</script>
 	<script>
 	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	        mapOption = {
@@ -715,34 +734,19 @@
 		});
 
 	</script>
-	<script type="application/javascript">
-		let ajaxConfig = {
-			ajaxRequester: function (config, uploadFile, pCall, sCall, eCall) {
-				let progress = 0
-				let interval = setInterval(() => {
-					progress += 10;
-					pCall(progress)
-					if (progress >= 100) {
-						clearInterval(interval)
-						const windowURL = window.URL || window.webkitURL;
-						sCall({
-							data: windowURL.createObjectURL(uploadFile.file)
-						})
-					}
-				}, 300)
-			}
-		}
-		$("#activityPhotoUploder").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
-		$("#activityAttachFileUploader").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
-	</script>
+	
 	<script type="text/javascript">
 	let seq = document.getElementById("userSeqD");
 	let formDetail = document.getElementById("formDetail");
+	let formIntro = document.getElementById("formIntroduce");
 	
-	document.getElementById("btnUpdtSubmit").onclick = function() {
-		alert("D");
+	document.getElementById("btnUpdtDSubmit").onclick = function() {
 		formDetail.action = "/love/member/MemberLoveMypageUpdt";
 		formDetail.submit();
+	}
+	document.getElementById("btnUpdtISubmit").onclick = function() {
+		formIntro.action = "/love/member/MemberLoveMypageIntroUpdt";
+		formIntro.submit();
 	}
 	
 	</script>

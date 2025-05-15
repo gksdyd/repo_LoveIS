@@ -42,6 +42,10 @@ public class MemberService extends BaseService {
 		return memberDao.updateSingle(memberDto);
 	}
 	
+	public int updateSingleIntroduce(MemberDto memberDto) {
+		return memberDao.updateSingleIntroduce(memberDto);
+	}
+	
 	public int insert(MemberDto memberDto) throws Exception {
 		memberDao.insert(memberDto);
 		uploadFilesToS3(memberDto.getUploadImg1(), memberDto, "image", memberDto.getUploadImg1Type(), memberDto.getUploadImg1MaxNumber()

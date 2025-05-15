@@ -77,6 +77,7 @@
 			a.userHeight,
 			a.userWeight,
 			a.userbodyShape,
+			a.userIntroduce,
 			a.userEducation,
 			a.userMBTI,
 			a.userSmoking,
@@ -151,7 +152,13 @@
 		WHERE
 			userSeq = #{userSeq}
 	</update>
-	
+	<update id="updateSingleIntroduce">
+		UPDATE user
+		SET 
+			userIntroduce = #{userIntroduce}
+		WHERE
+			userSeq = #{userSeq}
+	</update>
 	<insert id="insert">
 		INSERT INTO user (
 			userGender,
