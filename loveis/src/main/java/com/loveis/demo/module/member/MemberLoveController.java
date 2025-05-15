@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.loveis.demo.module.area.AreaService;
 import com.loveis.demo.module.base.BaseController;
 import com.loveis.demo.module.base.Constants;
 
@@ -27,9 +26,6 @@ public class MemberLoveController extends BaseController {
 
 	@Autowired
 	MemberService memberService;
-	
-	@Autowired
-	AreaService areaService;
 	
 	@RequestMapping(value = "/MemberLoveList")
 	public String memberLoveList(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession) {
@@ -84,8 +80,7 @@ public class MemberLoveController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/SignupLoveForm")
-	public String signupLoveForm(MemberVo vo, HttpSession httpSession, Model model) throws Exception {
-		model.addAttribute("list", areaService.selectList());
+	public String signupLoveForm(MemberVo vo, HttpSession httpSession) throws Exception {
 	    return "love/user/SignupLoveForm";
 	}
 	

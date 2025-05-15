@@ -227,8 +227,6 @@ img {
   top: 100%;
   left: 0;
   z-index: 999;
-  max-height: 300px;
-  overflow-y: auto;
 }
 .custum-select .dropdown .list:hover .option:not(:hover) {
   background-color: transparent !important;

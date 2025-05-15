@@ -127,9 +127,10 @@
                                     <!-- 도시 -->
 		                            <div class="form-input">
 		                                <div class="custum-select">
-											<select class="" id="city" onchange="changeLocal(this)" required>
+											<select class="" id="city" required>
 												<option value="">&ensp;도시</option>
-												<option th:each = "list : ${list}" th:value="${list.ifcaSeq}" th:text="'&ensp;' + ${list.ifcaName}"></option>
+												<option value="서울시">&ensp;서울시</option>
+												<option value="부산시">&ensp;부산시</option>
 											</select>
 											<label for="city"><i class="fas fa-city"></i></label>
 										</div>
@@ -138,9 +139,11 @@
                                 <div class="col-md-6">
                                 	<!-- 지역 -->
 		                            <div class="form-input">
-		                                <div class="custum-select" id="changeLocal">
+		                                <div class="custum-select">
 											<select class="" id="local" required>
 												<option value="">&ensp;지역</option>
+												<option value="노원구">&ensp;노원구</option>
+												<option value="관악구">&ensp;관악구</option>
 											</select>
 											<label for="city"><i class="fas fa-location"></i></label>
 										</div>
@@ -191,7 +194,6 @@
     <script src="/love/assets/js/range-slider.js"></script>
     <script src="/love/assets/js/custom.js"></script>
     <script src="/love/assets/js/constant.js"></script>
-    <script src="/love/assets/js/area.js"></script>
     
     <script>
         $(document).ready(function() {

@@ -13,24 +13,4 @@
 		WHERE 1=1
 			AND ifcaName = #{ifcaName}
 	</update>
-	
-	<select id="selectList" resultMap="resultMapObj">
-		SELECT
-			ifcaSeq,
-			ifcaName
-		FROM
-			area
-		WHERE 1=1
-			AND ifcaParents = 1
-	</select>
-	
-	<select id="selectListLocal" resultMap="resultMapObj">
-		SELECT
-			ifcaSeq,
-			ifcaName
-		FROM
-			area
-		WHERE 1=1
-			AND ifcaParents = #{ifcaParents}
-	</select>
 </mapper>
