@@ -28,6 +28,9 @@ public interface MemberDao extends BaseDao {
 	public List<MemberDto> selectMemberList(MemberVo vo);
 	public int selectMemberCount(MemberVo vo);
 	
+	public int logging(MemberDto memberDto);
+	public int logout(MemberDto memberDto);
+	
 	public void personalityInsert(@Param("listDto") List<MemberDto> listDto);
 	public void hobbyInsert(@Param("listDto") List<MemberDto> listDto);
 	public int deletePersonalityByUser(MemberDto memberDto);

@@ -91,6 +91,13 @@ public class MemberService extends BaseService {
 		return age;
 	}
 	
+	public int logging(MemberDto memberDto) {
+		return memberDao.logging(memberDto);
+	}
+	public int logout(MemberDto memberDto) {
+		return memberDao.logout(memberDto);
+	}
+	
 	
 	public int deletePersonalityByUser(MemberDto memberDto) {
 		return memberDao.deletePersonalityByUser(memberDto);
