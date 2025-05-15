@@ -79,19 +79,19 @@ public class MemberLoveController extends BaseController {
 		return "redirect:/love/member/MemberLoveMypage";
 	}
 	
-	@RequestMapping(value = "/SignupUserForm")
-	public String signupUserForm(MemberVo vo, HttpSession httpSession) throws Exception {
-	    return "love/user/SignupUserForm";
+	@RequestMapping(value = "/SignupLoveForm")
+	public String signupLoveForm(MemberVo vo, HttpSession httpSession) throws Exception {
+	    return "love/user/SignupLoveForm";
 	}
 	
-	@RequestMapping(value = "/LoginUserForm")
-	public String loginUserForm(MemberDto vo, Model model) {
-		return "love/user/LoginUserForm";
+	@RequestMapping(value = "/LoginLoveForm")
+	public String loginLoveForm(MemberDto vo, Model model) {
+		return "love/user/LoginLoveForm";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/LoginUserProc")
-	public Map<String, Object> loginUserProc(MemberDto dto, HttpSession httpSession) throws Exception {
+	@RequestMapping(value = "/LoginLoveProc")
+	public Map<String, Object> loginLoveProc(MemberDto dto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		MemberDto rtMember = memberService.selectOneLogin(dto);
@@ -112,8 +112,8 @@ public class MemberLoveController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/LogoutXdmProc")
-	public Map<String, Object> logoutXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
+	@RequestMapping(value = "/LogoutLoveProc")
+	public Map<String, Object> logoutLoveProc(MemberDto dto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		httpSession.setAttribute("sessSeqUser", null);
 		httpSession.setAttribute("sessIdUser", null);
