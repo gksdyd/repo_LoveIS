@@ -16,12 +16,12 @@ public class PayController {
 		return "love/payment/PayLoveList";
 	}
 	
-	@RequestMapping(value = "/PayLoveSuccess")
+	@RequestMapping(value = "/Success")
 	public String paysuccess() {
 		return "love/payment/TossPaymentsSucess";
 	}
 	
-	@RequestMapping(value = "/PayLoveFail")
+	@RequestMapping(value = "/Fail")
 	public String payfail() {
 		return "love/payment/TossPaymentsFail";
 	}
