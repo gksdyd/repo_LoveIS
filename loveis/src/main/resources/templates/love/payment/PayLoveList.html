@@ -31,20 +31,20 @@
                <div class="p-box-1 p-bottom-padding box-border wow backInLeft" data-wow-delay=".2s">
                   <h4 class="p-top-padding">쿠키를 일정 구매에 따라 적립할 수 있습니다.</h4>
                   <h1 class="heading-1">Daily Purchase</h1>
-                  <p class="text-1"><a class="text-1" href="#">쿠키 5개 : 6,900원</a></p>
-                  <p class="text-1"><a class="text-1" href="#">쿠키 10개 : 13,000원</a></p>
-                  <p class="text-1"><a class="text-1" href="#">쿠키 20개 : 25,800원</a></p>
-                  <p class="text-1"><a class="text-1" href="#">쿠키 50개 : 62,000원</a></p>
-                  <p class="text-1"><a class="text-1" href="#">쿠키 100개 : 119,900원</a></p>
+                  <p class="text-1"><a class="text-1" href="#" onclick="requestCookiePayment(5, 6900)">쿠키 5개 : 6,900원</a></p>
+                  <p class="text-1"><a class="text-1" href="#" onclick="requestCookiePayment(10, 13000)">쿠키 10개 : 13,000원</a></p>
+                  <p class="text-1"><a class="text-1" href="#" onclick="requestCookiePayment(20, 25800)">쿠키 20개 : 25,800원</a></p>
+                  <p class="text-1"><a class="text-1" href="#" onclick="requestCookiePayment(50, 62000)">쿠키 50개 : 62,000원</a></p>
+                  <p class="text-1"><a class="text-1" href="#" onclick="requestCookiePayment(100, 119900)">쿠키 100개 : 119,900원</a></p>
                </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12  wow fadeInUp">
                <div class="p-box-1 p-bottom-padding box-border wow backInLeft" data-wow-delay=".2s">
                   <h4 class="p-top-padding">쿠키를 월정액에 따라 적립할 수 있습니다.</h4>
                   <h1 class="heading-1">Monthly Purchase</h1>
-                  <p class="text-1"><a class="text-1" href="#">하루 쿠키 5개씩 충전(보너스 쿠키 10개) : 199,900원</a></p>
-                  <p class="text-1"><a class="text-1" href="#">하루 쿠키 10개씩 충전(보너스 쿠키 20개) : 369,900원</a></p>
-                  <p class="text-1"><a class="text-1" href="#">하루 쿠키 20개씩 충전(보너스 쿠키 50개) : 699,900원</a></p>
+                  <p class="text-1"><a class="text-1" href="#" onclick="requestMonthlyPayment(5, 199900, 10)">하루 쿠키 5개씩 충전(보너스 쿠키 10개) : 199,900원</a></p>
+                  <p class="text-1"><a class="text-1" href="#" onclick="requestMonthlyPayment(10, 369900, 20)">하루 쿠키 10개씩 충전(보너스 쿠키 20개) : 369,900원</a></p>
+                  <p class="text-1"><a class="text-1" href="#" onclick="requestMonthlyPayment(20, 699900, 50)">하루 쿠키 20개씩 충전(보너스 쿠키 50개) : 699,900원</a></p>
                </div>
             </div>
          </div>
@@ -52,7 +52,9 @@
    </div>
    <div th:replace="~{love/include/footer :: footer}"></div>
    <div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
-
+   
+   <script src="https://js.tosspayments.com/v1"></script>
+   
    <script>
       $('#search_button').on("click", function (e) {
          $('#search_open').slideToggle();
@@ -76,6 +78,44 @@
             $("#search_open1").slideUp();
          }
       });
+      
+//    쿠키 결제 요청 함수
+      async function requestCookiePayment(cookieCount, amount) {
+	  try {
+	    const tossPayments = TossPayments("test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq");
+	    
+	    tossPayments.requestPayment("카드", {
+	      amount: amount,
+	      orderId: "COOKIE_" + new Date().getTime(),
+	      orderName: "쿠키 ${cookieCount}개 구매",
+	      successUrl: window.location.origin + "/love/payment/Success",
+	      failUrl: window.location.origin + "/love/payment/Fail",
+	      customerEmail: "test@example.com",
+	      customerName: "테스터"
+	    });
+	  } catch (error) {
+	    alert(`에러: ${error.message}`);
+	  }
+	}
+	
+   // 월정액 결제 요청 함수
+      async function requestMonthlyPayment(dailyCookie, amount, bonusCookie) {
+          try {
+              const tossPayments = TossPayments("test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq");
+              
+              tossPayments.requestPayment("카드", {
+                  amount: amount,
+                  orderId: "MONTHLY_" + new Date().getTime(),
+                  orderName: `월정액 (하루 ${dailyCookie}개 + 보너스 ${bonusCookie}개)`,
+                  successUrl: window.location.origin + "/love/payment/Success",
+                  failUrl: window.location.origin + "/love/payment/Fail",
+                  customerEmail: "test@example.com",
+                  customerName: "테스터"
+              });
+          } catch (error) {
+              alert(`에러: ${error.message}`);
+          }
+      }
    </script>
 </body>
 
