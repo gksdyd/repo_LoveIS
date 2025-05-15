@@ -33,6 +33,7 @@ public class MemberDto extends BaseDto {
 	private Integer userChurch;
 	private Integer userAlcohol;
 	private Integer userbodyShape;
+	private String userLogTime;
 	
 	private String persSeq;
 	private Integer persText;
@@ -304,5 +305,12 @@ public class MemberDto extends BaseDto {
 	public void setHobbyDelNy(int hobbyDelNy) {
 		this.hobbyDelNy = hobbyDelNy;
 	}
+	public String getUserLogTime() {
+		return userLogTime;
+	}
+	public void setUserLogTime(String userLogTime) {
+		this.userLogTime = userLogTime;
+	}
+	
 	
 }

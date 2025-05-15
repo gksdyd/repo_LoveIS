@@ -96,7 +96,7 @@ public class MemberLoveController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/LoginLoveProc")
-	public Map<String, Object> loginLoveProc(MemberDto dto, HttpSession httpSession) throws Exception {
+	public Map<String, Object> loginLoveProc(MemberDto dto, HttpSession httpSession, Model model) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		MemberDto rtMember = memberService.selectOneLogin(dto);
@@ -107,6 +107,7 @@ public class MemberLoveController extends BaseController {
 			httpSession.setAttribute("sessIdUser", rtMember.getUserId());
 			httpSession.setAttribute("sessNameUser", rtMember.getUserName());
 			httpSession.setAttribute("sessLocalUser", rtMember.getUserLocal());
+			model.addAttribute("log", memberService.logging(rtMember));
 			
 			returnMap.put("rt", "success");
 		} else {
@@ -118,12 +119,16 @@ public class MemberLoveController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/LogoutLoveProc")
-	public Map<String, Object> logoutLoveProc(MemberDto dto, HttpSession httpSession) throws Exception {
+	public Map<String, Object> logoutLoveProc(MemberDto dto, HttpSession httpSession, Model model) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		dto.setUserSeq((String) httpSession.getAttribute("sessSeqUser"));
+		model.addAttribute("log", memberService.logout(dto));
 		httpSession.setAttribute("sessSeqUser", null);
 		httpSession.setAttribute("sessIdUser", null);
 		httpSession.setAttribute("sessNameUser", null);
 		httpSession.setAttribute("sessLocalUser", null);
+		
 		returnMap.put("rt", "success");
 		return returnMap;
 	}

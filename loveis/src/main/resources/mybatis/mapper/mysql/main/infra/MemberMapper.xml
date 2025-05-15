@@ -440,6 +440,7 @@
 			u.userSeq,
 			u.userGender,
 			u.userNickname,
+			u.userLogTime,
 			(SELECT path FROM image WHERE pseq = u.userSeq AND delNy = 0 AND type = 1) AS imagePath
 		<include refid="selectMemberCommon"></include>
 		ORDER BY userSeq DESC
@@ -451,4 +452,20 @@
 			COUNT(*)
 		<include refid="selectMemberCommon"></include>
 	</select>
+	
+		<update id="logging">
+		UPDATE user
+		SET 
+			userLogTime = null
+		WHERE
+			userSeq = #{userSeq}
+		</update>
+		
+		<update id="logout">
+		UPDATE user
+		set
+		userLogTime = DATE_FORMAT(CONVERT_TZ(NOW(), 'UTC', 'Asia/Seoul'), '%Y-%m-%d %H:%i:%S')
+		WHERE
+			userSeq = #{userSeq}
+		</update>
 </mapper>
