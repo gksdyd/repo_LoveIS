@@ -37,7 +37,7 @@ public class MemberLoveController extends BaseController {
 	}
 	@RequestMapping(value = "/MemberLoveMypage")
 	public String MemberLoveMypage(Model model, MemberDto dto, HttpSession httpSession, @ModelAttribute Member4ListDto listDto) {
-		dto.setUserSeq(httpSession.getAttribute("sessSeqXdm").toString());
+		dto.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
 		
 		model.addAttribute("item", memberService.selectOne(dto));
 		return "love/member/MemberLoveSingle";
@@ -115,9 +115,10 @@ public class MemberLoveController extends BaseController {
 	@RequestMapping(value = "/LogoutXdmProc")
 	public Map<String, Object> logoutXdmProc(MemberDto dto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		httpSession.setAttribute("sessSeqXdm", null);
-		httpSession.setAttribute("sessIdXdm", null);
-		httpSession.setAttribute("sessNameXdm", null);
+		httpSession.setAttribute("sessSeqUser", null);
+		httpSession.setAttribute("sessIdUser", null);
+		httpSession.setAttribute("sessNameUser", null);
+		httpSession.setAttribute("sessLocalUser", null);
 		returnMap.put("rt", "success");
 		return returnMap;
 	}

@@ -8559,6 +8559,9 @@ footer .ind4-footer-bottom a:hover {
   z-index: 2;
   transition: all 0.5s;
 }
+.main-pagination .active {
+  color: pink;
+}
 .main-pagination li a::after {
   content: "";
   width: 100%;
@@ -8578,7 +8581,7 @@ footer .ind4-footer-bottom a:hover {
 }
 .main-pagination li:first-child a {
   width: 75px;
-  border-right: 1px solid rgba(169, 169, 169, 0.3019607843);
+  /* border-right: 1px solid rgba(169, 169, 169, 0.3019607843); */
   border-radius: 35px 0 0 35px;
 }
 .main-pagination li:first-child a:hover {
@@ -8591,7 +8594,7 @@ footer .ind4-footer-bottom a:hover {
 }
 .main-pagination li:last-child a {
   width: 75px;
-  border-left: 1px solid rgba(169, 169, 169, 0.3019607843);
+  /* border-left: 1px solid rgba(169, 169, 169, 0.3019607843); */
   border-radius: 0 35px 35px 0;
 }
 .main-pagination li:last-child a:hover {
