@@ -23,6 +23,7 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer {
 				"/love/member/LoginLoveForm",
 				"/love/member/LoginLoveProc",
 				"/love/member/SignUpLoveProc",
+				"/love/member/ImageCheckLoveProc",
 				"/love/area/AreaLoveSelectProc"
 		);
 	}
