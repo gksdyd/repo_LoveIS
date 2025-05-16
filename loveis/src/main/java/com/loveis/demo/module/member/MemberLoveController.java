@@ -189,4 +189,17 @@ public class MemberLoveController extends BaseController {
     	dto.setUserPassword(encodeBcrypt(dto.getUserPassword(), 10));
     	memberService.insert(dto);
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/ImageCheckLoveProc")
+    public Map<String, Object> imageCheckLoveProc(MemberDto dto) throws Exception {
+    	Map<String, Object> rtMap = new HashMap<>();
+    	if (!memberService.humanCheck(dto.getUploadImg1())) {
+    		rtMap.put("result", "Fail");
+    	} else {
+    		rtMap.put("result", "Success");
+    	}
+    	
+    	return rtMap;
+    }
 }

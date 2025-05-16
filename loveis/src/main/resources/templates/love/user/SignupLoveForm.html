@@ -231,6 +231,7 @@
                         $("#imagePreview").hide();
                     }
                 } else {
+                    $("#imagePreview .preview-image").attr('src', "");
                     $("#imagePreview").hide();
                 }
             });
@@ -241,36 +242,45 @@
         		return;
         	}
             
-            let formdata = new FormData();
-            formdata.append("userGender", $("#gender").val());
-            formdata.append("userName", $("#name").val());
-            formdata.append("userId", $("#userId").val());
-            formdata.append("userPassword", $("#password").val());
-            formdata.append("userEmail", $("#email").val());
-            formdata.append("userBirth", $("#dob").val());
-            formdata.append("userPhone", $("#phone").val());
-            formdata.append("userNickname", $("#nickname").val());
-            formdata.append("userCity", $("#city").val());
-            formdata.append("userLocal", $("#local").val());
-            formdata.append("uploadImg1[]", $("#profileImage")[0].files[0]);
-            formdata.append("uploadImg1Type", 1);
-            formdata.append("uploadImg1MaxNumber", 1);
+            let text = "<div class='valid' style='color: red;'>사진을 체크 중입니다.</div>";
+        	$(".file-upload-container").append(text);
 
-            $.ajax({
-                async: true 
-                ,cache: false
-                ,type: "post"
-                ,url: "/love/member/SignUpLoveProc"
-                ,data: formdata
-                ,processData: false
-                ,contentType: false
-                ,success: function(response) {
-                    location = "/love/index/IndexLoveView";
+            setTimeout(() => {
+                if (!checkImage()) {
+                    return;
                 }
-                ,error : function(jqXHR){
-                    alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-                }
-            });
+
+                let formdata = new FormData();
+                formdata.append("userGender", $("#gender").val());
+                formdata.append("userName", $("#name").val());
+                formdata.append("userId", $("#userId").val());
+                formdata.append("userPassword", $("#password").val());
+                formdata.append("userEmail", $("#email").val());
+                formdata.append("userBirth", $("#dob").val());
+                formdata.append("userPhone", $("#phone").val());
+                formdata.append("userNickname", $("#nickname").val());
+                formdata.append("userCity", $("#city").val());
+                formdata.append("userLocal", $("#local").val());
+                formdata.append("uploadImg1[]", $("#profileImage")[0].files[0]);
+                formdata.append("uploadImg1Type", 1);
+                formdata.append("uploadImg1MaxNumber", 1);
+
+                $.ajax({
+                    async: true 
+                    ,cache: false
+                    ,type: "post"
+                    ,url: "/love/member/SignUpLoveProc"
+                    ,data: formdata
+                    ,processData: false
+                    ,contentType: false
+                    ,success: function(response) {
+                        location = "/love/index/IndexLoveView";
+                    }
+                    ,error : function(jqXHR){
+                        alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+                    }
+                });
+            }, 100); // 100ms 정도 지연
         });
         
         function validation() {
@@ -285,52 +295,52 @@
         			
         			if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "name") {
         				if (value === "") {
-        					let text = "<div class='valid' style='color: red;''>이름을 입력해주세요.</div>";
+        					let text = "<div class='valid' style='color: red;'>이름을 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				} else if (!NAME_CHECK.test(value)) {
-        					let text = "<div class='valid' style='color: red;''>올바른 이름을 입력해주세요.</div>";
+        					let text = "<div class='valid' style='color: red;'>올바른 이름을 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "userId") {
         				if (value === "") {
-        					let text = "<div class='valid' style='color: red;''>아이디를 입력해주세요.</div>";
+        					let text = "<div class='valid' style='color: red;'>아이디를 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				} else if (!ID_CHECK.test(value)) {
-        					let text = "<div class='valid' style='color: red;''>유효하지 않은 아이디입니다.</div>";
+        					let text = "<div class='valid' style='color: red;'>유효하지 않은 아이디입니다.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "dob") {
         				let now = new Date();
         				if (value === "") {
-        					let text = "<div class='valid' style='color: red;''>생일을 입력해주세요.</div>";
+        					let text = "<div class='valid' style='color: red;'>생일을 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				} else if (now.getFullYear() - Number(value.substr(0, 4)) <= 19) {
-        					let text = "<div class='valid' style='color: red;''>만 19세 이상 가입할 수 있습니다.</div>";
+        					let text = "<div class='valid' style='color: red;'>만 19세 이상 가입할 수 있습니다.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "phone") {
         				if (value === "") {
-        					let text = "<div class='valid' style='color: red;''>핸드폰 번호를 입력해주세요.</div>";
+        					let text = "<div class='valid' style='color: red;'>핸드폰 번호를 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				} else if (!PHONE_CHECK.test(value)) {
-        					let text = "<div class='valid' style='color: red;''>유효하지 않은 번호입니다.</div>";
+        					let text = "<div class='valid' style='color: red;'>유효하지 않은 번호입니다.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=text]").attr("id") === "nickname") {
         				if (value === "") {
-        					let text = "<div class='valid' style='color: red;''>닉네임을 입력해주세요.</div>";
+        					let text = "<div class='valid' style='color: red;'>닉네임을 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				} else if (!NICKNAME_CHECK.test(value)) {
-        					let text = "<div class='valid' style='color: red;''>유효하지 않은 닉네임입니다.</div>";
+        					let text = "<div class='valid' style='color: red;'>유효하지 않은 닉네임입니다.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				}
@@ -340,17 +350,17 @@
         			
         			if ($(".form-input").eq(i).find("input[type=password]").attr("id") === "password") {
         				if (value === "") {
-        					let text = "<div class='valid' style='color: red;''>비밀번호를 입력해주세요.</div>";
+        					let text = "<div class='valid' style='color: red;'>비밀번호를 입력해주세요.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				} else if (!PASSWORD_CHECK.test(value)) {
-        					let text = "<div class='valid' style='color: red;''>대문자 최소 1개, 소문자 최소 1개, 숫자 최소 1개, 특수문자 최소 1개</div>";
+        					let text = "<div class='valid' style='color: red;'>대문자 최소 1개, 소문자 최소 1개, 숫자 최소 1개, 특수문자 최소 1개</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				}
         			} else if ($(".form-input").eq(i).find("input[type=password]").attr("id") === "confirmPassword") {
         				if (value === "" || value !== $("#password").val()) {
-        					let text = "<div class='valid' style='color: red;''>비밀번호가 일치하지 않습니다.</div>";
+        					let text = "<div class='valid' style='color: red;'>비밀번호가 일치하지 않습니다.</div>";
         					$(".col-md-6").eq(i).append(text);
         					return false;
         				}
@@ -359,11 +369,11 @@
 					let value = $(".form-input").eq(i).find("input[type=email]").val();
         			
        				if (value === "") {
-       					let text = "<div class='valid' style='color: red;''>이메일을 입력해주세요.</div>";
+       					let text = "<div class='valid' style='color: red;'>이메일을 입력해주세요.</div>";
        					$(".col-md-6").eq(i).append(text);
        					return false;
        				} else if (!EMAIL_CHECK.test(value)) {
-       					let text = "<div class='valid' style='color: red;''>올바른 이메일을 입력해주세요.</div>";
+       					let text = "<div class='valid' style='color: red;'>올바른 이메일을 입력해주세요.</div>";
        					$(".col-md-6").eq(i).append(text);
        					return false;
        				}
@@ -373,11 +383,11 @@
        				if (value === "") {
        					let text;
        					if ($(".form-input").eq(i).find("select").attr("id") === "city") {
-       						text = "<div class='valid' style='color: red;''>도시를 선택해주세요.</div>";
+       						text = "<div class='valid' style='color: red;'>도시를 선택해주세요.</div>";
        					} else if ($(".form-input").eq(i).find("select").attr("id") === "local") {
-       						text = "<div class='valid' style='color: red;''>지역을 선택해주세요.</div>";
+       						text = "<div class='valid' style='color: red;'>지역을 선택해주세요.</div>";
        					} else if ($(".form-input").eq(i).find("select").attr("id") === "gender") {
-       						text = "<div class='valid' style='color: red;''>성별을 선택해주세요.</div>";
+       						text = "<div class='valid' style='color: red;'>성별을 선택해주세요.</div>";
        					}
        					$(".col-md-6").eq(i).append(text);
        					return false;
@@ -386,7 +396,7 @@
         	}
         	
         	if ($("img").attr("src") === "") {
-        		let text = "<div class='valid' style='color: red;''>사진을 선택해주세요.</div>";
+        		let text = "<div class='valid' style='color: red;'>사진을 선택해주세요.</div>";
         		$(".file-upload-container").append(text);
         		return false;
         	}
@@ -396,6 +406,35 @@
         		return false;
         	}
         	return true;
+        }
+
+        function checkImage() {
+            let flag = false;
+            let formdata = new FormData();
+            formdata.append("uploadImg1[]", $("#profileImage")[0].files[0]);
+
+            $.ajax({
+                async: false 
+                ,cache: false
+                ,type: "post"
+                ,url: "/love/member/ImageCheckLoveProc"
+                ,data: formdata
+                ,processData: false
+                ,contentType: false
+                ,success: function(response) {
+                    if (response.result == "Success") {
+                        flag = true;
+                    } else if (response.result == "Fail") {
+                        $(".valid").remove();
+                        text = "<div class='valid' style='color: red;'>유효하지 않은 사진입니다.</div>";
+                        $(".file-upload-container").append(text);
+                    }
+                }
+                ,error : function(jqXHR){
+                    alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+                }
+            });
+            return flag;
         }
     </script>
 </body>
