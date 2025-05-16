@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="ko" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="local">
+	<select class="" id="local" required>
+		<option value="">&ensp;지역</option>
+		<option th:each = "list : ${list}" th:value="${list.ifcaSeq}" th:text="'&ensp;' + ${list.ifcaName}"></option>
+	</select>
+	<div class="dropdown" tabindex="0">
+		<span class="current">&ensp;지역</span>
+		<div class="list">
+			<ul>
+				<li class="option selected" data-value data-display-text>&ensp;지역</li>
+				<li class="option" th:each = "list : ${list}" th:text="'&ensp;' + ${list.ifcaName}" th:data-value="${list.ifcaSeq}" data-display-text></li>
+			</ul>
+		</div>
+	</div>
+	<label for="city"><i class="fas fa-location"></i></label>
+</th:block>
