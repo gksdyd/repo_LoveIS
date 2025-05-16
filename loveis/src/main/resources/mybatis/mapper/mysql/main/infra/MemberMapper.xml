@@ -127,16 +127,16 @@
 		left join user as u on a.user_userSeq = u.userSeq
 		WHERE 1=1
 	</select>
-	<insert id="insertActivity">
+	<insert id="insertActivity" parameterType="com.loveis.demo.module.member.ActivityDto">
 		INSERT INTO activity (
 			actiText
-			,actiRegDate,
+			,actiRegDate
 			,actiDelNy
 			,actiLike
 			,user_userSeq
 		) VALUES (
 			#{actiText}
-			,#{actiRegDate}
+			,DATE_FORMAT(CONVERT_TZ(NOW(), 'UTC', 'Asia/Seoul'), '%Y-%m-%d %H:%i:%S')
 			,0
 			,0
 			,#{user_userSeq}

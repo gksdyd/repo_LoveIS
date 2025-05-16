@@ -89,6 +89,7 @@ public class MemberLoveController extends BaseController {
 		return "redirect:/love/member/MemberLoveMypage";
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/MemberActivityInst")
 	public String MemberActivityInst(ActivityDto activityDto) throws Exception {
 		memberService.insertActivity(activityDto);

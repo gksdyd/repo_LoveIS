@@ -196,6 +196,7 @@
 							<div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
 								<div class="add-post">
 								<form id="postUpload" method="post" autocomplete="off" enctype="multipart/form-data">
+								<input type="hidden" id="user_userSeq" name="user_userSeq" th:value="${item?.userSeq}" />
 									<div class="post-type p-3 border rounded bg-white">
 									  <div class="d-flex mb-3">
 										<img src="/love/assets/images/profile-img2.png" alt="profile-img2" class="img-fluid profile-img me-2" style="width: 48px; height: 48px;">
@@ -211,7 +212,7 @@
 										<button type="button" id="submitPostBtn" class="main-btn">Post</button>
 									  </div>
 									</div>
-									</form>
+								</form>
 								</div>
 								<div class="posts-box">
 									<div class="profile-details">
@@ -748,12 +749,38 @@
 			}
 		}
 		$("#activityPhoto").uploader({multiple: true, ajaxConfig: ajaxConfig, autoUpload: false})
-		$("#activityAttachFileUploader").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
 		
 		$('#submitPostBtn').on("click", function () {
-		  alert("D"); // 테스트용 알림
-		  $("#activityPhoto").uploader('startUpload');
+		  const uploader = $("#activityPhoto").data("jqueryUploader");
+		  const uploadedFiles = uploader ? uploader.uploadFiles() : [];
+		
+		  const formData = new FormData();
+		  formData.append("actiText", $("#actiText").val());
+		  formData.append("user_userSeq", $("#user_userSeq").val());
+		  formData.append("uploadImg1Type", 10);
+		  formData.append("uploadImg1MaxNumber", 11);
+		
+		  uploadedFiles.forEach((fileObj) => {
+		    if (fileObj.file) {
+		      formData.append("uploadImg1", fileObj.file);
+		    }
+		  });
+		
+		  $.ajax({
+		    url: '/love/member/MemberActivityInst',
+		    type: 'POST',
+		    data: formData,
+		    processData: false,
+		    contentType: false,
+		    success: function(response) {
+		      alert("업로드 완료!");
+		    },
+		    error: function(xhr, status, error) {
+		      alert("업로드 실패: " + error);
+		    }
+		  });
 		});
+
 	</script>
 </body>
 
