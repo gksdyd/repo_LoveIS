@@ -88,6 +88,12 @@ public class MemberLoveController extends BaseController {
 		memberService.updateSingleIntroduce(dto);
 		return "redirect:/love/member/MemberLoveMypage";
 	}
+
+	@RequestMapping(value = "/MemberActivityInst")
+	public String MemberActivityInst(ActivityDto activityDto) throws Exception {
+		memberService.insertActivity(activityDto);
+		return "redirect:/love/member/MemberLoveMypage";
+	}
 	
 	@RequestMapping(value = "/SignupLoveForm")
 	public String signupLoveForm(MemberVo vo, HttpSession httpSession, Model model) throws Exception {

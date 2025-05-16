@@ -122,7 +122,11 @@ public class MemberService extends BaseService {
 			memberDao.hobbyInsert(listDto);
 		}
 	}
-	
+	public void insertActivity(ActivityDto activityDto) throws Exception {
+		memberDao.insertActivity(activityDto);
+		uploadFilesToS3(activityDto.getUploadImg1(), activityDto, "image", activityDto.getUploadImg1Type(), activityDto.getUploadImg1MaxNumber()
+    			, activityDto.getActiSeq(), memberDao, amazonS3Client);
+	}
 	
 	
 }

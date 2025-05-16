@@ -199,7 +199,7 @@
 									<div class="post-type p-3 border rounded bg-white">
 									  <div class="d-flex mb-3">
 										<img src="/love/assets/images/profile-img2.png" alt="profile-img2" class="img-fluid profile-img me-2" style="width: 48px; height: 48px;">
-										<textarea id="postText" name="post" class="form-control" placeholder="Share a post, link, photo or video" rows="3"></textarea>
+										<textarea id="actiText" name="actiText" class="form-control" placeholder="Share a post, link, photo or video" rows="3"></textarea>
 									  </div>
 								  
 									  <!-- 이미지 업로더 -->
@@ -607,26 +607,7 @@
 	<script src="/love/assets/js/userDerivation.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f7d210607aa49a67c830e2baeb80358f&libraries=services"></script>
-	<script type="application/javascript">
-		let ajaxConfig = {
-			ajaxRequester: function (config, uploadFile, pCall, sCall, eCall) {
-				let progress = 0
-				let interval = setInterval(() => {
-					progress += 10;
-					pCall(progress)
-					if (progress >= 100) {
-						clearInterval(interval)
-						const windowURL = window.URL || window.webkitURL;
-						sCall({
-							data: windowURL.createObjectURL(uploadFile.file)
-						})
-					}
-				}, 300)
-			}
-		}
-		$("#activityPhoto").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
-		$("#activityAttachFileUploader").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
-	</script>
+	
 	<script>
 	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	        mapOption = {
@@ -748,9 +729,32 @@
 		formIntro.action = "/love/member/MemberLoveMypageIntroUpdt";
 		formIntro.submit();
 	}
-	
 	</script>
-	
+	<script type="application/javascript">
+		let ajaxConfig = {
+			ajaxRequester: function (config, uploadFile, pCall, sCall, eCall) {
+				let progress = 0
+				let interval = setInterval(() => {
+					progress += 10;
+					pCall(progress)
+					if (progress >= 100) {
+						clearInterval(interval)
+						const windowURL = window.URL || window.webkitURL;
+						sCall({
+							data: windowURL.createObjectURL(uploadFile.file)
+						})
+					}
+				}, 300)
+			}
+		}
+		$("#activityPhoto").uploader({multiple: true, ajaxConfig: ajaxConfig, autoUpload: false})
+		$("#activityAttachFileUploader").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: false})
+		
+		$('#submitPostBtn').on("click", function () {
+		  alert("D"); // 테스트용 알림
+		  $("#activityPhoto").uploader('startUpload');
+		});
+	</script>
 </body>
 
 </html>

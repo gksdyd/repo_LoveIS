@@ -114,6 +114,37 @@
 			AND userDelFlag = 0
 	</select>
 	
+	<select id="selectActivity" resultMap="resultMapObj">
+		SELECT 
+			actiSeq
+		    ,actiText
+		    ,actiLike
+		    ,actiRegDate
+		    ,actiDelNy
+		    ,user_userSeq
+		    ,u.userSeq
+		FROM activity as a
+		left join user as u on a.user_userSeq = u.userSeq
+		WHERE 1=1
+	</select>
+	<insert id="insertActivity">
+		INSERT INTO activity (
+			actiText
+			,actiRegDate,
+			,actiDelNy
+			,actiLike
+			,user_userSeq
+		) VALUES (
+			#{actiText}
+			,#{actiRegDate}
+			,0
+			,0
+			,#{user_userSeq}
+		)
+		<selectKey resultType="String" keyProperty="actiSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
 	<update id="update">
 		UPDATE user
 		SET 
