@@ -27,7 +27,7 @@ public class PayController {
 	}
 	
 //	결제 승인 처리 메서드
-    @PostMapping("/confirm")
+    @PostMapping("/PayLoveConfirm")
     @ResponseBody
     public ResponseEntity<String> confirmPayment(@RequestBody PayDto payDto) {
         
