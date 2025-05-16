@@ -214,13 +214,13 @@
 									</div>
 								</form>
 								</div>
-								<div class="posts-box">
+								<div class="posts-box" th:each="list : ${list}">
 									<div class="profile-details">
 										<div class="profile-img">
 											<img src="/love/assets/images/profile-img2.png" alt="profile-img2" class="img-fluid">
 										</div>
 										<div class="profile-name">
-											<h5>Sarika Parmar </h5>
+											<h5 th:text="${list?.userName}">Sarika Parmar </h5>
 											<span>23 min - Publish</span>
 										</div>
 										<div class="options">
@@ -228,12 +228,24 @@
 										</div>
 									</div>
 									<div class="post-caption">
-										<p>The Best Solution For Your Business Website. Creative & Interaction Design |
+										<p th:text="${list?.actiText}">The Best Solution For Your Business Website. Creative & Interaction Design |
 											Social Media Management | Software Development |
 										</p>
 									</div>
-									<div class="post-img">
-										<img src="/love/assets/images/post-img.jpg" alt="post-img" class="img-fluid">
+									<div id="carouselExample" class="carousel slide">
+										<div class="carousel-inner">
+										  <div th:each="listPic, iterStat : ${listPic}" th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
+										    <img th:src="${listPic?.path}" class="d-block w-100" alt="...">
+										  </div>
+										</div>
+										<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+										  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										  <span class="visually-hidden">Previous</span>
+										</button>
+										<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+										  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+										  <span class="visually-hidden">Next</span>
+										</button>
 									</div>
 									<div class="like-comment">
 										<ul class="like-comment-options">
@@ -279,9 +291,27 @@
 											Social Media Management | Software Development |
 										</p>
 									</div>
-									<div class="post-img">
-										<img src="/love/assets/images/post-img2.jpg" alt="post-img2" class="img-fluid">
-									</div>
+									<div id="carouselExample" class="carousel slide">
+<div class="carousel-inner">
+  <div class="carousel-item active">
+    <img src="/love/assets/images/post-img.jpg" class="d-block w-100" alt="...">
+  </div>
+  <div class="carousel-item">
+    <img src="/love/assets/images/post-img.jpg" class="d-block w-100" alt="...">
+  </div>
+  <div class="carousel-item">
+    <img src="/love/assets/images/post-img.jpg" class="d-block w-100" alt="...">
+  </div>
+</div>
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Next</span>
+</button>
+</div>
 									<div class="like-comment">
 										<ul class="like-comment-options">
 											<li>

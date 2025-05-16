@@ -1,5 +1,7 @@
 package com.loveis.demo.module.member;
 
+import java.util.List;
+
 import com.loveis.demo.module.base.BaseDto;
 
 public class ActivityDto extends BaseDto {
@@ -11,7 +13,16 @@ public class ActivityDto extends BaseDto {
 	private int actiLike;
 	private String user_userSeq;
 	private String userSeq;
+	private String userName;
 //-----
+	private List<BaseDto> picList;
+	public List<BaseDto> getPicList() {
+			return picList;
+		}
+	public void setPicList(List<BaseDto> picList) {
+		this.picList = picList;
+	}
+//	-----
 	public String getActiSeq() {
 		return actiSeq;
 	}
@@ -59,6 +70,12 @@ public class ActivityDto extends BaseDto {
 	}
 	public void setUserSeq(String userSeq) {
 		this.userSeq = userSeq;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 }

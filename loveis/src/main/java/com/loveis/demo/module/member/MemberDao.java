@@ -12,6 +12,8 @@ import com.loveis.demo.module.base.BaseDto;
 public interface MemberDao extends BaseDao {
 
 	public List<MemberDto> selectList(MemberVo vo);
+	public List<ActivityDto> selectActivity(MemberVo vo);
+	public List<BaseDto> selectOneList4Pic(ActivityDto activityDto);
 	public int selectOneCount(MemberVo vo);
 	public MemberDto selectOne(MemberDto memberDto);
 	public MemberDto selectOneLogin(MemberDto memberDto);

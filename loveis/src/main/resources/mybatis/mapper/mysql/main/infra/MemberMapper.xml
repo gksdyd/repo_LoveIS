@@ -4,6 +4,7 @@
 <mapper namespace="com.loveis.demo.module.member.MemberDao">
 
 	<resultMap type="com.loveis.demo.module.member.MemberDto" id="resultMapObj"></resultMap>
+	<resultMap type="com.loveis.demo.module.member.ActivityDto" id="actResultMapObj"></resultMap>
 	
 	<sql id="selectCommon">
         FROM user a
@@ -114,7 +115,7 @@
 			AND userDelFlag = 0
 	</select>
 	
-	<select id="selectActivity" resultMap="resultMapObj">
+	<select id="selectActivity" resultMap="actResultMapObj">
 		SELECT 
 			actiSeq
 		    ,actiText
@@ -126,7 +127,18 @@
 		FROM activity as a
 		left join user as u on a.user_userSeq = u.userSeq
 		WHERE 1=1
+		AND user_userSeq = #{userSeq}
 	</select>
+	<select id="selectOneList4Pic" resultMap="actResultMapObj">
+		SELECT
+			path
+			,pSeq
+		FROM image
+		WHERE 1=1
+		AND type = 10
+		order by sort asc
+	</select>
+	
 	<insert id="insertActivity" parameterType="com.loveis.demo.module.member.ActivityDto">
 		INSERT INTO activity (
 			actiText

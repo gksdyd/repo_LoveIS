@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.loveis.demo.module.base.BaseDto;
 import com.loveis.demo.module.base.BaseService;
 
 @Service
@@ -127,6 +128,11 @@ public class MemberService extends BaseService {
 		uploadFilesToS3(activityDto.getUploadImg1(), activityDto, "image", activityDto.getUploadImg1Type(), activityDto.getUploadImg1MaxNumber()
     			, activityDto.getActiSeq(), memberDao, amazonS3Client);
 	}
-	
+	public List<ActivityDto> selectActivity(MemberVo vo) {
+		return memberDao.selectActivity(vo);
+	}
+	public List<BaseDto> selectOneList4Pic(ActivityDto activityDto) {
+		return memberDao.selectOneList4Pic(activityDto);
+	}
 	
 }

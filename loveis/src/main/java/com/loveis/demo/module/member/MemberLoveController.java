@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.loveis.demo.module.area.AreaService;
 import com.loveis.demo.module.base.BaseController;
+import com.loveis.demo.module.base.BaseDto;
 import com.loveis.demo.module.base.Constants;
 
 import jakarta.servlet.http.HttpSession;
@@ -40,9 +42,22 @@ public class MemberLoveController extends BaseController {
 		return "love/member/MemberLoveList";
 	}
 	@RequestMapping(value = "/MemberLoveMypage")
-	public String MemberLoveMypage(Model model, MemberDto dto, HttpSession httpSession, @ModelAttribute Member4ListDto listDto) {
+	public String MemberLoveMypage(Model model, MemberDto dto, ActivityDto activityDto, MemberVo vo, HttpSession httpSession, @ModelAttribute Member4ListDto listDto) {
 		dto.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
+		vo.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
+		List<ActivityDto> ActivityList = memberService.selectActivity(vo);  // 가게 정보 리스트
+		List<BaseDto> picList = memberService.selectOneList4Pic(activityDto);  // 이미지 정보 리스트
 		
+		// 각 가게에 해당하는 이미지들만 매칭하여 picList에 할당합니다.
+		for (ActivityDto activity : ActivityList) {
+		    List<BaseDto> matchedPics = picList.stream()
+		        .filter(pic -> pic.getPseq().equals(activity.getActiSeq())) // shopSeq와 pSeq가 일치하는 것만 찾기
+		        .collect(Collectors.toList());
+		    
+		    activity.setPicList(matchedPics); // ShopDto에 picList 필드를 추가하여 연결
+		}
+		model.addAttribute("list", ActivityList);  // 가게 정보 리스트
+		model.addAttribute("listPic", picList);  // 이미지 정보 리스트 (혹시 필요하다면)
 		model.addAttribute("item", memberService.selectOne(dto));
 		return "love/member/MemberLoveSingle";
 	}
