@@ -1,5 +1,11 @@
 package com.loveis.demo.module.payment;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,20 +32,24 @@ public class PayController {
 		return "love/payment/TossPaymentsFail";
 	}
 	
-//	결제 승인 처리 메서드
-    @PostMapping("/PayLoveConfirm")
-    @ResponseBody
-    public ResponseEntity<String> confirmPayment(@RequestBody PayDto payDto) {
-        
-        System.out.println("결제 승인 요청 받음:");
-        System.out.println("paymentKey: " + payDto.getPaymentKey());
-        System.out.println("orderId: " + payDto.getOrderId());
-        System.out.println("amount: " + payDto.getAmount());
-        
-        // 2. 실제로는 여기서 Toss Payments API를 호출해야 하지만,
-        //    테스트를 위해 일단 성공 응답만 반환
-        
-        // 3. 성공 응답 반환
-        return ResponseEntity.ok("결제가 성공적으로 완료되었습니다");
-    }
+   @PostMapping("/PayLoveConfirm")
+   @ResponseBody
+   public ResponseEntity<String> confirmPayment(@RequestBody PayDto payDto) throws IOException, InterruptedException{
+	   String requestBody = String.format(
+		        "{\"paymentKey\":\"%s\",\"orderId\":\"%s\",\"amount\":%d}",
+		        payDto.getPaymentKey(), payDto.getOrderId(), payDto.getAmount()
+		    );
+	   
+	   HttpRequest request = HttpRequest.newBuilder()
+			    .uri(URI.create("https://api.tosspayments.com/v1/payments/confirm"))
+			    .header("Authorization", "Basic dGVzdF9za196WExrS0V5cE5BcldtbzUwblgzbG1lYXhZRzVSOg==")
+			    .header("Content-Type", "application/json")
+			    .method("POST", HttpRequest.BodyPublishers.ofString(requestBody))
+			    .build();
+			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+			
+			System.out.println(response.body());
+			
+			return ResponseEntity.ok(response.body());
+	 }   
 }

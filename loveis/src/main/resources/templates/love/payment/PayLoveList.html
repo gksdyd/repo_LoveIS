@@ -87,16 +87,30 @@
 	    tossPayments.requestPayment("카드", {
 	      amount: amount,
 	      orderId: "COOKIE_" + new Date().getTime(),
-	      orderName: "쿠키 ${cookieCount}개 구매",
-	      successUrl: window.location.origin + "/love/payment/PayLoveSuccess",
+	      orderName: '쿠키 ' + cookieCount + '개 구매',
+	      successUrl: window.location.origin + "/love/payment/PayLoveSuccess?isRedirect=true",
 	      failUrl: window.location.origin + "/love/payment/PayLoveFail",
 	      customerEmail: "test@example.com",
 	      customerName: "테스터"
 	    });
-	  } catch (error) {
-	    alert(`에러: ${error.message}`);
+	    
+	    if (response.paymentKey) {
+	        const confirmResponse = await fetch("/love/payment/PayLoveConfirm", {
+	          method: "POST",
+	          headers: { "Content-Type": "application/json" },
+	          body: JSON.stringify({
+	            paymentKey: response.paymentKey,
+	            orderId: response.orderId,
+	            amount: amount
+	          })
+	        });
+	        const result = await confirmResponse.json();
+	        console.log("Confirm 결과:", result);
+	      }
+	    } catch (error) {
+	      alert(`결제 실패:  ${error.message}`);
+	    }
 	  }
-	}
 	
    // 월정액 결제 요청 함수
       async function requestMonthlyPayment(dailyCookie, amount, bonusCookie) {
@@ -108,7 +122,7 @@
                   orderId: "MONTHLY_" + new Date().getTime(),
                   orderName: `월정액 (하루 ${dailyCookie}개 + 보너스 ${bonusCookie}개)`,
                   successUrl: window.location.origin + "/love/payment/PayLoveSuccess",
-                  failUrl: window.location.origin + "/love/paym	ent/PayLoveFail",
+                  failUrl: window.location.origin + "/love/payment/PayLoveFail",
                   customerEmail: "test@example.com",
                   customerName: "테스터"
               });
