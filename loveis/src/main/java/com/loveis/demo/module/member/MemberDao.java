@@ -13,6 +13,8 @@ public interface MemberDao extends BaseDao {
 
 	public List<MemberDto> selectList(MemberVo vo);
 	public List<ActivityDto> selectActivity(MemberVo vo);
+	public List<Member4ListDto> selectOneList4Hobb(MemberVo vo);
+	public List<Member4ListDto> selectOneList4Pers(MemberVo vo);
 	public List<BaseDto> selectOneList4Pic(ActivityDto activityDto);
 	public int selectOneCount(MemberVo vo);
 	public MemberDto selectOne(MemberDto memberDto);

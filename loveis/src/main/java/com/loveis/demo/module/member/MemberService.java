@@ -134,5 +134,11 @@ public class MemberService extends BaseService {
 	public List<BaseDto> selectOneList4Pic(ActivityDto activityDto) {
 		return memberDao.selectOneList4Pic(activityDto);
 	}
-	
+	public List<Member4ListDto> selectOneList4Pers(MemberVo vo) {
+		return memberDao.selectOneList4Pers(vo);
+	}
+	public List<Member4ListDto> selectOneList4Hobb(MemberVo vo) {
+		return memberDao.selectOneList4Hobb(vo);
+	}
+
 }

@@ -35,7 +35,7 @@ public class MemberDto extends BaseDto {
 	private Integer userAlcohol;
 	private Integer userbodyShape;
 	private String userLogTime;
-	
+	private String user_userSeq;
 	// 경과시간 계산
 	private String timeAgo;
 	
@@ -324,6 +324,12 @@ public class MemberDto extends BaseDto {
 	}
 	public void setTimeAgo(String timeAgo) {
 		this.timeAgo = timeAgo;
+	}
+	public String getUser_userSeq() {
+		return user_userSeq;
+	}
+	public void setUser_userSeq(String user_userSeq) {
+		this.user_userSeq = user_userSeq;
 	}
 	
 }
