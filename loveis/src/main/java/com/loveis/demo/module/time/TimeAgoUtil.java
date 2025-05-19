@@ -21,8 +21,12 @@ public class TimeAgoUtil {
 	                return (seconds / 60) + "분 전 접속";
 	            } else if (seconds < 60 * 60 * 24) {
 	                return (seconds / 3600) + "시간 전 접속";
+	            } else if (seconds < 60L * 60 * 24 * 30) {
+	                return (seconds / (60 * 60 * 24)) + "일 전 접속";
+	            } else if (seconds < 60L * 60 * 24 * 365) {
+	                return (seconds / (60 * 60 * 24 * 30)) + "달 전 접속";
 	            } else {
-	                return (seconds / (3600 * 24)) + "일 전 접속";
+	                return (seconds / (60 * 60 * 24 * 365)) + "년 전 접속";
 	            }
 	        } catch (Exception e) {
 	            return "";
