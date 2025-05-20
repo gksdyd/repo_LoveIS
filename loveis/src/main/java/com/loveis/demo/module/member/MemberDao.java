@@ -17,9 +17,12 @@ public interface MemberDao extends BaseDao {
 	public List<Member4ListDto> selectOneList4Pers(MemberVo vo);
 	public List<BaseDto> selectOneList4Pic(ActivityDto activityDto);
 	public int selectOneCount(MemberVo vo);
+	public MemberDto selectOne4Pic(MemberDto memberDto);
 	public MemberDto selectOne(MemberDto memberDto);
 	public MemberDto selectOneLogin(MemberDto memberDto);
 	public int update(MemberDto memberDto);
+	public int ueleteBackgroundImage(MemberDto memberDto);
+	public int ueleteProfileImage(MemberDto memberDto);
 	public int updateSingle(MemberDto memberDto);
 	public int updateSingleIntroduce(MemberDto memberDto);
 	public int insert(MemberDto memberDto);

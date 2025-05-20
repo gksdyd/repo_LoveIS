@@ -21,7 +21,7 @@
 			<div class="cover-img">
 				<div class="edit-img">
 					<label for="background_input"><i class="far fa-edit"></i></label>
-					<input id="background_input" type="file" accept="image/*" />
+					<input id="background_input" name="backgroundInput" type="file" accept="image/*" />
 				</div>
 				<ul class="media-list2">
 					<li><a href="javascreipt:;"><img src="/love/assets/images/facebook.png" alt="facebook"></a></li>
@@ -34,15 +34,14 @@
 				<div class="profile-details">
 					<div class="left">
 						<div class="profile-img">
-							<img src="/love/assets/images/profile-img.png" id="profileImage" alt="profile-img" class="img-fluid">
+							<img th:src="${itemPI?.path}" id="profileImage" alt="profile-img" class="img-fluid">
 						</div>
 						<div class="profile-name">
-						
-							<h3>Sarika Parmar</h3>
-							<span>33 year old Woman</span> <br>
-							<label for="profile_input"><i class="far fa-edit"></i></label>
-							<input id="profile_input" type="file" accept="image/*" style="display: none;" />
-					        <button type="button" class="btn btn-primary-sm" style="justify-content: end;">사진변경</button>
+							<h3 th:text="${item?.userName}"></h3>
+							<span th:text="${@memberService.calculateAge(item?.userBirth)} + '세'"></span> <span th:text="${@codeService.selectOneCachedCode(item?.userGender)}"></span> <br>
+						<label for="profile_input"><i class="far fa-edit"></i></label>
+						<input id="profile_input" name="profileInput" type="file" accept="image/*" style="display: none;" />
+					        <button type="button" id="btnImageSubmit" class="btn btn-primary-sm" style="justify-content: end;">사진변경</button>
 							<a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#exampleModal" id="location" class="font-color-pink"><i class="fas fa-map-marker-alt"></i> Tokyo,
 								Japan</a>
 						</div>
@@ -144,10 +143,7 @@
 								aria-labelledby="profile-tab">
 								<div class="profile-tab w-100 float-start">
 									<h4>자기소개 <span><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editIntroduceModal" id="location" class="font-color-pink"><i class="far fa-edit edit-icon"></i></a></span></h4>
-									<p th:text="${item?.userIntroduce}">The Best Solution For Your Business Website. Creative & Interaction Design |
-										Social Media Management | Software Development | Website Designing | Graphic
-										Design | WordPress Theme | Logo Design + Branding | SEO | App Development
-									</p>
+									<p th:text="${item?.userIntroduce}"></p>
 								</div>
 								<div class="profile-tab w-100 float-start">
 									<h4>상세정보 <span><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editDetailModal" id="location" class="font-color-pink"><i class="far fa-edit edit-icon"></i></a></span></h4>
@@ -222,7 +218,7 @@
 											<img src="/love/assets/images/profile-img2.png" alt="profile-img2" class="img-fluid">
 										</div>
 										<div class="profile-name">
-											<h5 th:text="${list?.userName}">Sarika Parmar </h5>
+											<h5 th:text="${list?.userName}"></h5>
 											<span>23 min - Publish</span>
 										</div>
 										<div class="options">
@@ -230,9 +226,7 @@
 										</div>
 									</div>
 									<div class="post-caption">
-										<p th:text="${list?.actiText}">The Best Solution For Your Business Website. Creative & Interaction Design |
-											Social Media Management | Software Development |
-										</p>
+										<p th:text="${list?.actiText}"></p>
 									</div>
 									<div th:id="'ca' + ${list?.actiSeq}" class="carousel slide">
 										<div class="carousel-inner">
@@ -775,7 +769,6 @@
 	    }
 	</script>
 	<script>
-	    
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
@@ -813,6 +806,26 @@
                 $("#imagePreview").hide();
             }
         });
+		
+		$("#btnImageSubmit").click(function () {
+		    const formI = $('#formImg')[0];
+		    const formIData = new FormData(formI);
+
+		    $.ajax({
+		        url: '/love/member/MemberImageProc', // 실제 업로드 처리하는 백엔드 URL로 변경하세요
+		        type: 'POST',
+		        data: formIData,
+		        contentType: false,
+		        processData: false,
+		        success: function (response) {
+		            alert("업로드 성공");
+		            // 필요 시 이미지 변경 후 처리 추가
+		        },
+		        error: function (xhr, status, error) {
+		            alert("업로드 실패: " + error);
+		        }
+		    });
+		});
 	</script>
 	<script>
 		$(".tabbox .nav a.slideBottomLine").click(function () {

@@ -143,4 +143,27 @@ public class MemberService extends BaseService {
 	public MemberDto selectOne(MemberVo vo) {
 		return memberDao.selectOne(vo);
 	}
+	public void insertMypageImages(MemberDto dto) throws Exception {
+		
+		if (dto.getBackgroundInput() != null) {
+//			memberDao.ueleteBackgroundImage(dto);
+			dto.setUploadImg1(dto.getBackgroundInput());
+			dto.setUploadImg1Type(11);
+			dto.setUploadImg1MaxNumber(11);
+			uploadFilesToS3(dto.getUploadImg1(), dto, "image", dto.getUploadImg1Type(), dto.getUploadImg1MaxNumber()
+					, dto.getUserSeq(), memberDao, amazonS3Client);
+		}
+		if (dto.getProfileInput() != null) {
+//			memberDao.ueleteProfileImage(dto);
+			dto.setUploadImg1(dto.getProfileInput());
+			dto.setUploadImg1Type(12);
+			dto.setUploadImg1MaxNumber(12);
+			uploadFilesToS3(dto.getUploadImg1(), dto, "image", dto.getUploadImg1Type(), dto.getUploadImg1MaxNumber()
+					, dto.getUserSeq(), memberDao, amazonS3Client);
+		}
+	}
+	public MemberDto selectOne4Pic(MemberDto dto) {
+		return memberDao.selectOne4Pic(dto);
+	}
+	
 }

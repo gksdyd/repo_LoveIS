@@ -1,5 +1,7 @@
 package com.loveis.demo.module.member;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.loveis.demo.module.base.BaseDto;
 import com.loveis.demo.module.time.TimeAgoUtil;
 
@@ -50,6 +52,9 @@ public class MemberDto extends BaseDto {
 	private Integer hobbyCount;
 	private String hobbyText;
 	private int hobbyDelNy;
+	
+	private MultipartFile[] backgroundInput;
+	private MultipartFile[] profileInput;
 	
 	private String newPassword;
 	
@@ -330,6 +335,18 @@ public class MemberDto extends BaseDto {
 	}
 	public void setUser_userSeq(String user_userSeq) {
 		this.user_userSeq = user_userSeq;
+	}
+	public MultipartFile[] getBackgroundInput() {
+		return backgroundInput;
+	}
+	public void setBackgroundInput(MultipartFile[] backgroundInput) {
+		this.backgroundInput = backgroundInput;
+	}
+	public MultipartFile[] getProfileInput() {
+		return profileInput;
+	}
+	public void setProfileInput(MultipartFile[] profileInput) {
+		this.profileInput = profileInput;
 	}
 	
 }

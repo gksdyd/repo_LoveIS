@@ -57,6 +57,16 @@ public class MemberLoveController extends BaseController {
 		        .collect(Collectors.toList());
 		    activity.setPicList(matchedPics); 
 		}
+		
+		MemberDto backgroundImage = new MemberDto();
+		MemberDto profileImage = new MemberDto();
+		backgroundImage.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
+		profileImage.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
+		backgroundImage.setUploadImg1Type(11);
+		profileImage.setUploadImg1Type(12);
+		
+		model.addAttribute("itemBI", memberService.selectOne4Pic(backgroundImage));
+		model.addAttribute("itemPI", memberService.selectOne4Pic(profileImage));
 		model.addAttribute("listP", persList);
 		model.addAttribute("listH", hobbList);
 		model.addAttribute("list", ActivityList);
@@ -67,9 +77,7 @@ public class MemberLoveController extends BaseController {
 	public String MemberLoveMypageUpdt(MemberDto dto, @ModelAttribute Member4ListDto listDto) {
 		List<MemberDto> dtoListP = new ArrayList<>();
 		List<MemberDto> dtoListH = new ArrayList<>();
-	    System.out.println("===== MemberPersProc 호출됨 =====");
-	    System.out.println("persText = " + listDto.getPersText());
-	    System.out.println("user_userSeq = " + listDto.getUser_userSeq());
+
 		if (listDto.getPersText() != null) {
 	        for (Integer code : listDto.getPersText()) {
 	        	MemberDto memberDto = new MemberDto();
@@ -113,6 +121,14 @@ public class MemberLoveController extends BaseController {
 	@RequestMapping(value = "/MemberActivityInst")
 	public String MemberActivityInst(ActivityDto activityDto) throws Exception {
 		memberService.insertActivity(activityDto);
+		return "redirect:/love/member/MemberLoveMypage";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/MemberImageProc")
+	public String MemberImageProc(MemberDto dto) throws Exception {
+		memberService.insertMypageImages(dto);
+
 		return "redirect:/love/member/MemberLoveMypage";
 	}
 	

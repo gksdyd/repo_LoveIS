@@ -139,6 +139,15 @@
 		AND type = 10
 		order by sort asc
 	</select>
+	<select id="selectOne4Pic" resultMap="resultMapObj">
+		SELECT
+			path
+			,pSeq
+		FROM image
+		WHERE 1=1
+		AND type = #{uploadImg1Type}
+		AND pSeq = #{userSeq}
+	</select>
 	<select id="selectOneList4Hobb" resultMap="resultMapObj">
 	SELECT
 		hobbText
@@ -317,6 +326,22 @@
 			userModDate = date_format(NOW(), '%Y-%m-%d %H:%i:%S')
 		WHERE
 			userSeq = #{userSeq}
+	</update>
+	<update id="ueleteBackgroundImage">
+		UPDATE image
+		SET 
+			delNy = 1,
+		WHERE 1=1
+		AND type = 11
+		AND pSeq = #{userSeq}
+	</update>
+	<update id="ueleteProfileImage">
+		UPDATE image
+		SET 
+			delNy = 1,
+		WHERE 1=1
+		AND type = 12
+		AND pSeq = #{userSeq}
 	</update>
 	
 	<select id="checkPhone" resultMap="resultMapObj">
