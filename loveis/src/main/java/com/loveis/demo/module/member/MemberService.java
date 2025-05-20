@@ -140,5 +140,7 @@ public class MemberService extends BaseService {
 	public List<Member4ListDto> selectOneList4Hobb(MemberVo vo) {
 		return memberDao.selectOneList4Hobb(vo);
 	}
-
+	public MemberDto selectOne(MemberVo vo) {
+		return memberDao.selectOne(vo);
+	}
 }

@@ -41,4 +41,5 @@ public interface MemberDao extends BaseDao {
 	public void hobbyInsert(@Param("listDto") List<MemberDto> listDto);
 	public int deletePersonalityByUser(MemberDto memberDto);
 	public int deleteHobbyByUser(MemberDto memberDto);
+	public MemberDto selectOne(MemberVo vo);
 }
