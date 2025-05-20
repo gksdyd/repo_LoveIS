@@ -5,95 +5,28 @@
 		<div class="container">
 			<div class="match-slider">
 				<div class="item">
-					<div class="profile-box text-center">
-						<div class="profile-content">
-							<h1 style="text-align: center; margin-bottom: 10px; margin-right: -80px;">MBTI 리스트								
-							</h1>
-							<h5 style="text-align: center; margin-bottom: 60px; margin-right: -80px;">(AI에게 물어보고 마음에 드는 MBTI와 얘기해보자!) </h5>
-							<div class="mbti-grid" style="background: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-left: -30px;">
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2 active" data-type="ISTJ">ISTJ</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ISTP">ISTP</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ISFJ">ISFJ</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ISFP">ISFP</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="INTJ">INTJ</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="INTP">INTP</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="INFJ">INFJ</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="INFP">INFP</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ESTJ">ESTJ</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ESTP">ESTP</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ESFJ">ESFJ</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ESFP">ESFP</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ENTJ">ENTJ</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ENTP">ENTP</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ENFJ">ENFJ</a>
-							  </div>
-							  <div class="button2-wrapper" style="background: none;">
-								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" data-type="ENFP">ENFP</a>
+					<div class="profile-box">
+						<div class="profile-content text-center">
+							<h1 class="mb-3">MBTI 리스트</h1>
+							<h5 class="mb-5">(AI에게 물어보고 마음에 드는 MBTI와 얘기해보자!)</h5>
+							<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
+							  <div class="button2-wrapper" style="background: none;" th:each="mbti : ${@codeService.selectListCachedCode(9)}">
+								<a href="javascript:;" class="button2-wrapper rounded-btn btn2" th:data-value="${mbti.codeSeq}" th:text="${mbti.codeName}"></a>
 							  </div>
 							</div>
-						  </div>						  
-						<div class="profile-content" data-type="ISTJ">
-							<p>I still fanboy over 5 seconds of Summer and Neighborhood. (Probably waiting for
-								someone to sing 'Looks so perfect' to me). Invests my time in sleeping
-								intellectual/psychological mindfuck movies (watched).
-								I still fanboy over 5 seconds of Summer and Neighborhood. (Probably waiting for
-								someone to sing 'Looks so perfect' to me). Invests my time in sleeping
-								intellectual/psychological mindfuck movies (watched).
-							</p>
-							<ul class="media-list" style="white-space: nowrap;">
-								<li data-tooltip="애정도"><a href="#" class="active"><i class="fas fa-bolt" id="affection"></i></a></li>
-								<li data-tooltip="OOTD"><a href="#" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="fas fa-redo-alt" id="ootd"></i></a></li>
-								<li data-tooltip="오늘의 운세"><a href="#" ><i class="fas fa-expand-arrows-alt"></i></a></li>
-								<li data-tooltip="내 프로필 어때?"><a href="#"><i class="fas fa-star"></i></a></li>
-								<li data-tooltip="오늘 나의 기분"><a href="#"><i class="fas fa-heart"></i></a></li>
-								<li><a href="#"><i class="fas fa-redo-alt"></i></a></li>
-								<li><a href="#"><i class="fas fa-expand-arrows-alt"></i></a></li>
-								<li><a href="#"><i class="fas fa-star"></i></a></li>
-								<li><a href="#"><i class="fas fa-heart"></i></a></li>
-								<li><a href="#"><i class="fas fa-bolt"></i></a></li>
-								<li><a href="#"><i class="fas fa-expand-arrows-alt"></i></a></li>
-								<li><a href="#"><i class="fas fa-star"></i></a></li>
-								<li><a href="#"><i class="fas fa-heart"></i></a></li>
-								<li><a href="#"><i class="fas fa-bolt"></i></a></li>
-								<li><a href="#"><i class="fas fa-redo-alt"></i></a></li>
-								<li><a href="#"><i class="fas fa-expand-arrows-alt"></i></a></li>
-								<li><a href="#"><i class="fas fa-star"></i></a></li>
-								<li><a href="#"><i class="fas fa-heart"></i></a></li>
-								<li><a href="#"><i class="fas fa-bolt"></i></a></li>
-								<li><a href="#"><i class="fas fa-bolt"></i></a></li>
+						</div>						  
+						<div class="profile-content">
+							<p id="responseAI"></p>
+							<ul class="media-list text-center" style="white-space: nowrap;">
+								<li th:data-tooltip="${@codeService.selectOneCachedCode(91)}"><a href="javascript:void(0);" value="91"><i class="fas fa-bolt"></i></a></li>
+								<li th:data-tooltip="${@codeService.selectOneCachedCode(92)}"><a href="javascript:void(0);" value="92" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="fas fa-redo-alt"></i></a></li>
+								<li th:data-tooltip="${@codeService.selectOneCachedCode(93)}"><a href="javascript:void(0);" value="93"><i class="fas fa-expand-arrows-alt"></i></a></li>
+								<li th:data-tooltip="${@codeService.selectOneCachedCode(94)}"><a href="javascript:void(0);" value="94"><i class="fas fa-star"></i></a></li>
+								<li th:data-tooltip="${@codeService.selectOneCachedCode(95)}"><a href="javascript:void(0);" value="95"><i class="fas fa-heart"></i></a></li>
 							</ul>
-							<ul class="btn-list">
-								<li><a href="community.html" class="main-btn">1 : 1 대화</a></li>
-								<li><a href="chatbox.html" class="main-btn">Messages</a></li>
+							<ul class="btn-list text-center">
+								<li><a href="javascript:void(0);" class="main-btn">1 : 1 대화</a></li>
+								<li><a href="javascript:void(0);" class="main-btn" onclick="sendMessage()">Messages</a></li>
 							</ul>
 						</div>
 					</div>
@@ -123,54 +56,6 @@
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>		
 	<script src="/love/assets/js/jquery.uploader.min.js"></script>
 	<script type="text/javascript" src="/love/assets/js/jquery.fancybox.min.js"></script>
-	<script>
-		$('.match-slider .owl-carousel').owlCarousel({
-			loop: true,
-			items: 1,
-			margin: 30,
-			nav: true,
-			dots: false,
-			autoplay: false,
-			responsive: {
-				0: {
-					items: 1
-				},
-				600: {
-					items: 1,
-					nav: false
-				},
-				1025: {
-					items: 1,
-					nav: true
-				}
-			}
-		})
-	</script>
-
-	<script>
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-				reader.onload = function (e) {
-					$('.cover-img').css('background-image', 'url(' + e.target.result + ')');
-					$('.cover-img').hide();
-					$('.cover-img').fadeIn(650);
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-		$("#background_input").change(function () {
-			readURL(this);
-		});
-	</script>
-	<script>
-		$(".tabbox .nav a.slideBottomLine").click(function () {
-			var position = $(this).parent().position();
-			var width = $(this).parent().width();
-			$(".tabbox .slider").css({ "left": + position.left, "width": width });
-		});
-
-	</script>
 	
 	<script type="application/javascript">
 		let ajaxConfig = {
@@ -193,92 +78,138 @@
 		$("#ootdAttachFileUploader").uploader({multiple: false, ajaxConfig: ajaxConfig,autoUpload: false})
 	</script>
 	
-	<script>
-	document.addEventListener('DOMContentLoaded', function () {
-	    const buttons = document.querySelectorAll('.button2-wrapper.btn2');
-	    const profileContent = document.querySelector('.profile-content p'); // 설명글 p태그 찾음
+	<script th:inline="javascript">
+		window.cache = /*[[${code}]]*/ [];
 
-	    buttons.forEach(button => {
-	        button.addEventListener('click', function () {
-	            // 모든 버튼에서 active 제거
-	            buttons.forEach(btn => btn.classList.remove('active'));
+		document.addEventListener('DOMContentLoaded', function () {
+			const buttons = document.querySelectorAll('.button2-wrapper.btn2');
+			const profileContent = document.querySelector('.profile-content p'); // 설명글 p태그 찾음
 
-	            // 현재 버튼에 active 추가
-	            this.classList.add('active');
+			buttons.forEach(button => {
+				button.addEventListener('click', function () {
+					// 모든 버튼에서 active 제거
+					buttons.forEach(btn => btn.classList.remove('active'));
 
-	            // 눌린 버튼의 data-type 가져오기
-	            const mbtiType = this.getAttribute('data-type');
+					// 현재 버튼에 active 추가
+					this.classList.add('active');
 
-	            // mbtiDescriptions에서 텍스트 찾아서 넣기
-	            if (mbtiDescriptions[mbtiType]) {
-	                profileContent.textContent = mbtiDescriptions[mbtiType];
-	            } else {
-	                profileContent.textContent = "설명이 없습니다.";
-	            }
-	        });
-	    });
-	});
+					// 눌린 버튼의 data-type 가져오기
+					const mbtiType = this.getAttribute('data-type');
+				});
+			});
+		});
+
+		document.addEventListener('DOMContentLoaded', function () {
+			const mediaButtons = document.querySelectorAll('.media-list li');
+
+			mediaButtons.forEach(button => {
+				button.addEventListener('click', function () {
+					// 모든 버튼에서 active 제거
+					mediaButtons.forEach(btn => btn.classList.remove('active'));
+
+					// 클릭한 버튼에 active 추가
+					this.classList.add('active');
+				});
+			});
+		});
+
+		document.addEventListener('DOMContentLoaded', function () {
+		const buttons = document.querySelectorAll('.media-list li a');
+		const textArea = document.getElementById('mbti-text');
+
+			buttons.forEach(button => {
+				button.addEventListener('click', function (e) {
+					e.preventDefault();
+
+					// 1. 기존 active 클래스 제거
+					buttons.forEach(btn => btn.classList.remove('active'));
+
+					// 2. 클릭한 버튼에 active 추가
+					this.classList.add('active');
+				});
+			});
+		});
+
+		const buttons = document.querySelectorAll('.media-list li a');
+
+		buttons.forEach(button => {
+			button.addEventListener('click', function(event) {
+				// 모든 버튼에서 active 제거
+				buttons.forEach(btn => btn.classList.remove('active'));
+				
+				// 클릭된 버튼에만 active 클래스 추가
+				event.currentTarget.classList.add('active');
+			});
+		});
+
+		function requestMessage(mbti, func) {
+			let text = commTopic(func);
+			console.log(text);
+			const requestBody = {
+				contents: [
+					{
+						"role": "user",
+						"parts": [
+							{ "text": mbti + "처럼 말해줘!" + text }
+						]
+					}
+					// },
+					// {
+					// 	"role": "model",
+					// 	"parts": [
+					// 		{ "text": "안녕하세요! 무엇을 도와드릴까요? 😊\n" }
+					// 	]
+					// },
+					// {
+					// 	"role": "user",
+					// 	"parts": [
+					// 		{ "text": "너의 MBTI는 뭐야?" }
+					// 	]
+					// }
+				]
+			};
+			fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDXzY2Yn3hdnRGV9cz7yBCVE4vPk5eJ7FI", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(requestBody)
+			})
+			.then(res => res.json())
+			.then(data => {
+				let respon = data.candidates[0].content.parts[0].text;
+				$("#responseAI").html(respon);
+			});
+		}
+
+		function sendMessage() {
+			let mbti = "";
+			let func = "";
+
+			$(".button2-wrapper .btn2").each(function() {
+				if ($(this).hasClass("active")) {
+					mbti = $(this).text();
+				}
+			});
+
+			$(".media-list li a").each(function() {
+				if ($(this).hasClass("active")) {
+					func = $(this).attr("value");
+				}
+			});
+
+			requestMessage(mbti, func);
+		}
+
+		function commTopic(func) {
+			let myMbti = /*[[${item.userMBTI}]]*/"";
+
+			if (func == 91) {
+				return "나는 " + window.cache[myMbti - 1].codeName + "야. 너와 내가 어울리는 정도를 %로 짧게 알려줘.";
+			}
+			return "";
+		}
 	</script>
-	
-	<script>
-	document.addEventListener('DOMContentLoaded', function () {
-	    const mediaButtons = document.querySelectorAll('.media-list li');
-
-	    mediaButtons.forEach(button => {
-	        button.addEventListener('click', function () {
-	            // 모든 버튼에서 active 제거
-	            mediaButtons.forEach(btn => btn.classList.remove('active'));
-
-	            // 클릭한 버튼에 active 추가
-	            this.classList.add('active');
-	        });
-	    });
-	});
-	</script>
-
-	<script>
-	document.addEventListener('DOMContentLoaded', function () {
-	  const buttons = document.querySelectorAll('.media-list li a');
-	  const textArea = document.getElementById('mbti-text');
-
-	  buttons.forEach(button => {
-	    button.addEventListener('click', function (e) {
-	      e.preventDefault();
-
-	      // 1. 기존 active 클래스 제거
-	      buttons.forEach(btn => btn.classList.remove('active'));
-
-	      // 2. 클릭한 버튼에 active 추가
-	      this.classList.add('active');
-
-	      // 3. <p> 내용 바꾸기
-	      const newText = this.getAttribute('data-text');
-	      textArea.innerHTML = newText;
-	    });
-	  });
-	});
-	</script>
-
-<script>
-	const buttons = document.querySelectorAll('.media-list li a');
-
-	buttons.forEach(button => {
-	  button.addEventListener('click', function(event) {
-	    // 모든 버튼에서 active 제거
-	    buttons.forEach(btn => btn.classList.remove('active'));
-	    
-	    // 클릭된 버튼에만 active 클래스 추가
-	    event.currentTarget.classList.add('active');
-	  });
-	});
-
-	// 기본적으로 'affection' 버튼을 active 상태로 만들기
-	document.querySelector('li[data-tooltip="affection"] a').classList.add('active');
-	</script>
-	
-
-
-
 </body>
 
 </html>
