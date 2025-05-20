@@ -51,5 +51,18 @@ public class PayController {
 			System.out.println(response.body());
 			
 			return ResponseEntity.ok(response.body());
-	 }   
+	 }
+   
+   private static String extractValueFromJson(String json, String key) {
+       int keyIndex = json.indexOf(key);
+       if (keyIndex == -1) {
+           return null; // 키가 없으면 null 반환
+       }
+       int startIndex = json.indexOf(":", keyIndex) + 1;
+       int endIndex = json.indexOf(",", startIndex);
+       if (endIndex == -1) {
+           endIndex = json.indexOf("}", startIndex);
+       }
+       return json.substring(startIndex, endIndex).replace("\"", "").trim(); // 따옴표 제거하고 반환
+   }
 }
