@@ -94,23 +94,10 @@
 	      customerName: "테스터"
 	    });
 	    
-	    if (response.paymentKey) {
-	        const confirmResponse = await fetch("/love/payment/PayLoveConfirm", {
-	          method: "POST",
-	          headers: { "Content-Type": "application/json" },
-	          body: JSON.stringify({
-	            paymentKey: response.paymentKey,
-	            orderId: response.orderId,
-	            amount: amount
-	          })
-	        });
-	        const result = await confirmResponse.json();
-	        console.log("Confirm 결과:", result);
-	      }
-	    } catch (error) {
-	      alert(`결제 실패:  ${error.message}`);
-	    }
-	  }
+	  } catch (error) {
+		    alert(`결제 실패: ${error.message}`);
+		  }
+		}
 	
    // 월정액 결제 요청 함수
       async function requestMonthlyPayment(dailyCookie, amount, bonusCookie) {
