@@ -22,7 +22,6 @@
 								<li th:data-tooltip="${@codeService.selectOneCachedCode(92)}"><a href="javascript:void(0);" value="92" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="fas fa-redo-alt"></i></a></li>
 								<li th:data-tooltip="${@codeService.selectOneCachedCode(93)}"><a href="javascript:void(0);" value="93"><i class="fas fa-expand-arrows-alt"></i></a></li>
 								<li th:data-tooltip="${@codeService.selectOneCachedCode(94)}"><a href="javascript:void(0);" value="94"><i class="fas fa-star"></i></a></li>
-								<li th:data-tooltip="${@codeService.selectOneCachedCode(95)}"><a href="javascript:void(0);" value="95"><i class="fas fa-heart"></i></a></li>
 							</ul>
 							<ul class="btn-list text-center">
 								<li><a href="javascript:void(0);" class="main-btn">1 : 1 대화</a></li>
@@ -217,9 +216,12 @@
 
 		function commTopic(func) {
 			let myMbti = /*[[${item.userMBTI}]]*/"";
+			let birth = /*[[${item.userBirth}]]*/"";
 
 			if (func == 91) {
 				return "나는 " + window.cache[myMbti - 1].codeName + "야. 너와 내가 어울리는 정도를 %로 짧게 알려줘.";
+			} else if (func == 93) {
+				return "나의 생일은 " + birth + "야. 오늘의 운세를 봐줘";
 			}
 			return "";
 		}
