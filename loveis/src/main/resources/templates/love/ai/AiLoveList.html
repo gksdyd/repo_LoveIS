@@ -144,7 +144,7 @@
 
 		function requestMessage(mbti, func) {
 			let text = commTopic(func);
-			console.log(text);
+
 			const requestBody = {
 				contents: [
 					{
@@ -178,6 +178,7 @@
 			.then(res => res.json())
 			.then(data => {
 				let respon = data.candidates[0].content.parts[0].text;
+				respon += "<br /> 더 깊은 대화를 원하시면 1:1 대화를 눌러주세요!"
 				$("#responseAI").html(respon);
 			});
 		}
@@ -186,17 +187,30 @@
 			let mbti = "";
 			let func = "";
 
+			$("#validAI").remove();
 			$(".button2-wrapper .btn2").each(function() {
 				if ($(this).hasClass("active")) {
 					mbti = $(this).text();
 				}
 			});
 
+			if (mbti === "") {
+				let text = "<div class='mt-3 text-center' id='validAI' style='color:red;'>MBTI를 선택해주세요!</div>";
+				$(".btn-list").parent().append(text);
+				return;
+			}
+
 			$(".media-list li a").each(function() {
 				if ($(this).hasClass("active")) {
 					func = $(this).attr("value");
 				}
 			});
+
+			if (func === "") {
+				let text = "<div class='mt-3 text-center' id='validAI' style='color:red;'>기능을 선택해주세요!</div>";
+				$(".btn-list").parent().append(text);
+				return;
+			}
 
 			requestMessage(mbti, func);
 		}
