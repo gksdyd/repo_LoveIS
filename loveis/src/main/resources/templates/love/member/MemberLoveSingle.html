@@ -154,41 +154,43 @@
 									<ul>
 										<li>성별 <p th:text="${@codeService.selectOneCachedCode(item?.userGender)}"></p>
 										</li>
-										<li>나이 <p th:text="${@memberService.calculateAge(item?.userBirth)}">22 세 </p>
+										<li>나이 <p th:text="${@memberService.calculateAge(item?.userBirth)}"></p>
 										</li>
 										<li>시,도 <p>경기도 </p>
 										</li>
 										<li>시,군,구 <p>과천시</p>
 										</li>
-										<li>생일 <p th:text="${item?.userBirth}">1997-07-22</p>
+										<li>생일 <p th:text="${item?.userBirth}"></p>
 										</li>
-										<li>체형 <p th:text="${@codeService.selectOneCachedCode(item?.userbodyShape)}">건강미</p>
+										<li>체형 <p th:text="${@codeService.selectOneCachedCode(item?.userbodyShape)}"></p>
 										</li>
-										<li>키 <p th:text="${item?.userHeight}">161</p>
+										<li>키 <p th:text="${item?.userHeight}"></p>
 										</li>
-										<li>몸무게 <p th:text="${item?.userWeight}">56 </p>
+										<li>몸무게 <p th:text="${item?.userWeight}"></p>
 										</li>
-										<li>스타일 <p th:text="${@codeService.selectOneCachedCode(item?.userStyle)}">캐주얼 </p>
+										<li>스타일 <p th:text="${@codeService.selectOneCachedCode(item?.userStyle)}"></p>
+										</li>
+										<li>성격 <p><span th:each="listP : ${listP}" th:text="${@codeService.selectOneCachedCode(listP?.persText)}" style="display: inline-block; margin-right: 8px;"></span></p>
 										</li>
 									</ul>
 									<ul>
-										<li>학력 <p th:text="${@codeService.selectOneCachedCode(item?.userEducation)}">학사</p>
+										<li>학력 <p th:text="${@codeService.selectOneCachedCode(item?.userEducation)}"></p>
 										</li>
-										<li>MBTI <p th:text="${@codeService.selectOneCachedCode(item?.userMBTI)}">ESFP</p>
+										<li>MBTI <p th:text="${@codeService.selectOneCachedCode(item?.userMBTI)}"></p>
 										</li>
-										<li>취미 <p th:text="${@codeService.selectOneCachedCode(item?.userGender)}">연애</p>
+										<li>취미  <p><span th:each="listH : ${listH}" th:text="${@codeService.selectOneCachedCode(listH?.hobbText)}" style="display: inline-block; margin-right: 8px;"></span></p>
 										</li>
-										<li>흡연여부 <p th:text="${@codeService.selectOneCachedCode(item?.userSmoking)}">No</p>
+										<li>흡연여부 <p th:text="${@codeService.selectOneCachedCode(item?.userSmoking)}"></p>
 										</li>
-										<li>음주여부 <p th:text="${@codeService.selectOneCachedCode(item?.userAlcohol)}">가끔</p>
+										<li>음주여부 <p th:text="${@codeService.selectOneCachedCode(item?.userAlcohol)}"></p>
 										</li>
-										<li>반려동물 <p th:text="${@codeService.selectOneCachedCode(item?.userPetNy)}">또치</p>
+										<li>반려동물 <p th:text="${@codeService.selectOneCachedCode(item?.userPetNy)}"></p>
 										</li>
-										<li>종교 <p th:text="${@codeService.selectOneCachedCode(item?.userChurch)}">천주교</p>
+										<li>종교 <p th:text="${@codeService.selectOneCachedCode(item?.userChurch)}"></p>
 										</li>
-										<li>연애성향 <p th:text="${@codeService.selectOneCachedCode(item?.userDatingStyle)}">열정적인 만남</p>
+										<li>연애성향 <p th:text="${@codeService.selectOneCachedCode(item?.userDatingStyle)}"></p>
 										</li>
-										<li>직업 <p th:text="${item?.userJob}">Designer</p>
+										<li>직업 <p th:text="${item?.userJob}"></p>
 										</li>
 									</ul>
 								</div>
@@ -232,17 +234,17 @@
 											Social Media Management | Software Development |
 										</p>
 									</div>
-									<div id="carouselExample" class="carousel slide">
+									<div th:id="'ca' + ${list?.actiSeq}" class="carousel slide">
 										<div class="carousel-inner">
-										  <div th:each="listPic, iterStat : ${listPic}" th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
-										    <img th:src="${listPic?.path}" class="d-block w-100" alt="...">
-										  </div>
+										  <div th:each="pic, iterStat : ${list.picList}" th:class="${iterStat.first} ? 'carousel-item active' : 'carousel-item'">
+									        <img th:src="@{${pic.path}}" class="d-block w-100" alt="...">
+									      </div>
 										</div>
-										<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+										<button class="carousel-control-prev" type="button" th:data-bs-target="'#ca' + ${list?.actiSeq}" data-bs-slide="prev">
 										  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 										  <span class="visually-hidden">Previous</span>
 										</button>
-										<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+										<button class="carousel-control-next" type="button" th:data-bs-target="'#ca' + ${list?.actiSeq}" data-bs-slide="next">
 										  <span class="carousel-control-next-icon" aria-hidden="true"></span>
 										  <span class="visually-hidden">Next</span>
 										</button>
@@ -490,8 +492,10 @@
 	        <h1 class="modal-title fs-5" id="editDetailModal">상세정보 수정하기</h1>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	      <div class="modal-body"><form id="formDetail" name="formDetail" method="post">
+	      <div class="modal-body">
+	      <form id="formDetail" name="formDetail" method="post">
 	      <input type="hidden" id="userSeqD" name="userSeq" th:value="${item?.userSeq}"/>
+	      <input type="hidden" id="user_userSeq" name="user_userSeq" th:value="${item?.userSeq}"/>
 	      
 			<div class="row">
 			  <!-- 왼쪽 컬럼 시작 -->
@@ -532,8 +536,9 @@
 					</div>
 			    </div>
 			    <div class="row mb-3">
+			    <div id="hiddenPersContainer"></div>
 					<div class="col custum-select personality">
-						<select class="" id="persText" name="persText" onchange="selectMultiPersonal(this)" multiple aria-label="Select categories">
+						<select class="" id="persText" onchange="selectMultiPersonal(this)" multiple aria-label="Select categories">
 							<option value="" data-display-text="성격">상관없음</option>
 							<option th:each="list : ${@codeService.selectListCachedCode(5)}" th:value="${list.codeSeq}" th:text="${list.codeName}" th:selected="${list.codeSeq} == ${item?.persText}"></option>
 						</select>
@@ -586,6 +591,7 @@
 					</div>
 			    </div>
 			    <div class="row mb-3">
+			    <div id="hiddenHobbContainer"></div>
 					<div class="col custum-select hobby">
 						<select class="" id="hobbText" name="hobbText" th:value="${item?.hobbText}" onchange="selectMultiHobby(this)">
 							<option value="" data-display-text="취미">상관없음</option>
@@ -635,10 +641,80 @@
 	</div>
 	<div th:replace="~{love/include/footer :: footer}"></div>
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
-	<script src="/love/assets/js/userDerivation.js"></script>
+<!-- 	<script src="/love/assets/js/userDerivation.js"></script> -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f7d210607aa49a67c830e2baeb80358f&libraries=services"></script>
-	
+	<script type="text/javascript">
+	var personalityArray = [];
+	var hobbyArray = [];
+
+	function selectMultiPersonal(e) {
+	    let children = $(e).next().find("li");
+
+	    if (personalityArray.includes($(e).val())) {
+	        for (let i = 0; i < personalityArray.length; i++) {
+	            if (personalityArray[i] == $(e).val()) {
+	                personalityArray.splice(i, 1);
+	            }
+	        }
+
+	        children.each(function () {
+	            if ($(this).attr("data-value") == $(e).val()) {
+	                $(this).css("color", "");
+	            }
+	        });
+	    } else {
+	        personalityArray.push($(e).val());
+	        children.each(function () {
+	            if ($(this).attr("data-value") == $(e).val()) {
+	                $(this).css("color", "red");
+	            }
+	        });
+	    }
+	    updateHiddenPersInputs();
+	}
+	function updateHiddenPersInputs() {
+	    const container = $("#hiddenPersContainer");
+	    container.empty(); // 기존 input 제거
+
+	    personalityArray.forEach(v => {
+	        container.append(`<input type="hidden" name="persText" value="${v}" />`);
+	    });
+	}
+	function selectMultiHobby(e) {
+	    let children = $(e).next().find("li");
+
+	    if (hobbyArray.includes($(e).val())) {
+	        for (let i = 0; i < hobbyArray.length; i++) {
+	            if (hobbyArray[i] == $(e).val()) {
+	                hobbyArray.splice(i, 1);
+	            }
+	        }
+
+	        children.each(function () {
+	            if ($(this).attr("data-value") == $(e).val()) {
+	                $(this).css("color", "");
+	            }
+	        });
+	    } else {
+	        hobbyArray.push($(e).val());
+	        children.each(function () {
+	            if ($(this).attr("data-value") == $(e).val()) {
+	                $(this).css("color", "red");
+	            }
+	        });
+	    }
+	    updateHiddenHobbInputs();
+	}
+	function updateHiddenHobbInputs() {
+	    const containerH = $("#hiddenHobbContainer");
+	    containerH.empty(); // 기존 input 제거
+
+	    hobbyArray.forEach(v => {
+	        containerH.append(`<input type="hidden" name="hobbText" value="${v}" />`);
+	    });
+	}
+	</script>
 	<script>
 	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	        mapOption = {
@@ -751,6 +827,7 @@
 	let seq = document.getElementById("userSeqD");
 	let formDetail = document.getElementById("formDetail");
 	let formIntro = document.getElementById("formIntroduce");
+	
 	
 	document.getElementById("btnUpdtDSubmit").onclick = function() {
 		formDetail.action = "/love/member/MemberLoveMypageUpdt";

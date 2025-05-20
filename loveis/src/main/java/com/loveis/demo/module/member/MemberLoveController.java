@@ -45,19 +45,21 @@ public class MemberLoveController extends BaseController {
 	public String MemberLoveMypage(Model model, MemberDto dto, ActivityDto activityDto, MemberVo vo, HttpSession httpSession, @ModelAttribute Member4ListDto listDto) {
 		dto.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
 		vo.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
-		List<ActivityDto> ActivityList = memberService.selectActivity(vo);  // 가게 정보 리스트
-		List<BaseDto> picList = memberService.selectOneList4Pic(activityDto);  // 이미지 정보 리스트
+		List<Member4ListDto> persList = memberService.selectOneList4Pers(vo);
+		List<Member4ListDto> hobbList = memberService.selectOneList4Hobb(vo);
+
+		List<ActivityDto> ActivityList = memberService.selectActivity(vo);
+		List<BaseDto> picList = memberService.selectOneList4Pic(activityDto);
 		
-		// 각 가게에 해당하는 이미지들만 매칭하여 picList에 할당합니다.
 		for (ActivityDto activity : ActivityList) {
 		    List<BaseDto> matchedPics = picList.stream()
-		        .filter(pic -> pic.getPseq().equals(activity.getActiSeq())) // shopSeq와 pSeq가 일치하는 것만 찾기
+		        .filter(pic -> pic.getPseq().equals(activity.getActiSeq()))
 		        .collect(Collectors.toList());
-		    
-		    activity.setPicList(matchedPics); // ShopDto에 picList 필드를 추가하여 연결
+		    activity.setPicList(matchedPics); 
 		}
-		model.addAttribute("list", ActivityList);  // 가게 정보 리스트
-		model.addAttribute("listPic", picList);  // 이미지 정보 리스트 (혹시 필요하다면)
+		model.addAttribute("listP", persList);
+		model.addAttribute("listH", hobbList);
+		model.addAttribute("list", ActivityList);
 		model.addAttribute("item", memberService.selectOne(dto));
 		return "love/member/MemberLoveSingle";
 	}
@@ -65,17 +67,20 @@ public class MemberLoveController extends BaseController {
 	public String MemberLoveMypageUpdt(MemberDto dto, @ModelAttribute Member4ListDto listDto) {
 		List<MemberDto> dtoListP = new ArrayList<>();
 		List<MemberDto> dtoListH = new ArrayList<>();
-		
-		if (listDto.getPersText() != null && !listDto.getPersText().isEmpty()) {
+	    System.out.println("===== MemberPersProc 호출됨 =====");
+	    System.out.println("persText = " + listDto.getPersText());
+	    System.out.println("user_userSeq = " + listDto.getUser_userSeq());
+		if (listDto.getPersText() != null) {
 	        for (Integer code : listDto.getPersText()) {
 	        	MemberDto memberDto = new MemberDto();
 	        	memberDto.setUserSeq(listDto.getUser_userSeq());
 	        	memberDto.setPersText(code);
+	        	System.out.println(">>> 추가할 persText: " + code);
 	            dtoListP.add(memberDto);
 	        }
 	    }
 		if (listDto.getHobbText() != null && !listDto.getHobbText().isEmpty()) {
-			for (Integer code : listDto.getPersText()) {
+			for (Integer code : listDto.getHobbText()) {
 				MemberDto memberDto = new MemberDto();
 				memberDto.setUserSeq(listDto.getUser_userSeq());
 				memberDto.setHobbText(code);
@@ -84,7 +89,7 @@ public class MemberLoveController extends BaseController {
 		}
 		
 		if (!dtoListP.isEmpty()) {
-			memberService.personalityInsert(dtoListH, dto);
+			memberService.personalityInsert(dtoListP, dto);
 		} else {
 //			memberService.deletePersonalityByUser(dto);
 			
