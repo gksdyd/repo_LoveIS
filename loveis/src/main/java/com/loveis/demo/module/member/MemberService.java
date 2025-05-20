@@ -145,16 +145,16 @@ public class MemberService extends BaseService {
 	}
 	public void insertMypageImages(MemberDto dto) throws Exception {
 		
-		if (dto.getBackgroundInput() != null) {
-//			memberDao.ueleteBackgroundImage(dto);
+		if (dto.getBackgroundInput() != null && dto.getBackgroundInput().toString().isEmpty()) {
+			memberDao.ueleteBackgroundImage(dto);
 			dto.setUploadImg1(dto.getBackgroundInput());
 			dto.setUploadImg1Type(11);
 			dto.setUploadImg1MaxNumber(11);
 			uploadFilesToS3(dto.getUploadImg1(), dto, "image", dto.getUploadImg1Type(), dto.getUploadImg1MaxNumber()
 					, dto.getUserSeq(), memberDao, amazonS3Client);
 		}
-		if (dto.getProfileInput() != null) {
-//			memberDao.ueleteProfileImage(dto);
+		if (dto.getProfileInput() != null && dto.getProfileInput().toString().isEmpty()) {
+			memberDao.ueleteProfileImage(dto);
 			dto.setUploadImg1(dto.getProfileInput());
 			dto.setUploadImg1Type(12);
 			dto.setUploadImg1MaxNumber(12);

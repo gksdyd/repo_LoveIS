@@ -18,7 +18,7 @@
 		<div class="container">
 		<form id="formImg" name="formImg" method="post" autocomplete="off" enctype="multipart/form-data">
 		<input type="hidden" id="userSeq" name="userSeq" th:value="${item?.userSeq}"/>
-			<div class="cover-img">
+			<div class="cover-img" th:style="'background-image: url(' + ${itemBI.path} + ')'">>
 				<div class="edit-img">
 					<label for="background_input"><i class="far fa-edit"></i></label>
 					<input id="background_input" name="backgroundInput" type="file" accept="image/*" />
@@ -76,36 +76,16 @@
 				<div class="about-photo">
 					<h4>About Upload Photo</h4>
 					<ul>
-						<li>
-							<a href="/love/assets/images/about-img1.png" data-fancybox="about-image">
-								<img src="/love/assets/images/about-img1.png" alt="about-img1" class="img-fluid">
+						<li th:each="listPic : ${listPic}">
+							<a th:href="${listPic?.path}" data-fancybox="about-image">
+								<img th:src="${listPic?.path}" alt="about-img1" class="img-fluid" width="130" height="102">
 							</a>
 						</li>
-						<li>
-							<a href="/love/assets/images/about-img2.png" data-fancybox="about-image">
-								<img src="/love/assets/images/about-img2.png" alt="about-img2" class="img-fluid">
-							</a>
-						</li>
-						<li>
-							<a href="/love/assets/images/about-img3.png" data-fancybox="about-image">
-								<img src="/love/assets/images/about-img3.png" alt="about-img3" class="img-fluid">
-							</a>
-						</li>
-						<li>
-							<a href="/love/assets/images/about-img4.png" data-fancybox="about-image">
-								<img src="/love/assets/images/about-img4.png" alt="about-img4" class="img-fluid">
-							</a>
-						</li>
-						<li>
-							<a href="/love/assets/images/about-img5.png" data-fancybox="about-image">
-								<img src="/love/assets/images/about-img5.png" alt="about-img5" class="img-fluid">
-							</a>
-						</li>
-						<li>
-							<a href="/love/assets/images/about-img6.png" data-fancybox="about-image">
-								<img src="/love/assets/images/about-img6.png" alt="about-img6" class="img-fluid">
-							</a>
-						</li>
+<!-- 						<li> -->
+<!-- 							<a href="/love/assets/images/about-img6.png" data-fancybox="about-image"> -->
+<!-- 								<img src="/love/assets/images/about-img6.png" alt="about-img6" class="img-fluid"> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
 					</ul>
 				</div>
 			</div></form>

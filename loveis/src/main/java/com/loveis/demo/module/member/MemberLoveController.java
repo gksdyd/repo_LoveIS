@@ -71,6 +71,7 @@ public class MemberLoveController extends BaseController {
 		model.addAttribute("listH", hobbList);
 		model.addAttribute("list", ActivityList);
 		model.addAttribute("item", memberService.selectOne(dto));
+		model.addAttribute("listPic", picList);
 		return "love/member/MemberLoveSingle";
 	}
 	@RequestMapping(value = "/MemberLoveMypageUpdt")

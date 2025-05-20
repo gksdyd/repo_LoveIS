@@ -145,6 +145,7 @@
 			,pSeq
 		FROM image
 		WHERE 1=1
+		AND delNy = 0
 		AND type = #{uploadImg1Type}
 		AND pSeq = #{userSeq}
 	</select>
@@ -328,17 +329,15 @@
 			userSeq = #{userSeq}
 	</update>
 	<update id="ueleteBackgroundImage">
-		UPDATE image
-		SET 
-			delNy = 1,
+		UPDATE image SET 
+			delNy = 1
 		WHERE 1=1
 		AND type = 11
 		AND pSeq = #{userSeq}
 	</update>
 	<update id="ueleteProfileImage">
-		UPDATE image
-		SET 
-			delNy = 1,
+		UPDATE image SET 
+			delNy = 1
 		WHERE 1=1
 		AND type = 12
 		AND pSeq = #{userSeq}
