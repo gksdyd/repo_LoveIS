@@ -227,19 +227,33 @@
 		}
 
 		function sendImage() {
-			$.ajax({
-                async: true 
-                ,cache: false
-                ,type: "post"
-                ,url: "/love/ai/CallPythonApi"
-                ,data: { }
-                ,success: function(response) {
-                    console.log(response.result);
-                }
-                ,error : function(jqXHR){
-                    alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-                }
-            });
+			const url = $(".files_img").attr("src");
+  
+			fetch(url)
+				.then(response => {
+				if (!response.ok) throw new Error('Network error');
+				return response.blob();
+				})
+				.then(blob => {
+				const formData = new FormData();
+				formData.append('file', blob, 'filename.png'); // 파일명 직접 지정
+				
+				return $.ajax({
+					async: true,
+					cache: false,
+					type: "POST",
+					url: "/love/ai/CallPythonApi",
+					data: formData,
+					processData: false,
+					contentType: false,
+				});
+				})
+				.then(response => {
+				console.log(response.result);
+				})
+				.catch(err => {
+				alert("Error: " + err.message);
+				});
 		}
 	</script>
 </body>
