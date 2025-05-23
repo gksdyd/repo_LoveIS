@@ -21,6 +21,8 @@ def generate():
     os.makedirs(upload_folder, exist_ok=True)
     file_path = os.path.join(upload_folder, file.filename)
     file.save(file_path)
+
+    mbti = request.form.get('mbti')
     
     try:
         # PIL 이미지 열기
@@ -32,28 +34,13 @@ def generate():
         # 이미지 + 텍스트 프롬프트 전송
         response = model.generate_content([
             image,
-            "사진에 대해 설명해줘"
+            mbti + "처럼말해줘! 사진의 사람은 나인데 내 오늘 패션 어때?"
         ])
 
         return jsonify({"result": response.text})
 
     except Exception as e:
         return jsonify({"result": f"Error processing image: {str(e)}"}), 500
-    
-    # # 모델 선택
-    # model = genai.GenerativeModel(model_name="gemini-2.0-flash")
-
-    # # 이미지 열기 (PIL 이미지 객체로)
-    # image_path = "C:/factory_down/TP_image/SE-A437F981-6194-457E-AC55-E6EE96080247.jpg"
-    # image = Image.open(image_path)
-
-    # # 이미지 + 텍스트 프롬프트 전송
-    # response = model.generate_content([
-    #     image,
-    #     "사진에 대해 설명해줘"
-    # ])
-
-    # return jsonify({"result": response.text})
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

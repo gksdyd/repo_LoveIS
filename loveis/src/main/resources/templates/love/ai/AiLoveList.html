@@ -19,7 +19,7 @@
 							<p id="responseAI"></p>
 							<ul class="media-list text-center" style="white-space: nowrap;">
 								<li th:data-tooltip="${@codeService.selectOneCachedCode(91)}"><a href="javascript:void(0);" value="91"><i class="fas fa-bolt"></i></a></li>
-								<li th:data-tooltip="${@codeService.selectOneCachedCode(92)}"><a href="javascript:void(0);" value="92" data-bs-toggle="modal" data-bs-target="#activityModal"><i class="fas fa-redo-alt"></i></a></li>
+								<li th:data-tooltip="${@codeService.selectOneCachedCode(92)}"><a href="javascript:void(0);" value="92"><i class="fas fa-redo-alt"></i></a></li>
 								<li th:data-tooltip="${@codeService.selectOneCachedCode(93)}"><a href="javascript:void(0);" value="93"><i class="fas fa-expand-arrows-alt"></i></a></li>
 								<li th:data-tooltip="${@codeService.selectOneCachedCode(94)}"><a href="javascript:void(0);" value="94"><i class="fas fa-star"></i></a></li>
 							</ul>
@@ -211,7 +211,11 @@
 				return;
 			}
 
-			requestMessage(mbti, func);
+			if (func == "92") {
+				$("#activityModal").modal("show");
+			} else {
+				requestMessage(mbti, func);
+			}
 		}
 
 		function commTopic(func) {
@@ -227,8 +231,24 @@
 		}
 
 		function sendImage() {
+			$("#validAI").remove();
+			if ($(".files_img").length == 0) {
+				let text = "<div class='mt-3 text-center' id='validAI' style='color:red;'>이미지를 선택해주세요!</div>";
+				$(".modal-body").append(text);
+				return;
+			} else {
+				let text = "<div class='mt-3 text-center' id='validAI' style='color:red;'>이미지를 확인중이에요!</div>";
+				$(".modal-body").append(text);
+			}
 			const url = $(".files_img").attr("src");
-  
+			let mbti = "";
+
+			$(".button2-wrapper .btn2").each(function() {
+				if ($(this).hasClass("active")) {
+					mbti = $(this).text();
+				}
+			});
+
 			fetch(url)
 				.then(response => {
 				if (!response.ok) throw new Error('Network error');
@@ -237,6 +257,7 @@
 				.then(blob => {
 				const formData = new FormData();
 				formData.append('file', blob, 'filename.png'); // 파일명 직접 지정
+				formData.append('mbti', mbti); // 파일명 직접 지정
 				
 				return $.ajax({
 					async: true,
@@ -249,10 +270,13 @@
 				});
 				})
 				.then(response => {
-				console.log(response.result);
+					$("#activityModal").modal("hide");
+					let respon = response.result;
+					respon += "<br /> 더 깊은 대화를 원하시면 1:1 대화를 눌러주세요!"
+					$("#responseAI").html(respon);
 				})
 				.catch(err => {
-				alert("Error: " + err.message);
+					alert("Error: " + err.message);
 				});
 		}
 	</script>

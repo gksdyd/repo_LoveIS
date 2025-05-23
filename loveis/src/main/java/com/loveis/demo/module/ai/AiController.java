@@ -43,7 +43,8 @@ public class AiController extends BaseController {
 	}
 	
 	@RequestMapping("/CallPythonApi")
-	public ResponseEntity<Map<String, String>> callPythonApi(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+	public ResponseEntity<Map<String, String>> callPythonApi(@RequestParam("file") MultipartFile file, @RequestParam("mbti") String mbti) 
+			throws IllegalStateException, IOException {
 		String uploadDir = "C:/uploads/";
 	    String filename = file.getOriginalFilename();
 	    
@@ -65,6 +66,7 @@ public class AiController extends BaseController {
 	    
 	    MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 	    body.add("file", resource);
+	    body.add("mbti", mbti);
 	    
 	    HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 	    
