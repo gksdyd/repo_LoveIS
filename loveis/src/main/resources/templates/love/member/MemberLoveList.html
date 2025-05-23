@@ -16,8 +16,8 @@
 										<span th:class="${list.userLogTime == null ? 'profile-status active' : 'profile-status off'}" th:text="${list.userLogTime == null ? '활동중' : list.timeAgo}"><i class="far fa-clock"></i> Active 10 days
 											ago</span>
 									</div>
-									<div class="members-text">
-										<a href="profile-single.html">
+									<div class="members-text" data-bs-toggle="modal" data-bs-target="#modal">
+										<a >
 											<h6 th:text="${list.userNickname}"></h6>
 										</a>
 										<span th:text="${@codeService.selectOneCachedCode(list.userGender)}"></span>
@@ -126,6 +126,7 @@
 			</div>
 		</div>
 	</div>
+	<div th:replace="~{love/include/loveModal :: loveModal}"></div>
 	<div th:replace="~{love/include/footer :: footer}"></div>
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
 	<script src="/love/assets/js/pagination.js"></script>
