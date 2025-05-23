@@ -241,10 +241,11 @@
         	if (!validation()) {
         		return;
         	}
-            
-            let text = "<div class='valid' style='color: red;'>사진을 체크 중입니다.</div>";
-        	$(".file-upload-container").append(text);
+			
+			$('#preloder').delay(1000).fadeOut('slow');
 
+            let text = "<div class='mt-2 valid' style='color: red;'><span class='spinner-border spinner-border-sm' role='status'></span> 사진을 체크 중입니다.</div>";
+        	$(".file-upload-container").append(text);
             setTimeout(() => {
                 if (!checkImage()) {
                     return;
@@ -426,7 +427,7 @@
                         flag = true;
                     } else if (response.result == "Fail") {
                         $(".valid").remove();
-                        text = "<div class='valid' style='color: red;'>유효하지 않은 사진입니다.</div>";
+                        text = "<div class='mt-2 valid' style='color: red;'>유효하지 않은 사진입니다.</div>";
                         $(".file-upload-container").append(text);
                     }
                 }

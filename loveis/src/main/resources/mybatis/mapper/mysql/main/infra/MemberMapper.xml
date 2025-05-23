@@ -242,7 +242,8 @@
 			userPeanut,
 			userPassword,
 			userRegDate,
-			userDelFlag
+			userDelFlag,
+			userLogTime
 		) VALUE (
 			#{userGender},
 			#{userName},
@@ -256,7 +257,9 @@
 			0,
 			#{userPassword},
 			DATE_FORMAT(CONVERT_TZ(NOW(), 'UTC', 'Asia/Seoul'), '%Y-%m-%d %H:%i:%S'),
-			0
+			0,
+			DATE_FORMAT(CONVERT_TZ(NOW(), 'UTC', 'Asia/Seoul'), '%Y-%m-%d %H:%i:%S')
+			
 		)
 		<selectKey resultType="String" keyProperty="userSeq" order="AFTER">
 			SELECT last_insert_id()
