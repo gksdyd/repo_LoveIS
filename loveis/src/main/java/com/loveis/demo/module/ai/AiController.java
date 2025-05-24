@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -84,6 +85,8 @@ public class AiController extends BaseController {
 	                    .body(Map.of("result", "AWS 이미지 다운로드 실패: " + e.getMessage()));
 	        }
 	    }
+	    
+	    text = mbti + "처럼 말해줘!" + text;
         
 	    RestTemplate restTemplate = new RestTemplate();
 	    String url = "http://localhost:5000/generate";
@@ -95,7 +98,6 @@ public class AiController extends BaseController {
 	    
 	    MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 	    body.add("file", resource);
-	    body.add("mbti", mbti);
 	    body.add("text", text);
 	    
 	    HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
@@ -110,7 +112,15 @@ public class AiController extends BaseController {
 
 	    Map<String, String> returnMap = new HashMap<>();
 	    returnMap.put("result", result);
+	    returnMap.put("chat", text);
 
 	    return ResponseEntity.ok(returnMap);
+	}
+	
+	@RequestMapping(value = "/AiLoveChat")
+	public String aiLoveChat(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession) {
+		vo.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
+		model.addAttribute("item", memberService.selectOne(vo));
+		return "/love/ai/AiLoveChat";
 	}
 }

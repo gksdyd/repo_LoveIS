@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="ko" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+   <div th:replace="~{love/include/aihead :: aihead}"></div>
+	<div class="main-chat-box w-100 float-start">
+		<div class="container">
+			<div class="chat-box">
+				<div class="top-bar">
+					<div class="left">
+						<a href="javascript:;" class=""><i class="fas fa-chevron-left"></i></a>
+						<div class="chat-search">
+							<input type="text" name="search" id="search" placeholder="Search......">
+							<label for="search"><i class="fas fa-search"></i></label>
+						</div>
+					</div>
+					<div class="right">
+						<a href="javascript:;"><i class="fas fa-edit"></i></a>
+						<a href="javascript:;"><i class="fas fa-sliders-h"></i></a>
+					</div>
+				</div>
+				<div class="main-chat">
+					<div class="chat-tab">
+						<ul class="chat-list">
+							<li>
+								<a href="javascript:;">
+									<div class="profile-avtar">
+										<img src="/love/assets/images/avtar4.png" alt="avtar1" class="img-fluid">
+									</div>
+									<h4 class="profile-name">
+										AI
+									</h4>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="msger">
+						<main class="msger-chat"></main>
+						<form class="msger-inputarea">
+							<span><i class="fas fa-image"></i></span>
+							<input type="text" class="msger-input" placeholder="Message...">
+							<button type="submit" class="msger-send-btn"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="~{love/include/footer :: footer}"></div>		
+	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
+	<script th:inline="javascript">
+		const PERSON_IMG = /*[[${item.path}]]*/"";
+		let userText = /*[[${vo.userChat}]]*/"";
+		let aiText = /*[[${vo.aiChat}]]*/"";
+		let messages = [];
+
+		if (aiText != null && aiText !== "") {
+			messages.push(userText);
+			messages.push(aiText);
+			appendMessage(BOT_NAME, BOT_IMG, "left", aiText);
+		}
+	</script>
+</body>
+
+</html>

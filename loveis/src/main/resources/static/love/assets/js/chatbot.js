@@ -11,8 +11,7 @@ const BOT_MSGS = [
 ];
 
 // Icons made by Freepik from www.flaticon.com
-const BOT_IMG = "images/avtar4.png";
-const PERSON_IMG = "images/avtar1.png";
+const BOT_IMG = "/love/assets/images/avtar4.png";
 const BOT_NAME = "BOT";
 const PERSON_NAME = "Sajad";
 
@@ -23,9 +22,8 @@ msgerForm.addEventListener("submit", event => {
   if (!msgText) return;
 
   appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+  responAi(msgText);
   msgerInput.value = "";
-
-  botResponse();
 });
 
 function appendMessage(name, img, side, text) {
@@ -85,4 +83,30 @@ function formatDate(date) {
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
+}
+
+function responAi(req) {
+	messages.push(req);
+
+  const contents = messages.map((message, index) => ({
+    role: index % 2 === 0 ? "user" : "model",
+    parts: [{ "text" : message }]
+  }));
+
+  const requestBody = { contents };
+
+  fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDXzY2Yn3hdnRGV9cz7yBCVE4vPk5eJ7FI", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(requestBody)
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    let respon = data.candidates[0].content.parts[0].text;
+		messages.push(respon);
+    appendMessage(BOT_NAME, BOT_IMG, "left", respon);
+  });
 }

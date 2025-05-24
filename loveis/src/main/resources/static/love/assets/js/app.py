@@ -22,7 +22,6 @@ def generate():
     file_path = os.path.join(upload_folder, file.filename)
     file.save(file_path)
 
-    mbti = request.form.get('mbti')
     text = request.form.get('text')
     
     try:
@@ -35,7 +34,7 @@ def generate():
         # 이미지 + 텍스트 프롬프트 전송
         response = model.generate_content([
             image,
-            mbti + "처럼말해줘!" + text
+            text
         ])
 
         return jsonify({"result": response.text})

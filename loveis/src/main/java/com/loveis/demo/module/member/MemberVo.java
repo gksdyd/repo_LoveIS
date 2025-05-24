@@ -23,6 +23,9 @@ public class MemberVo extends BaseVo {
 	
 	private String userSeq;
 	private Integer userLocal;
+	
+	private String userChat;
+	private String aiChat;
 
 	public Integer getShSecession() {
 		return shSecession;
@@ -158,6 +161,22 @@ public class MemberVo extends BaseVo {
 
 	public void setUserSeq(String userSeq) {
 		this.userSeq = userSeq;
+	}
+
+	public String getUserChat() {
+		return userChat;
+	}
+
+	public void setUserChat(String userChat) {
+		this.userChat = userChat;
+	}
+
+	public String getAiChat() {
+		return aiChat;
+	}
+
+	public void setAiChat(String aiChat) {
+		this.aiChat = aiChat;
 	}
 
 	public String ranCertification() {
