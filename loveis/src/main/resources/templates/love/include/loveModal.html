@@ -12,7 +12,7 @@
 		      <span class="input-group-text">쿠키</span>
 		      <input type="text" 
 		             class="form-control"
-		             th:value="${cookieCount ?: 0}" 
+		             th:value="${item.userPeanut}" 
 		             placeholder="쿠키 갯수" 
 		             disabled 
 		             style="background-color: white;" />
@@ -37,7 +37,7 @@
 		                   border-bottom-left-radius: 0;
 		                   border-top-right-radius: 2rem;
 		                   border-bottom-right-radius: 2rem;
-		                   flex: 1;">
+		                   flex: 1;" data-required="5">
 		      <i class="fas fa-cookie"></i> 5개
 		    </button>
 		  </div>
@@ -57,8 +57,8 @@
 		                   border-bottom-left-radius: 0;
 		                   border-top-right-radius: 2rem;
 		                   border-bottom-right-radius: 2rem;
-		                   flex: 1;">
-		      <i class="fas fa-cookie"></i> 5개
+		                   flex: 1;" data-required="15">
+		      <i class="fas fa-cookie"></i> 15개
 		    </button>
 		  </div>
 		</div>     
@@ -68,4 +68,28 @@
       </div>
     </div>
   </div>
+  <script>
+	document.addEventListener("DOMContentLoaded", function () {
+	  const peanutInput = document.querySelector('input.form-control[disabled]');
+	  const userPeanut = parseInt(peanutInput.value);
+
+	  document.querySelectorAll(".main-btn").forEach(button => {
+	    button.addEventListener("click", function () {
+	      const required = parseInt(this.dataset.required);
+
+	      document.querySelectorAll(".validation-msg").forEach(msg => msg.remove());
+
+	      if (userPeanut < required) {
+	        const msg = document.createElement("span");
+	        msg.className = "text-danger validation-msg d-block mt-1";
+	        msg.textContent = "쿠키 갯수가 부족합니다.";
+
+	        this.closest(".input-group").insertAdjacentElement("afterend", msg);
+	      } else {
+	        console.log("요청 가능");
+	      }
+	    });
+	  });
+	});
+  </script>
 </th:block>

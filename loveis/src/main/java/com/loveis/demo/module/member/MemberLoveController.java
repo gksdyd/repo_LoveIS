@@ -39,6 +39,7 @@ public class MemberLoveController extends BaseController {
 		vo.setRowNumToShow(6);
 		vo.setParamsPaging(memberService.selectMemberCount(vo));
 		model.addAttribute("list", memberService.selectMemberList(vo));
+		model.addAttribute("item", memberService.selectOne(vo));
 		return "love/member/MemberLoveList";
 	}
 	@RequestMapping(value = "/MemberLoveMypage")
