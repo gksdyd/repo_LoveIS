@@ -23,6 +23,7 @@ def generate():
     file.save(file_path)
 
     mbti = request.form.get('mbti')
+    text = request.form.get('text')
     
     try:
         # PIL 이미지 열기
@@ -34,7 +35,7 @@ def generate():
         # 이미지 + 텍스트 프롬프트 전송
         response = model.generate_content([
             image,
-            mbti + "처럼말해줘! 사진의 사람은 나인데 내 오늘 패션 어때?"
+            mbti + "처럼말해줘!" + text
         ])
 
         return jsonify({"result": response.text})

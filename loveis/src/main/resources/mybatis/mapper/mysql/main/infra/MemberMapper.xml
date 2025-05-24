@@ -93,7 +93,8 @@
 			a.userRegDate,
 			a.userModDate,
 			h.hobbyText,
-			p.persnalText
+			p.persnalText,
+			(SELECT path FROM image WHERE pseq = #{userSeq} AND type = 1 AND delNy = 0) AS path
 		FROM
 			user a
 			LEFT JOIN (SELECT user_userSeq, GROUP_CONCAT(hobbText) AS hobbyText FROM hobby GROUP BY user_userSeq) h ON a.userSeq = h.user_userSeq
