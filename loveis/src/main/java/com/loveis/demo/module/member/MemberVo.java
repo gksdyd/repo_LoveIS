@@ -30,6 +30,7 @@ public class MemberVo extends BaseVo {
 	private List<String> messages;
 	private String time;
 	private List<String> times;
+	private int startIndex;
 
 	public Integer getShSecession() {
 		return shSecession;
@@ -197,6 +198,14 @@ public class MemberVo extends BaseVo {
 
 	public void setTimes(List<String> times) {
 		this.times = times;
+	}
+
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
 	}
 
 	public String ranCertification() {

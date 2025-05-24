@@ -8,13 +8,9 @@
 					<div class="left">
 						<a href="javascript:;" class=""><i class="fas fa-chevron-left"></i></a>
 						<div class="chat-search">
-							<input type="text" name="search" id="search" placeholder="Search......">
+							<input type="text" name="search" id="search" placeholder="Search......" oninput="search()">
 							<label for="search"><i class="fas fa-search"></i></label>
 						</div>
-					</div>
-					<div class="right">
-						<a href="javascript:;"><i class="fas fa-edit"></i></a>
-						<a href="javascript:;"><i class="fas fa-sliders-h"></i></a>
 					</div>
 				</div>
 				<div class="main-chat">
@@ -41,7 +37,6 @@
 					<div class="msger">
 						<main class="msger-chat"></main>
 						<form class="msger-inputarea">
-							<span><i class="fas fa-image"></i></span>
 							<input type="text" class="msger-input" placeholder="Message...">
 							<button type="submit" class="msger-send-btn"><i class="fas fa-paper-plane"></i></button>
 						</form>
@@ -53,6 +48,7 @@
 	<form id="chatForm" action="/love/ai/AiLoveChat" method="post">
 		<input type="hidden" name="message" id="message"/>
 		<input type="hidden" name="time" id="time"/>
+		<input type="hidden" name="startIndex" id="startIndex" default="1" th:value="${vo.startIndex}"/>
 	</form>
 	<div th:replace="~{love/include/footer :: footer}"></div>		
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
@@ -62,11 +58,17 @@
 		let times = /*[[${vo.times}]]*/[];
 
 		if (messages.length != 0) {
-			for (let i = 1; i < messages.length; i++) {
-				if (i % 2 == 1) {
-					appendMessage2(BOT_NAME, BOT_IMG, "left", messages[i], times[i]);
-				} else {
-					appendMessage2(PERSON_NAME, PERSON_IMG, "right", messages[i], times[i]);
+			if (messages[0] === "") {
+				messages = [];
+				times = [];
+				$("#startIndex").val(0);
+			} else {
+				for (let i = $("#startIndex").val(); i < messages.length; i++) {
+					if (i % 2 == 1) {
+						appendMessage2(BOT_NAME, BOT_IMG, "left", messages[i], times[i]);
+					} else {
+						appendMessage2(PERSON_NAME, PERSON_IMG, "right", messages[i], times[i]);
+					}
 				}
 			}
 		}
@@ -80,6 +82,10 @@
 			}
 		}
 		document.addEventListener('keydown', noEvent);
+
+		function search() {
+			alert($("#search").val());
+		}
 	</script>
 </body>
 
