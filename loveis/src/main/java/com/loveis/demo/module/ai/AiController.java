@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -121,6 +122,8 @@ public class AiController extends BaseController {
 	public String aiLoveChat(@ModelAttribute("vo") MemberVo vo, Model model, HttpSession httpSession) {
 		vo.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
 		model.addAttribute("item", memberService.selectOne(vo));
+		vo.setMessages(Arrays.asList(vo.getMessage().split("//")));
+		vo.setTimes(Arrays.asList(vo.getTime().split("//")));
 		return "/love/ai/AiLoveChat";
 	}
 }

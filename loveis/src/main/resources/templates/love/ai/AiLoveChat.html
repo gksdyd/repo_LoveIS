@@ -25,9 +25,15 @@
 									<div class="profile-avtar">
 										<img src="/love/assets/images/avtar4.png" alt="avtar1" class="img-fluid">
 									</div>
-									<h4 class="profile-name">
-										AI
-									</h4>
+									<h4 class="profile-name">AI</h4>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<div class="profile-avtar">
+										<img th:src="${item.path}" alt="avtar1" class="img-fluid" style="border-radius: 50%; width: 80px; height: 80px;">
+									</div>
+									<h4 class="profile-name" th:text="${item.userNickname}"></h4>
 								</a>
 							</li>
 						</ul>
@@ -44,19 +50,36 @@
 			</div>
 		</div>
 	</div>
+	<form id="chatForm" action="/love/ai/AiLoveChat" method="post">
+		<input type="hidden" name="message" id="message"/>
+		<input type="hidden" name="time" id="time"/>
+	</form>
 	<div th:replace="~{love/include/footer :: footer}"></div>		
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>
 	<script th:inline="javascript">
 		const PERSON_IMG = /*[[${item.path}]]*/"";
-		let userText = /*[[${vo.userChat}]]*/"";
-		let aiText = /*[[${vo.aiChat}]]*/"";
-		let messages = [];
+		let messages = /*[[${vo.messages}]]*/[];
+		let times = /*[[${vo.times}]]*/[];
 
-		if (aiText != null && aiText !== "") {
-			messages.push(userText);
-			messages.push(aiText);
-			appendMessage(BOT_NAME, BOT_IMG, "left", aiText);
+		if (messages.length != 0) {
+			for (let i = 1; i < messages.length; i++) {
+				if (i % 2 == 1) {
+					appendMessage2(BOT_NAME, BOT_IMG, "left", messages[i], times[i]);
+				} else {
+					appendMessage2(PERSON_NAME, PERSON_IMG, "right", messages[i], times[i]);
+				}
+			}
 		}
+
+		function noEvent(event) {	
+			if (event.keyCode === 116 || (event.ctrlKey && (event.keyCode === 78 || event.keyCode === 82))) {
+				event.preventDefault(); // 기본 동작 막기
+				$("#message").val(messages.join("//"));
+				$("#time").val(times.join("//"));
+				$("#chatForm").submit();
+			}
+		}
+		document.addEventListener('keydown', noEvent);
 	</script>
 </body>
 

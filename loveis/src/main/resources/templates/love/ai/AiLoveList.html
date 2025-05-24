@@ -52,8 +52,8 @@
 	  </div>
 	</div>
 	<form id="chatForm" action="/love/ai/AiLoveChat" method="post">
-		<input type="hidden" name="userChat" id="userChat"/>
-		<input type="hidden" name="aiChat" id="aiChat"/>
+		<input type="hidden" name="message" id="message"/>
+		<input type="hidden" name="time" id="time"/>
 	</form>
 	<div th:replace="~{love/include/footer :: footer}"></div>		
 	<div th:replace="~{love/include/includeLoveFervor :: includeLoveFervor}"></div>		
@@ -61,8 +61,8 @@
 	<script type="text/javascript" src="/love/assets/js/jquery.fancybox.min.js"></script>
 	
 	<script type="application/javascript">
-		let userChat = "";
-		let aiChat = "";
+		let message = [];
+		let time = [];
 
 		let ajaxConfig = {
 			ajaxRequester: function (config, uploadFile, pCall, sCall, eCall) {
@@ -150,7 +150,8 @@
 
 		function requestMessage(mbti, func) {
 			let text = mbti + "처럼 말해줘!" + commTopic(func);
-			userChat = text;
+			message.push(text);
+			time.push(formatDate(new Date()));
 
 			const requestBody = {
 				contents: [
@@ -172,7 +173,8 @@
 			.then(res => res.json())
 			.then(data => {
 				let respon = data.candidates[0].content.parts[0].text;
-				aiChat = respon;
+				message.push(respon);
+				time.push(formatDate(new Date()));
 				respon += "<br /> 더 깊은 대화를 원하시면 1:1 대화를 눌러주세요!"
 				$("#responseAI").html(respon);
 			});
@@ -210,12 +212,12 @@
 			if (func === "92") {
 				$("#activityModal").modal("show");
 			} else if (func === "94") {
-				userChat = "";
-				aiChat = "";
+				message = [];
+				time = [];
 				sendProfile();
 			} else {
-				userChat = "";
-				aiChat = "";
+				message = [];
+				time = [];
 				requestMessage(mbti, func);
 			}
 		}
@@ -233,8 +235,8 @@
 		}
 
 		function sendImage() {
-			userChat = "";
-			aiChat = "";
+			message = [];
+			time = [];
 			$("#validAI").remove();
 			if ($(".files_img").length == 0) {
 				let text = "<div class='mt-3 text-center' id='validAI' style='color:red;'>이미지를 선택해주세요!</div>";
@@ -276,8 +278,10 @@
 				.then(response => {
 					$("#activityModal").modal("hide");
 					let respon = response.result;
-					userChat = response.chat;
-					aiChat = respon;
+					message.push(response.chat);
+					time.push(formatDate(new Date()));
+					message.push(respon);
+					time.push(formatDate(new Date()));
 					respon += "<br /> 더 깊은 대화를 원하시면 1:1 대화를 눌러주세요!"
 					$("#responseAI").html(respon);
 				})
@@ -310,8 +314,10 @@
 				,contentType: false
 				,success: function(response) {
 					let respon = response.result;
-					userChat = response.chat;
-					aiChat = respon;
+					message.push(response.chat);
+					time.push(formatDate(new Date()));
+					message.push(respon);
+					time.push(formatDate(new Date()));
 					respon += "<br /> 더 깊은 대화를 원하시면 1:1 대화를 눌러주세요!"
 					$("#responseAI").html(respon);
 				}
@@ -322,8 +328,8 @@
 		}
 
 		function moveChat() {
-			$("#userChat").val(userChat);
-			$("#aiChat").val(aiChat);
+			$("#message").val(message.join("//"));
+			$("#time").val(time.join("//"));
 			$("#chatForm").submit();
 		}
 	</script>

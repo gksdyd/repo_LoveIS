@@ -1,5 +1,7 @@
 package com.loveis.demo.module.member;
 
+import java.util.List;
+
 import com.loveis.demo.module.base.BaseVo;
 
 public class MemberVo extends BaseVo {
@@ -24,8 +26,10 @@ public class MemberVo extends BaseVo {
 	private String userSeq;
 	private Integer userLocal;
 	
-	private String userChat;
-	private String aiChat;
+	private String message;
+	private List<String> messages;
+	private String time;
+	private List<String> times;
 
 	public Integer getShSecession() {
 		return shSecession;
@@ -163,20 +167,36 @@ public class MemberVo extends BaseVo {
 		this.userSeq = userSeq;
 	}
 
-	public String getUserChat() {
-		return userChat;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setUserChat(String userChat) {
-		this.userChat = userChat;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
-	public String getAiChat() {
-		return aiChat;
+	public List<String> getMessages() {
+		return messages;
 	}
 
-	public void setAiChat(String aiChat) {
-		this.aiChat = aiChat;
+	public void setMessages(List<String> messages) {
+		this.messages = messages;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public List<String> getTimes() {
+		return times;
+	}
+
+	public void setTimes(List<String> times) {
+		this.times = times;
 	}
 
 	public String ranCertification() {

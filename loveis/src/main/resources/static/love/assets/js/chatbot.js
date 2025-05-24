@@ -32,7 +32,7 @@ function appendMessage(name, img, side, text) {
     <div class="msg ${side}-msg">
           <div class="msg-info-time">${formatDate(new Date())}</div>
           <div class="msg-img">
-				<img src="${img}" alt="avtar" class="img-fluid">
+				<img src="${img}" alt="avtar" class="img-fluid" style="border-radius: 50%; width: 80px; height: 70px;">
           </div>
 
       <div class="msg-bubble">
@@ -87,6 +87,7 @@ function random(min, max) {
 
 function responAi(req) {
 	messages.push(req);
+  times.push(formatDate(new Date()));
 
   const contents = messages.map((message, index) => ({
     role: index % 2 === 0 ? "user" : "model",
@@ -104,9 +105,28 @@ function responAi(req) {
   })
   .then(res => res.json())
   .then(data => {
-    console.log(data);
     let respon = data.candidates[0].content.parts[0].text;
 		messages.push(respon);
+    times.push(formatDate(new Date()));
     appendMessage(BOT_NAME, BOT_IMG, "left", respon);
   });
+}
+
+function appendMessage2(name, img, side, text, time) {
+  //   Simple solution for small apps
+  const msgHTML = `
+    <div class="msg ${side}-msg">
+          <div class="msg-info-time">${time}</div>
+          <div class="msg-img">
+				<img src="${img}" alt="avtar" class="img-fluid" style="border-radius: 50%; width: 80px; height: 70px;">
+          </div>
+
+      <div class="msg-bubble">
+        <div class="msg-text">${text}</div>
+      </div>
+    </div>
+  `;
+
+  msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+  msgerChat.scrollTop += 500;
 }
