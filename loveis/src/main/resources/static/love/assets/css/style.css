@@ -15903,3 +15903,8 @@ ul {
     background-color: white; /* 파란색 */
     color: black;
 }
+
+.highlight {
+	background-color: yellowgreen;
+	transition: background-color 1s;
+}
