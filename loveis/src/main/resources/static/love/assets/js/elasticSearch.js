@@ -36,7 +36,5 @@ function elasticSearch() {
             let list = "<li class='searchList'><a href=" + data.rows[i][1] + ">" + data.rows[i][0] + "</a></li>";
             $("#elasticSearchList").append(list);
         }
-        console.log(data);
-        // alert(data.rows.length);
     });
 }
