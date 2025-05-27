@@ -166,4 +166,7 @@ public class MemberService extends BaseService {
 		return memberDao.selectOne4Pic(dto);
 	}
 	
+	public MemberDto googleLogin(String userEmail) {
+		return memberDao.googleLogin(userEmail);
+	}
 }

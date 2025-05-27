@@ -562,4 +562,17 @@
 		WHERE
 			userSeq = #{userSeq}
 		</update>
+		
+		<select id="googleLogin">
+			SELECT
+				userSeq,
+				userName,
+				userId,
+				userLocal
+			FROM
+				user
+			WHERE 1=1
+				AND userEmail = #{userEmail}
+				AND userDelFlag = 0
+		</select>
 </mapper>

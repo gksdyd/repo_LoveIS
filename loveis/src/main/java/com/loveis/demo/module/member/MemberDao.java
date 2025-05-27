@@ -45,4 +45,5 @@ public interface MemberDao extends BaseDao {
 	public int deletePersonalityByUser(MemberDto memberDto);
 	public int deleteHobbyByUser(MemberDto memberDto);
 	public MemberDto selectOne(MemberVo vo);
+	public MemberDto googleLogin(String userEmail);
 }
