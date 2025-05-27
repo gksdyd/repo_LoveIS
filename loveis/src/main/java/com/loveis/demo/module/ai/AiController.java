@@ -90,7 +90,7 @@ public class AiController extends BaseController {
 	    text = mbti + "처럼 말해줘!" + text;
         
 	    RestTemplate restTemplate = new RestTemplate();
-	    String url = "http://localhost:5000/generate";
+	    String url = "http://43.201.16.176:5000/generate";
 	    
 	    FileSystemResource resource = new FileSystemResource(destFile);
 	    
