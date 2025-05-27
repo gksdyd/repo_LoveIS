@@ -78,16 +78,6 @@ public class BaseService {
 	}
 	
 	public Boolean humanCheck(MultipartFile[] multipartFiles) {
-		try {
-			File tempFile = new File(System.getProperty("java.io.tmpdir") + File.separator + multipartFiles[0].getOriginalFilename());
-			multipartFiles[0].transferTo(tempFile);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 //		String openApiURL = "http://aiopen.etri.re.kr:8000/HumanParsing";
 		String openApiURL = "http://aiopen.etri.re.kr:8000/FaceDeID";
 		String accessKey = faceKye;    // 발급받은 API Key
