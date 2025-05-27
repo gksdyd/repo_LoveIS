@@ -18,7 +18,7 @@
 		<div class="container">
 		<form id="formImg" name="formImg" method="post" autocomplete="off" enctype="multipart/form-data">
 		<input type="hidden" id="userSeq" name="userSeq" th:value="${item?.userSeq}"/>
-			<div class="cover-img" th:style="'background-image: url(' + ${itemBI.path} + ')'">>
+			<div class="cover-img" th:style="'background-image: url(' + ${itemBI?.path} + ')'">>
 				<div class="edit-img">
 					<label for="background_input"><i class="far fa-edit"></i></label>
 					<input id="background_input" name="backgroundInput" type="file" accept="image/*" />
@@ -138,35 +138,35 @@
 										</li>
 										<li>생일 <p th:text="${item?.userBirth}"></p>
 										</li>
-										<li>체형 <p th:text="${@codeService.selectOneCachedCode(item?.userbodyShape)}"></p>
+										<li>체형 <p th:if="${item.userbodyShape} != null" th:text="${@codeService.selectOneCachedCode(item?.userbodyShape)}"></p>
 										</li>
 										<li>키 <p th:text="${item?.userHeight}"></p>
 										</li>
 										<li>몸무게 <p th:text="${item?.userWeight}"></p>
 										</li>
-										<li>스타일 <p th:text="${@codeService.selectOneCachedCode(item?.userStyle)}"></p>
+										<li>스타일 <p th:if="${item.userStyle} != null" th:text="${@codeService.selectOneCachedCode(item?.userStyle)}"></p>
 										</li>
 										<li>성격 <p><span th:each="listP : ${listP}" th:text="${@codeService.selectOneCachedCode(listP?.persText)}" style="display: inline-block; margin-right: 8px;"></span></p>
 										</li>
 									</ul>
 									<ul>
-										<li>학력 <p th:text="${@codeService.selectOneCachedCode(item?.userEducation)}"></p>
+										<li>학력 <p th:if="${item.userEducation} != null" th:text="${@codeService.selectOneCachedCode(item?.userEducation)}"></p>
 										</li>
-										<li>MBTI <p th:text="${@codeService.selectOneCachedCode(item?.userMBTI)}"></p>
+										<li>MBTI <p th:if="${item.userMBTI} != null" th:text="${@codeService.selectOneCachedCode(item?.userMBTI)}"></p>
 										</li>
 										<li>취미  <p><span th:each="listH : ${listH}" th:text="${@codeService.selectOneCachedCode(listH?.hobbText)}" style="display: inline-block; margin-right: 8px;"></span></p>
 										</li>
-										<li>흡연여부 <p th:text="${@codeService.selectOneCachedCode(item?.userSmoking)}"></p>
+										<li>흡연여부 <p th:if="${item.userSmoking} != null" th:text="${@codeService.selectOneCachedCode(item?.userSmoking)}"></p>
 										</li>
-										<li>음주여부 <p th:text="${@codeService.selectOneCachedCode(item?.userAlcohol)}"></p>
+										<li>음주여부 <p th:if="${item.userAlcohol} != null" th:text="${@codeService.selectOneCachedCode(item?.userAlcohol)}"></p>
 										</li>
-										<li>반려동물 <p th:text="${@codeService.selectOneCachedCode(item?.userPetNy)}"></p>
+										<li>반려동물 <p th:if="${item.userPetNy} != null" th:text="${@codeService.selectOneCachedCode(item?.userPetNy)}"></p>
 										</li>
-										<li>종교 <p th:text="${@codeService.selectOneCachedCode(item?.userChurch)}"></p>
+										<li>종교 <p th:if="${item.userChurch} != null" th:text="${@codeService.selectOneCachedCode(item?.userChurch)}"></p>
 										</li>
-										<li>연애성향 <p th:text="${@codeService.selectOneCachedCode(item?.userDatingStyle)}"></p>
+										<li>연애성향 <p th:if="${item.userDatingStyle} != null" th:text="${@codeService.selectOneCachedCode(item?.userDatingStyle)}"></p>
 										</li>
-										<li>직업 <p th:text="${item?.userJob}"></p>
+										<li>직업 <p th:if="${item.userJob} != null" th:text="${item?.userJob}"></p>
 										</li>
 									</ul>
 								</div>
