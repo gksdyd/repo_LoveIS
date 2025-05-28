@@ -33,25 +33,25 @@ public class GoogleController {
     @Autowired
     MemberService memberService;
 
-    @RequestMapping(value="/Login", method = RequestMethod.GET)
+    @RequestMapping(value="/GoogleLoveLogin", method = RequestMethod.GET)
     public String redirectToGoogleLogin() {
         String reqUrl = "redirect:" + "https://accounts.google.com/o/oauth2/v2/auth"
                 + "?client_id=" + googleClientId
-                + "&redirect_uri=http://localhost:8070/love/google/google"
+                + "&redirect_uri=http://localhost:8070/love/google/GoogleLoveCheck"
                 + "&response_type=code"
                 + "&scope=email%20profile%20openid"
                 + "&access_type=offline";
         return reqUrl;
     }
     
-    @RequestMapping(value="/google", method = RequestMethod.GET)
+    @RequestMapping(value="/GoogleLoveCheck", method = RequestMethod.GET)
     public String loginGoogle(@RequestParam(value = "code") String authCode, HttpSession httpSession){
         RestTemplate restTemplate = new RestTemplate();
         GoogleRequest googleOAuthRequestParam = new GoogleRequest();
         googleOAuthRequestParam.setClientId(googleClientId);
         googleOAuthRequestParam.setClientSecret(googleClientPw);
         googleOAuthRequestParam.setCode(authCode);
-        googleOAuthRequestParam.setRedirectUri("http://localhost:8070/love/google/google");
+        googleOAuthRequestParam.setRedirectUri("http://localhost:8070/love/google/GoogleLoveCheck");
         googleOAuthRequestParam.setGrantType("authorization_code");
         
         ResponseEntity<GoogleResponse> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token",
