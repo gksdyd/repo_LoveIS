@@ -169,4 +169,8 @@ public class MemberService extends BaseService {
 	public MemberDto googleLogin(String userEmail) {
 		return memberDao.googleLogin(userEmail);
 	}
+	
+	public MemberDto facebookLogin(MemberDto memberDto) {
+		return memberDao.facebookLogin(memberDto);
+	}
 }

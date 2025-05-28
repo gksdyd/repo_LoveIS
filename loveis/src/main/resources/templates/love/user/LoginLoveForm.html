@@ -59,7 +59,8 @@
                     </div>
                     <ul class="login-btns">
                         <li>
-                            <a href="javascript:;" class="btn-fb"><i class="fab fa-facebook-f" style="margin-right: 8px;"></i>Facebook으로 로그인</a>
+                            <a href="javascript:;" onclick="facebookLogin()" class="btn-fb"><i class="fab fa-facebook-f" style="margin-right: 8px;"></i>Facebook으로 로그인</a>
+                            <fb:login-button style="display: none;" scope="public_profile,email" onlogin="checkLoginState();" id="facebookLogin"></fb:login-button>
                         </li>
                         <li>
                             <a href="/love/google/Login" id="googleLogin" class="btn-g"><i class="fab fa-google" style="margin-right: 8px;"></i>Google으로 로그인</a>
@@ -145,7 +146,9 @@
     <script src="/love/assets/js/range-slider.js"></script>
     <script src="/love/assets/js/custom.js"></script>
     <script src="/love/assets/js/constant.js"></script>
-    
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v22.0&appId=1440371947329125"></script>
+    <script src="/love/assets/js/facebook.js"></script>
+
     <script>
     $(document).ready(function() {
         

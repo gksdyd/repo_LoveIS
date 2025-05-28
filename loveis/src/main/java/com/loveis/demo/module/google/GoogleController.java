@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.loveis.demo.module.base.Constants;
@@ -73,5 +74,26 @@ public class GoogleController {
         	return "redirect:/love/index/IndexLoveView";
         }
         return "redirect:/love/member/LoginLoveForm";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/FacebookLoveLogin")
+    public Map<String, Object> facebookLoveLogin(MemberDto memberDto, HttpSession httpSession) {
+    	Map<String, Object> rtMap = new HashMap<>();
+    	
+    	MemberDto dto = memberService.facebookLogin(memberDto);
+    	if (dto != null) {
+        	httpSession.setMaxInactiveInterval(60 * Constants.SESSION_MINUTE_XDM); // 60second * 30 = 30minute
+			httpSession.setAttribute("sessSeqUser", dto.getUserSeq());
+			httpSession.setAttribute("sessIdUser", dto.getUserId());
+			httpSession.setAttribute("sessNameUser", dto.getUserName());
+			httpSession.setAttribute("sessLocalUser", dto.getUserLocal());
+			memberService.logging(dto);
+        	rtMap.put("result", "success");
+        } else {
+        	rtMap.put("result", "fail");
+        }
+    	
+    	return rtMap;
     }
 }

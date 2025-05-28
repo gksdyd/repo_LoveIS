@@ -575,4 +575,18 @@
 				AND userEmail = #{userEmail}
 				AND userDelFlag = 0
 		</select>
+		
+		<select id="facebookLogin">
+			SELECT
+				userSeq,
+				userName,
+				userId,
+				userLocal
+			FROM
+				user
+			WHERE 1=1
+				AND userName = #{userName}
+				AND userEmail = #{userEmail}
+				AND userDelFlag = 0
+		</select>
 </mapper>
