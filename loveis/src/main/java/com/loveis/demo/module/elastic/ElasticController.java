@@ -3,11 +3,16 @@ package com.loveis.demo.module.elastic;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -137,5 +142,32 @@ public class ElasticController {
 		model.addAttribute("index", dto.getIndex());
 		model.addAttribute("num", docNode.size() + 1);
 		return "/xdm/elastic/ElasticXdmLoveIs";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ElasticXdmDocRegister")
+	public void elasticXdmDocRegister(ElasticDto dto) 
+			throws JsonMappingException, JsonProcessingException {
+		String url = "http://localhost:9200/loveis/_doc/" + dto.getId();
+		
+		String json = "{\"id\":\"" + dto.getId() + 
+				"\", \"name\":\"" + dto.getName() + 
+				"\", \"engName\":\"" + dto.getEngName() + 
+				"\", \"url\":\"" + dto.getUrl() + "\"}";
+
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    
+	    HttpEntity<String> request = new HttpEntity<>(json, headers);
+	    
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<String> response = restTemplate.exchange(
+	        url, 
+	        HttpMethod.PUT, 
+	        request, 
+	        String.class
+	    );
+	    
+	    System.out.println("Response: " + response.getBody());
 	}
 }

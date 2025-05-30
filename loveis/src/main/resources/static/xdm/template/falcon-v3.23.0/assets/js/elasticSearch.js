@@ -35,7 +35,7 @@ function docSearch() {
 }
 
 function elasticRegister() {
-    window.location.href = "/elastic/xdm/ElasticXdmForm"
+    window.location.href = "/elastic/xdm/ElasticXdmForm";
 }
 
 function changeIndex() {
@@ -96,4 +96,19 @@ function elasticDoc() {
     if (!validation()) {
         return;
     }
+
+    $.ajax({
+        async: true 
+        ,cache: false
+        ,type: "post"
+        ,url: "/elastic/xdm/ElasticXdmDocRegister"
+        ,data: { "index" : $("#index").val(), "id" : $("#id").val(), "name" : $("#name").val(), "engName" : $("#engName").val(),
+            "url" : $("#url").val() }
+        ,success: function(response) {
+            window.location.href = "/elastic/xdm/ElasticXdmList";
+        }
+        ,error : function(jqXHR){
+            alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+        }
+    });
 }
