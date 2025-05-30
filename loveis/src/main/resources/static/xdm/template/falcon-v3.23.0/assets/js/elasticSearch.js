@@ -112,3 +112,37 @@ function elasticDoc() {
         }
     });
 }
+
+function elasticIndexReg() {
+    $("#elasticModal").show();
+}
+
+function elasticlose() {
+    $("#elasticModal").hide();
+}
+
+const LOWER_ENGLISH = /[a-z]/;
+
+function indexRegister() {
+    $(".error").remove();
+
+    if (!LOWER_ENGLISH.test($("#indexText").val())) {
+        let text = "<div class='fs-10 error' style='color:red;'>소문자만 입력가능합니다!</div>";
+        $("#indexText").parent().append(text);
+        return;
+    }
+
+    $.ajax({
+        async: true 
+        ,cache: false
+        ,type: "post"
+        ,url: "/elastic/xdm/ElasticXdmIndexRegister"
+        ,data: { "index" : $("#indexText").val() }
+        ,success: function(response) {
+            window.location.href = "/elastic/xdm/ElasticXdmList";
+        }
+        ,error : function(jqXHR){
+            alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+        }
+    });
+}

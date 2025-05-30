@@ -170,4 +170,26 @@ public class ElasticController {
 	    
 	    System.out.println("Response: " + response.getBody());
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ElasticXdmIndexRegister")
+	public void elasticXdmIndexRegister(ElasticDto dto) 
+			throws JsonMappingException, JsonProcessingException {
+		String url = "http://localhost:9200/" + dto.getIndex();
+	    
+		HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<String> response = restTemplate.exchange(
+	        url, 
+	        HttpMethod.PUT, 
+	        request,
+	        String.class
+	    );
+	    
+	    System.out.println("Response: " + response.getBody());
+	}
 }
