@@ -1,0 +1,96 @@
+package com.loveis.demo.module.elastic;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Controller
+@RequestMapping(value = "/elastic/xdm")
+public class ElasticController {
+
+	@RequestMapping(value = "/ElasticXdmList")
+	public String elasticXdmList(Model model) {
+		String url = "http://localhost:9200/_cat/indices?v";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		
+		String[] responseBody = response.getBody().split("\n");
+		
+		List<ElasticDto> dtos = new ArrayList<>();
+		int index = 0;
+		for (int i = 0; i < responseBody.length; i++) {
+			ElasticDto dto = new ElasticDto();
+			dto.setContents(responseBody[i].split(" "));
+			
+			if (i == 0) {
+				index = dto.getContents().indexOf("index");
+			} else {
+				dto.setIndex(dto.getContents().get(index));
+				dtos.add(dto);
+			}
+		}
+		
+		model.addAttribute("dtos", dtos);
+		return "xdm/elastic/ElasticXdmList";
+	}
+	
+	@RequestMapping(value = "/ElasticXdmIndexSearch")
+	public String elasticXdmIndexSearch(Model model) {
+		String url = "http://localhost:9200/_cat/indices?v";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		
+		String[] responseBody = response.getBody().split("\n");
+		
+		List<ElasticDto> dtos = new ArrayList<>();
+		for (int i = 0; i < responseBody.length; i++) {
+			ElasticDto dto = new ElasticDto();
+			dto.setContents(responseBody[i].split(" "));
+			dtos.add(dto);
+		}
+		
+		model.addAttribute("dtos", dtos);
+		return "xdm/elastic/ElasticXdmContents";
+	}
+	
+	@RequestMapping(value = "/ElasticXdmDocSearch")
+	public String elasticXdmDocSearch(Model model, @RequestParam(value = "index") String index) throws JsonMappingException, JsonProcessingException {
+		String url = "http://localhost:9200/" + index + "/_search?pretty";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		
+		String responseBody = response.getBody();
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonNode docNode = objectMapper.readTree(responseBody).path("hits").path("hits");
+		
+		List<ElasticDto> dtos = new ArrayList<>();
+		for (int i = 0; i < docNode.size(); i++) {
+			JsonNode docContentsNode = docNode.get(i).path("_source");
+			ElasticDto dto = new ElasticDto();
+			System.out.println(docContentsNode);
+			dto.setId(docContentsNode.path("id").asText());
+			dto.setName(docContentsNode.path("name").asText());
+			dto.setEngName(docContentsNode.path("engName").asText());
+			dto.setUrl(docContentsNode.path("url").asText());
+			dtos.add(dto);
+		}
+		
+		model.addAttribute("dtos", dtos);
+		return "xdm/elastic/ElasticXdmDocContents";
+	}
+}
