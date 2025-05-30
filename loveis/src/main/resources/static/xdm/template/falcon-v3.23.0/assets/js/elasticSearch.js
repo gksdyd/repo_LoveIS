@@ -33,3 +33,26 @@ function docSearch() {
         }
     });
 }
+
+function elasticRegister() {
+    window.location.href = "/elastic/xdm/ElasticXdmForm"
+}
+
+function changeIndex() {
+    $.ajax({
+        async: true 
+        ,cache: false
+        ,type: "post"
+        ,url: "/elastic/xdm/ElasticXdmIndexChange"
+        ,data: { "index" : $("#index").val() }
+        ,success: function(response) {
+            if (response === "Fail") {
+                return;
+            }
+            $("blockquote").html(response);
+        }
+        ,error : function(jqXHR){
+            alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+        }
+    });
+}

@@ -93,4 +93,49 @@ public class ElasticController {
 		model.addAttribute("dtos", dtos);
 		return "xdm/elastic/ElasticXdmDocContents";
 	}
+	
+	@RequestMapping(value = "/ElasticXdmForm")
+	public String elasticXdmForm(Model model) {
+		String url = "http://localhost:9200/_cat/indices?v";
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		
+		String[] responseBody = response.getBody().split("\n");
+		
+		List<ElasticDto> dtos = new ArrayList<>();
+		int index = 0;
+		for (int i = 0; i < responseBody.length; i++) {
+			ElasticDto dto = new ElasticDto();
+			dto.setContents(responseBody[i].split(" "));
+			
+			if (i == 0) {
+				index = dto.getContents().indexOf("index");
+			} else {
+				dto.setIndex(dto.getContents().get(index));
+				dtos.add(dto);
+			}
+		}
+		
+		model.addAttribute("dtos", dtos);
+		return "xdm/elastic/ElasticXdmForm";
+	}
+	
+	@RequestMapping(value = "/ElasticXdmIndexChange")
+	public String elasticXdmIndexChange(ElasticDto dto, Model model) 
+			throws JsonMappingException, JsonProcessingException {
+		String url = "http://localhost:9200/" + dto.getIndex() + "/_search?pretty";
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		
+		String responseBody = response.getBody();
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonNode docNode = objectMapper.readTree(responseBody).path("hits").path("hits");
+
+		model.addAttribute("index", dto.getIndex());
+		model.addAttribute("num", docNode.size() + 1);
+		return "/xdm/elastic/ElasticXdmLoveIs";
+	}
 }

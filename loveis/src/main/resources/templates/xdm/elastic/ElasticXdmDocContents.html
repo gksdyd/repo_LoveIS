@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="ko" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:fragment="footer">
+<th:block th:fragment="document">
 	<div class="card-body p-0">
         <div class="table-responsive scrollbar">
             <table class="table mb-0 data-table fs-10 align-middle-JHY" data-datatables="data-datatables">
@@ -9,7 +9,7 @@
                     <tr>
                         <th>
                             <div class="form-check fs-9 mb-0 d-flex align-items-center">
-                              <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
+                              <input class="form-check-input" id="checkbox-bulk" type="checkbox" />
                             </div>
                         </th>
                         <th class="text-900 sort white-nowrap" data-sort="#"> id</th>
@@ -28,7 +28,7 @@
                         <td th:text="${dto.id}"></td>
                         <td th:text="${dto.name}"></td>
                         <td th:text="${dto.engName}"></td>
-                        <td th:text="${dto.url}"></td>
+                        <td><a th:href="${dto.url}" th:text="${dto.url}"></a></td>
                     </tr>
                 </tbody>
             </table>
