@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.loveis.demo.module.base.Constants;
 
 @Controller
 @RequestMapping(value = "/elastic/xdm")
@@ -26,7 +27,7 @@ public class ElasticController {
 
 	@RequestMapping(value = "/ElasticXdmList")
 	public String elasticXdmList(Model model) {
-		String url = "http://localhost:9200/_cat/indices?v";
+		String url = Constants.LOCAL_ADDRESS + "_cat/indices?v";
 		
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -53,7 +54,7 @@ public class ElasticController {
 	
 	@RequestMapping(value = "/ElasticXdmIndexSearch")
 	public String elasticXdmIndexSearch(Model model) {
-		String url = "http://localhost:9200/_cat/indices?v";
+		String url = Constants.LOCAL_ADDRESS + "_cat/indices?v";
 		
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -73,7 +74,7 @@ public class ElasticController {
 	
 	@RequestMapping(value = "/ElasticXdmDocSearch")
 	public String elasticXdmDocSearch(Model model, @RequestParam(value = "index") String index) throws JsonMappingException, JsonProcessingException {
-		String url = "http://localhost:9200/" + index + "/_search?pretty";
+		String url = Constants.LOCAL_ADDRESS + index + "/_search?pretty";
 		
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -101,7 +102,7 @@ public class ElasticController {
 	
 	@RequestMapping(value = "/ElasticXdmForm")
 	public String elasticXdmForm(Model model) {
-		String url = "http://localhost:9200/_cat/indices?v";
+		String url = Constants.LOCAL_ADDRESS + "_cat/indices?v";
 		
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -129,7 +130,7 @@ public class ElasticController {
 	@RequestMapping(value = "/ElasticXdmIndexChange")
 	public String elasticXdmIndexChange(ElasticDto dto, Model model) 
 			throws JsonMappingException, JsonProcessingException {
-		String url = "http://localhost:9200/" + dto.getIndex() + "/_search?pretty";
+		String url = Constants.LOCAL_ADDRESS + dto.getIndex() + "/_search?pretty";
 
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -148,7 +149,7 @@ public class ElasticController {
 	@RequestMapping(value = "/ElasticXdmDocRegister")
 	public void elasticXdmDocRegister(ElasticDto dto) 
 			throws JsonMappingException, JsonProcessingException {
-		String url = "http://localhost:9200/loveis/_doc/" + dto.getId();
+		String url = Constants.LOCAL_ADDRESS + dto.getIndex() + "/_doc/" + dto.getId();
 		
 		String json = "{\"id\":\"" + dto.getId() + 
 				"\", \"name\":\"" + dto.getName() + 
@@ -175,7 +176,7 @@ public class ElasticController {
 	@RequestMapping(value = "/ElasticXdmIndexRegister")
 	public void elasticXdmIndexRegister(ElasticDto dto) 
 			throws JsonMappingException, JsonProcessingException {
-		String url = "http://localhost:9200/" + dto.getIndex();
+		String url = Constants.LOCAL_ADDRESS + dto.getIndex();
 	    
 		HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -197,7 +198,7 @@ public class ElasticController {
 	@RequestMapping(value = "/ElasticXdmIndexDelete")
 	public void elasticXdmIndexDelete(ElasticDto dto) 
 			throws JsonMappingException, JsonProcessingException {
-		String url = "http://localhost:9200/" + dto.getIndex();
+		String url = Constants.LOCAL_ADDRESS + dto.getIndex();
 	    
 		HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -219,7 +220,7 @@ public class ElasticController {
 	@RequestMapping(value = "/ElasticXdmDocumentDelete")
 	public void elasticXdmDocumentDelete(ElasticDto dto) 
 			throws JsonMappingException, JsonProcessingException {
-		String url = "http://localhost:9200/" + dto.getIndex() + "/_doc/" + dto.getId();
+		String url = Constants.LOCAL_ADDRESS + dto.getIndex() + "/_doc/" + dto.getId();
 	    
 		HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
