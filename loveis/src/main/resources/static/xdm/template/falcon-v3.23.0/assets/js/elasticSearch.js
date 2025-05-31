@@ -1,3 +1,5 @@
+var mode = 0;
+
 function indexSearch() {
     $.ajax({
         async: true 
@@ -7,6 +9,7 @@ function indexSearch() {
         ,data: {  }
         ,success: function(response) {
             $(".card-body").html(response);
+            mode = 1;
         }
         ,error : function(jqXHR){
             alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
@@ -16,6 +19,8 @@ function indexSearch() {
 
 function docSearch() {
     if ($("#shIndex").val() === "") {
+        $(".card-body").html("");
+        mode = 0;
         return;
     }
 
@@ -27,6 +32,7 @@ function docSearch() {
         ,data: { "index" : $("#shIndex").val() }
         ,success: function(response) {
             $(".card-body").html(response);
+            mode = 2;
         }
         ,error : function(jqXHR){
             alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
@@ -138,6 +144,63 @@ function indexRegister() {
         ,type: "post"
         ,url: "/elastic/xdm/ElasticXdmIndexRegister"
         ,data: { "index" : $("#indexText").val() }
+        ,success: function(response) {
+            window.location.href = "/elastic/xdm/ElasticXdmList";
+        }
+        ,error : function(jqXHR){
+            alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+        }
+    });
+}
+
+function elasticDelete() {
+    if (mode == 0) {
+        return;
+    }
+
+    for (let i = 0; i < $(".listCheckBox").length; i++) {
+        if ($(".listCheckBox").eq(i).is(":checked")) {
+            let row = $(".btn-reveal-trigger").eq(i);
+            if (mode == 1) {
+                elasticIndexDelete(row);
+            } else if (mode == 2) {
+                elasticDocDelete(row);
+            }
+        }
+    }
+}
+
+function elasticAllCheck(e) {
+    if ($(e).is(":checked")) {
+        $(".listCheckBox").prop("checked", true);
+    } else {
+        $(".listCheckBox").prop("checked", false);
+    }
+}
+
+function elasticIndexDelete(r) {
+    $.ajax({
+        async: true 
+        ,cache: false
+        ,type: "post"
+        ,url: "/elastic/xdm/ElasticXdmIndexDelete"
+        ,data: { "index" : r.find(".content").eq(2).text() }
+        ,success: function(response) {
+            window.location.href = "/elastic/xdm/ElasticXdmList";
+        }
+        ,error : function(jqXHR){
+            alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+        }
+    });
+}
+
+function elasticDocDelete(r) {
+    $.ajax({
+        async: true 
+        ,cache: false
+        ,type: "post"
+        ,url: "/elastic/xdm/ElasticXdmDocumentDelete"
+        ,data: { "index" : $("#shIndex").val(), "id" : r.find(".documentId").text() }
         ,success: function(response) {
             window.location.href = "/elastic/xdm/ElasticXdmList";
         }

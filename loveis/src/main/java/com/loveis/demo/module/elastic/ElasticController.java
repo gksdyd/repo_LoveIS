@@ -192,4 +192,48 @@ public class ElasticController {
 	    
 	    System.out.println("Response: " + response.getBody());
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ElasticXdmIndexDelete")
+	public void elasticXdmIndexDelete(ElasticDto dto) 
+			throws JsonMappingException, JsonProcessingException {
+		String url = "http://localhost:9200/" + dto.getIndex();
+	    
+		HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<String> response = restTemplate.exchange(
+	        url, 
+	        HttpMethod.DELETE, 
+	        request,
+	        String.class
+	    );
+	    
+	    System.out.println("Response: " + response.getBody());
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ElasticXdmDocumentDelete")
+	public void elasticXdmDocumentDelete(ElasticDto dto) 
+			throws JsonMappingException, JsonProcessingException {
+		String url = "http://localhost:9200/" + dto.getIndex() + "/_doc/" + dto.getId();
+	    
+		HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        
+	    RestTemplate restTemplate = new RestTemplate();
+	    ResponseEntity<String> response = restTemplate.exchange(
+	        url, 
+	        HttpMethod.DELETE, 
+	        request,
+	        String.class
+	    );
+	    
+	    System.out.println("Response: " + response.getBody());
+	}
 }

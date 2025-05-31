@@ -9,7 +9,7 @@
                     <tr>
                         <th>
                             <div class="form-check fs-9 mb-0 d-flex align-items-center">
-                              <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox" data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
+                              <input class="form-check-input" id="checkbox-bulk" type="checkbox" onchange="elasticAllCheck(this)" />
                             </div>
                         </th>
                         <th class="text-900 sort white-nowrap" data-sort="#" th:each="head : ${dtos[0].contents}" th:text="${head}"></th>
@@ -22,7 +22,7 @@
                               <input class="form-check-input listCheckBox" type="checkbox" id="customer-0" data-bulk-select-row="data-bulk-select-row" />
                             </div>
                         </td>
-                        <td th:each="val : ${dto.contents}" th:text="${val}"></td>
+                        <td class="content" th:each="val : ${dto.contents}" th:text="${val}"></td>
                     </tr>
                 </tbody>
             </table>
