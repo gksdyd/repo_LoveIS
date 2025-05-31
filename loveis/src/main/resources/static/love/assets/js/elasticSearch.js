@@ -23,7 +23,8 @@ function elasticSearch() {
         query: text
     };
 
-    fetch("http://localhost:9200/_sql?format=json&pretty", {
+    // fetch("http://localhost:9200/_sql?format=json&pretty", {
+    fetch("http://43.201.16.176:9200/_sql?format=json&pretty", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
