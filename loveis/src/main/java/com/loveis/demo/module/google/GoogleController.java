@@ -37,8 +37,8 @@ public class GoogleController {
     public String redirectToGoogleLogin() {
         String reqUrl = "redirect:" + "https://accounts.google.com/o/oauth2/v2/auth"
                 + "?client_id=" + googleClientId
-//                + "&redirect_uri=http://localhost:8070/love/google/GoogleLoveCheck"
-                + "&redirect_uri=http://43.201.16.176:8070/love/google/GoogleLoveCheck"
+                + "&redirect_uri=http://localhost:8070/love/google/GoogleLoveCheck"
+//                + "&redirect_uri=http://43.201.16.176:8070/love/google/GoogleLoveCheck"
                 + "&response_type=code"
                 + "&scope=email%20profile%20openid"
                 + "&access_type=offline";
@@ -52,8 +52,8 @@ public class GoogleController {
         googleOAuthRequestParam.setClientId(googleClientId);
         googleOAuthRequestParam.setClientSecret(googleClientPw);
         googleOAuthRequestParam.setCode(authCode);
-//        googleOAuthRequestParam.setRedirectUri("http://localhost:8070/love/google/GoogleLoveCheck");
-        googleOAuthRequestParam.setRedirectUri("http://43.201.16.176:8070/love/google/GoogleLoveCheck");
+        googleOAuthRequestParam.setRedirectUri("http://localhost:8070/love/google/GoogleLoveCheck");
+//        googleOAuthRequestParam.setRedirectUri("http://43.201.16.176:8070/love/google/GoogleLoveCheck");
         googleOAuthRequestParam.setGrantType("authorization_code");
         
         ResponseEntity<GoogleResponse> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token",

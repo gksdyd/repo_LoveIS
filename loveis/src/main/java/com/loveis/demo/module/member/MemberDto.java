@@ -61,6 +61,11 @@ public class MemberDto extends BaseDto {
 	private String imagePath;
 	
 	private Integer userAge;
+	
+	private int totalUser;
+	private int totalMan;
+	private int totalWoman;
+	private int totalConnecting;
 //	-----
 	public String getUserSeq() {
 		return userSeq;
@@ -348,5 +353,28 @@ public class MemberDto extends BaseDto {
 	public void setProfileInput(MultipartFile[] profileInput) {
 		this.profileInput = profileInput;
 	}
-	
+	public int getTotalUser() {
+		return totalUser;
+	}
+	public void setTotalUser(int totalUser) {
+		this.totalUser = totalUser;
+	}
+	public int getTotalMan() {
+		return totalMan;
+	}
+	public void setTotalMan(int totalMan) {
+		this.totalMan = totalMan;
+	}
+	public int getTotalWoman() {
+		return totalWoman;
+	}
+	public void setTotalWoman(int totalWoman) {
+		this.totalWoman = totalWoman;
+	}
+	public int getTotalConnecting() {
+		return totalConnecting;
+	}
+	public void setTotalConnecting(int totalConnecting) {
+		this.totalConnecting = totalConnecting;
+	}
 }

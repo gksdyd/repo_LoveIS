@@ -563,7 +563,7 @@
 			userSeq = #{userSeq}
 		</update>
 		
-		<select id="googleLogin">
+		<select id="googleLogin" resultMap="resultMapObj">
 			SELECT
 				userSeq,
 				userName,
@@ -576,7 +576,7 @@
 				AND userDelFlag = 0
 		</select>
 		
-		<select id="facebookLogin">
+		<select id="facebookLogin" resultMap="resultMapObj">
 			SELECT
 				userSeq,
 				userName,
@@ -588,5 +588,17 @@
 				AND userName = #{userName}
 				AND userEmail = #{userEmail}
 				AND userDelFlag = 0
+		</select>
+		
+		<select id="memberCount" resultMap="resultMapObj">
+			SELECT
+				COUNT(*) AS totalUser,
+				(SELECT COUNT(*) FROM user WHERE userGender = 1 AND userDelFlag = 0) AS totalMan,
+				(SELECT COUNT(*) FROM user WHERE userGender = 2 AND userDelFlag = 0) AS totalWoman,
+				(SELECT COUNT(*) FROM user WHERE userLogTime IS NULL AND userDelFlag = 0) AS totalConnecting
+			FROM
+				user
+			WHERE 1=1
+				 AND userDelFlag = 0
 		</select>
 </mapper>

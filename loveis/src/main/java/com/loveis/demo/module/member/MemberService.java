@@ -173,4 +173,8 @@ public class MemberService extends BaseService {
 	public MemberDto facebookLogin(MemberDto memberDto) {
 		return memberDao.facebookLogin(memberDto);
 	}
+	
+	public MemberDto memberCount() {
+		return memberDao.memberCount();
+	}
 }
