@@ -45,7 +45,7 @@ public class AiController extends BaseController {
 		vo.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
 		model.addAttribute("item", memberService.selectOne(vo));
 		model.addAttribute("code", CodeDto.cachedCodeArrayList);
-		return "/love/ai/AiLoveList";
+		return "love/ai/AiLoveList";
 	}
 	
 	@RequestMapping("/CallPythonApi")
@@ -124,6 +124,6 @@ public class AiController extends BaseController {
 		model.addAttribute("item", memberService.selectOne(vo));
 		vo.setMessages(Arrays.asList(vo.getMessage().split("//")));
 		vo.setTimes(Arrays.asList(vo.getTime().split("//")));
-		return "/love/ai/AiLoveChat";
+		return "love/ai/AiLoveChat";
 	}
 }
