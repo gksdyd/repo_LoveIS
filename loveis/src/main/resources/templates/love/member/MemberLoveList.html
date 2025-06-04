@@ -13,8 +13,7 @@
 									<div class="members-img">
 										<img th:if="${list.imagePath == null}" src="/love/assets/images/community-img1.jpg" alt="community-img1" class="img-fluid">
 										<img th:if="${list.imagePath != null}" th:src="${list.imagePath}" alt="community-img1" class="img-fluid" style="width: 350px; height: 320px;">
-										<span th:class="${list.userLogTime == null ? 'profile-status active' : 'profile-status off'}" th:text="${list.userLogTime == null ? '활동중' : list.timeAgo}"><i class="far fa-clock"></i> Active 10 days
-											ago</span>
+										<span th:class="${list.userLogTime == null ? 'profile-status active' : 'profile-status off'}" th:text="${list.userLogTime == null ? '활동중' : list.timeAgo}"></span>
 									</div>
 									<div class="members-text" data-bs-toggle="modal" data-bs-target="#modal">
 										<a >
