@@ -118,8 +118,10 @@ public class ElasticController {
 			if (i == 0) {
 				index = dto.getContents().indexOf("index");
 			} else {
-				dto.setIndex(dto.getContents().get(index));
-				dtos.add(dto);
+				if (dto.getContents().get(index).contains("love")) {
+					dto.setIndex(dto.getContents().get(index));
+					dtos.add(dto);					
+				}
 			}
 		}
 		

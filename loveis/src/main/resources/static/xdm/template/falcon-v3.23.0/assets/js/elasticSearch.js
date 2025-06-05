@@ -52,9 +52,6 @@ function changeIndex() {
         ,url: "/elastic/xdm/ElasticXdmIndexChange"
         ,data: { "index" : $("#index").val() }
         ,success: function(response) {
-            if (response === "Fail") {
-                return;
-            }
             $("blockquote").html(response);
         }
         ,error : function(jqXHR){
