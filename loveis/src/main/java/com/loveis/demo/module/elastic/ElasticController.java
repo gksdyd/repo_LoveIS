@@ -10,8 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
@@ -73,8 +73,11 @@ public class ElasticController {
 	}
 	
 	@RequestMapping(value = "/ElasticXdmDocSearch")
-	public String elasticXdmDocSearch(Model model, @RequestParam(value = "index") String index) throws JsonMappingException, JsonProcessingException {
-		String url = Constants.LOCAL_ADDRESS + index + "/_search?pretty";
+	public String elasticXdmDocSearch(Model model, @ModelAttribute("vo") ElasticVo vo) 
+			throws JsonMappingException, JsonProcessingException {
+		String url = Constants.LOCAL_ADDRESS + vo.getIndex() + "/_search?pretty&from=" + (5 * (vo.getThisPage() - 1)) + "&size=5";
+		
+		vo.setParamsPaging(vo.totalDoc());
 		
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
@@ -88,7 +91,7 @@ public class ElasticController {
 		for (int i = 0; i < docNode.size(); i++) {
 			JsonNode docContentsNode = docNode.get(i).path("_source");
 			ElasticDto dto = new ElasticDto();
-			System.out.println(docContentsNode);
+			
 			dto.setId(docContentsNode.path("id").asText());
 			dto.setName(docContentsNode.path("name").asText());
 			dto.setEngName(docContentsNode.path("engName").asText());
@@ -96,22 +99,9 @@ public class ElasticController {
 			dto.setType(docContentsNode.path("type").asText());
 			dto.setBrand(docContentsNode.path("brand").asText());
 
-			if (dtos.size() == 0) {
-				dtos.add(dto);
-			} else {
-				for (int j = 0; j < dtos.size(); j++) {
-					if (Integer.parseInt(dtos.get(j).getId()) > Integer.parseInt(dto.getId())) {
-						dtos.add(j, dto);
-						break;
-					} else if (j == dtos.size() - 1) {
-						dtos.add(dto);
-						break;
-					}
-				}				
-			}
+			dtos.add(dto);
 		}
 		
-		model.addAttribute("index", index);
 		model.addAttribute("dtos", dtos);
 		return "xdm/elastic/ElasticXdmDocContents";
 	}
@@ -156,10 +146,9 @@ public class ElasticController {
 		String responseBody = response.getBody();
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		JsonNode docNode = objectMapper.readTree(responseBody).path("hits").path("hits");
 
 		model.addAttribute("index", dto.getIndex());
-		model.addAttribute("num", docNode.size() + 1);
+		model.addAttribute("num", objectMapper.readTree(responseBody).path("hits").path("total").path("value").asInt() + 1);
 		return "/xdm/elastic/ElasticXdmLoveIs";
 	}
 	
