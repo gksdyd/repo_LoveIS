@@ -20,7 +20,7 @@ public class FilesUploadService{
 	@Autowired
 	FilesUploadDao dao;
 
-	@Value(value = "${cloud_aws_bucket}")
+	@Value(value = "${cloud.aws.s3.bucket}")
 	private String bucket;
 	
 public void uploadFilesToS3(MultipartFile[] multipartFiles, BaseDto dto, String tableName, int type, int maxNumber, String pSeq, BaseDao dao, AmazonS3Client amazonS3Client) throws Exception {

@@ -24,10 +24,10 @@ import com.google.gson.Gson;
 import com.loveis.demo.module.util.UtilDateTime;
 
 public class BaseService {
-	@Value("${cloud_aws_bucket}")
+	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
 	
-	@Value("${face_image_key}")
+	@Value("${face.image.key}")
 	private String faceKye;
 	
 	public void uploadFilesToS3(MultipartFile[] multipartFiles, BaseDto dto, String tableName, int type, int maxNumber, String pSeq, BaseDao dao, AmazonS3Client amazonS3Client) throws Exception {
