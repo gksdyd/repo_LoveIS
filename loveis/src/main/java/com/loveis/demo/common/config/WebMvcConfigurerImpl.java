@@ -27,7 +27,10 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer {
 				"/love/google/GoogleLoveLogin",
 				"/love/google/GoogleLoveCheck",
 				"/love/google/FacebookLoveLogin",
-				"/love/area/AreaLoveSelectProc"
+				"/love/area/AreaLoveSelectProc",
+				"/elastic/xdm/ElasticXdmIndexSearch",
+				"/elastic/xdm/ElasticXdmDocSearch",
+				"/elastic/xdm/ElasticXdmIndexChange"
 		);
 	}
 
