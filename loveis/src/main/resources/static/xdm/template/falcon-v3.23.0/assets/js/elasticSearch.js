@@ -125,7 +125,7 @@ function elasticIndexReg() {
 }
 
 function elasticlose() {
-    $("#elasticModal").hide();
+    $(".modal").hide();
 }
 
 const LOWER_ENGLISH = /[a-z]/;
@@ -156,6 +156,15 @@ function indexRegister() {
 
 function elasticDelete() {
     if (mode == 0) {
+        return;
+    }
+
+    $("#elasticDeltModal").show();
+}
+
+function elasticDataDelt() {
+    if ($("#elasticPW").val() !== "elasticPW") {
+        elasticlose();
         return;
     }
 
