@@ -17,6 +17,7 @@ import com.loveis.demo.module.base.Constants;
 import com.loveis.demo.module.member.MemberDto;
 import com.loveis.demo.module.member.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -34,11 +35,10 @@ public class GoogleController {
     MemberService memberService;
 
     @RequestMapping(value="/GoogleLoveLogin", method = RequestMethod.GET)
-    public String redirectToGoogleLogin() {
+    public String redirectToGoogleLogin(HttpServletRequest httpServletRequest) {
         String reqUrl = "redirect:" + "https://accounts.google.com/o/oauth2/v2/auth"
                 + "?client_id=" + googleClientId
-                + "&redirect_uri=http://localhost:8070/love/google/GoogleLoveCheck"
-//                + "&redirect_uri=http://43.201.16.176:8070/love/google/GoogleLoveCheck"
+                + "&redirect_uri=http://" + httpServletRequest.getServerName() + ":8070/love/google/GoogleLoveCheck"
                 + "&response_type=code"
                 + "&scope=email%20profile%20openid"
                 + "&access_type=offline";
@@ -46,14 +46,14 @@ public class GoogleController {
     }
     
     @RequestMapping(value="/GoogleLoveCheck", method = RequestMethod.GET)
-    public String loginGoogle(@RequestParam(value = "code") String authCode, HttpSession httpSession){
+    public String loginGoogle(@RequestParam(value = "code") String authCode, HttpSession httpSession,
+    		HttpServletRequest httpServletRequest){
         RestTemplate restTemplate = new RestTemplate();
         GoogleRequest googleOAuthRequestParam = new GoogleRequest();
         googleOAuthRequestParam.setClientId(googleClientId);
         googleOAuthRequestParam.setClientSecret(googleClientPw);
         googleOAuthRequestParam.setCode(authCode);
-        googleOAuthRequestParam.setRedirectUri("http://localhost:8070/love/google/GoogleLoveCheck");
-//        googleOAuthRequestParam.setRedirectUri("http://43.201.16.176:8070/love/google/GoogleLoveCheck");
+        googleOAuthRequestParam.setRedirectUri("http://" + httpServletRequest.getServerName() + ":8070/love/google/GoogleLoveCheck");
         googleOAuthRequestParam.setGrantType("authorization_code");
         
         ResponseEntity<GoogleResponse> resultEntity = restTemplate.postForEntity("https://oauth2.googleapis.com/token",
