@@ -2,7 +2,6 @@ package com.loveis.demo.module.ai;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
@@ -40,6 +39,9 @@ public class AiController extends BaseController {
 	@Autowired
 	MemberService memberService;
 	
+	@Autowired
+	AiService aiService;
+	
 	@RequestMapping(value = "/AiLoveList")
 	public String aiLoveList(MemberVo vo, Model model, HttpSession httpSession) {
 		vo.setUserSeq(httpSession.getAttribute("sessSeqUser").toString());
@@ -49,9 +51,7 @@ public class AiController extends BaseController {
 	}
 	
 	@RequestMapping("/CallPythonApi")
-	public ResponseEntity<Map<String, String>> callPythonApi(@RequestParam(value = "file", required = false) MultipartFile file, 
-			@RequestParam("mbti") String mbti, @RequestParam(value = "url", required = false) String awsUrl) 
-			throws IllegalStateException, IOException {
+	public ResponseEntity<Map<String, String>> callPythonApi(AiDto aiDto) throws Exception {
 		String uploadDir = "C:/uploads/";
 		String filename = "";
 		String text = "";
@@ -62,32 +62,31 @@ public class AiController extends BaseController {
 	        dir.mkdirs();  // 경로에 없는 모든 폴더를 생성
 	    }
 	    
-	    if (awsUrl == null) {
-	    	filename = file.getOriginalFilename();
-	    	destFile = new File(uploadDir + filename);
-	    	file.transferTo(destFile);
+	    if (aiDto.getPath() == null) {
+	    	aiService.aiLoveInsert(aiDto);
 	    	text = "사진의 사람은 나인데 내 오늘 패션 어때?";
 	    } else {
-	    	 // AWS 이미지 URL 처리
-	        filename = awsUrl.substring(awsUrl.lastIndexOf("/") + 1);
-	        destFile = new File(uploadDir + filename);
-	        text = "내 프로필 사진 어때?";
+	    	text = "내 프로필 사진 어때?";
+	    }
 
-	        try (InputStream in = new URL(awsUrl).openStream();
-	             FileOutputStream out = new FileOutputStream(destFile)) {
-	            byte[] buffer = new byte[4096];
-	            int n;
-	            while ((n = in.read(buffer)) != -1) {
-	                out.write(buffer, 0, n);
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                    .body(Map.of("result", "AWS 이미지 다운로드 실패: " + e.getMessage()));
-	        }
+	    // AWS 이미지 URL 처리
+	    filename = aiDto.getPath().substring(aiDto.getPath().lastIndexOf("/") + 1);
+	    destFile = new File(uploadDir + filename);
+	    
+	    try (InputStream in = new URL(aiDto.getPath()).openStream();
+	    		FileOutputStream out = new FileOutputStream(destFile)) {
+	    	byte[] buffer = new byte[4096];
+	    	int n;
+	    	while ((n = in.read(buffer)) != -1) {
+	    		out.write(buffer, 0, n);
+	    	}
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	    			.body(Map.of("result", "AWS 이미지 다운로드 실패: " + e.getMessage()));
 	    }
 	    
-	    text = mbti + "처럼 말해줘!" + text;
+	    text = aiDto.getMbti() + "처럼 말해줘!" + text;
         
 	    RestTemplate restTemplate = new RestTemplate();
 	    String url = "http://43.201.16.176:5000/generate";
