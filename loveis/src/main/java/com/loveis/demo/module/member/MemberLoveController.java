@@ -232,7 +232,9 @@ public class MemberLoveController extends BaseController {
     @RequestMapping(value = "/ImageCheckLoveProc")
     public Map<String, Object> imageCheckLoveProc(MemberDto dto) throws Exception {
     	Map<String, Object> rtMap = new HashMap<>();
-    	if (!memberService.humanCheck(dto.getUploadImg1())) {
+    	
+    	memberService.memberHumanImgInsert(dto);
+    	if (!memberService.humanCheck(dto.getPath())) {
     		rtMap.put("result", "Fail");
     	} else {
     		rtMap.put("result", "Success");

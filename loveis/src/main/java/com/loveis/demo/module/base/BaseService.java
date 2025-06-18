@@ -1,15 +1,11 @@
 package com.loveis.demo.module.base;
 
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,12 +73,11 @@ public class BaseService {
 		}
 	}
 	
-	public Boolean humanCheck(MultipartFile[] multipartFiles) {
+	public Boolean humanCheck(String pathUrl) {
 //		String openApiURL = "http://aiopen.etri.re.kr:8000/HumanParsing";
 		String openApiURL = "http://aiopen.etri.re.kr:8000/FaceDeID";
 		String accessKey = faceKye;    // 발급받은 API Key
 		String type = "1";     // 얼굴 비식별화 기능 "1"로 설정
-		String file = System.getProperty("java.io.tmpdir") + multipartFiles[0].getOriginalFilename();  	// 이미지 파일 경로
 		String imageContents = "";
 		
 	    Gson gson = new Gson();
@@ -91,11 +86,13 @@ public class BaseService {
 	    Map<String, String> argument = new HashMap<>();
 	  
 	    try {
-	    	Path path = Paths.get(file);
-	    	byte[] imageBytes = Files.readAllBytes(path);
-	    	imageContents = Base64.getEncoder().encodeToString(imageBytes);
+	        URL url = new URL(pathUrl);
+	        try (InputStream in = url.openStream()) {
+	            byte[] imageBytes = in.readAllBytes();
+	            imageContents = Base64.getEncoder().encodeToString(imageBytes);
+	        }
 	    } catch (IOException e) {
-	    	e.printStackTrace();
+	        e.printStackTrace();
 	    }
 	  
     	argument.put("type", type);

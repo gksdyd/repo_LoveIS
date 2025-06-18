@@ -177,4 +177,9 @@ public class MemberService extends BaseService {
 	public MemberDto memberCount() {
 		return memberDao.memberCount();
 	}
+	
+	public int memberHumanImgInsert(MemberDto dto) throws Exception {
+		uploadFilesToS3(dto.getUploadImg1(), dto, "image", 200, 1, "1", memberDao, amazonS3Client);
+		return 1;
+	}
 }

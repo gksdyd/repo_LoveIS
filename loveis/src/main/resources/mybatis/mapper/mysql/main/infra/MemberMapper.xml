@@ -382,6 +382,9 @@
 	
 	<insert id="insertUploaded">
 		<include refid="Base.insertUploaded"></include>
+		<selectKey resultType="String" keyProperty="path" order="AFTER">
+			SELECT path FROM image WHERE seq = last_insert_id()
+		</selectKey>
 	</insert>
 	
 	<sql id="selectMemberCommon">
